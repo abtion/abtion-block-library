@@ -43,3 +43,15 @@ function abtion_block_library_register_blocks() {
 }
 
 add_action( 'init', 'abtion_block_library_register_blocks' );
+
+/**
+ * Fix for Dashicons styles bug
+ * See https://github.com/WordPress/gutenberg/issues/53528
+ */
+function abtion_block_library_enqueue_dashicons() {
+	if ( is_admin() ) {
+		wp_enqueue_style( 'dashicons' );
+	}
+}
+
+add_action( 'enqueue_block_assets', 'abtion_block_library_enqueue_dashicons' );
