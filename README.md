@@ -4,9 +4,13 @@ Abtion Block Library is a WordPress plugin that provides a collection of custom 
 
 ## Blocks
 
-### Tabs Block
+### Tabs
 
 The Tabs Block allows you to create tabbed content areas within your posts or pages. You can add multiple tabs, each containing its own content, and users can switch between them by clicking on the tab headers.
+
+### Accordions
+
+The Accordion block enables you to create collapsible content sections. Each section can be expanded or collapsed by clicking on the header, allowing you to organize content in a compact and user-friendly manner. Additional options include setting the initial state (expanded or collapsed) and customizing the appearance of the accordion headers.
 
 ## Development
 
