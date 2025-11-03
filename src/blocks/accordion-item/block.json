@@ -1,0 +1,66 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "version": "1.0.0",
+    "name": "abtion-block-library/accordion-item",
+    "title": "Accordion Item",
+    "category": "text",
+    "textdomain": "abtion-block-library",
+    "parent": [
+        "abtion-block-library/accordion"
+    ],
+    "attributes": {
+        "title": {
+            "type": "string",
+            "source": "html",
+            "selector": ".wp-block-abtion-block-library-accordion-item__title"
+        },
+        "initiallyOpen": {
+            "type": "boolean",
+            "default": false
+        },
+        "openBreakpoint": {
+            "type": "number",
+            "default": 0
+        },
+        "clickToClose": {
+            "type": "boolean",
+            "default": true
+        },
+        "autoClose": {
+            "type": "boolean",
+            "default": true
+        },
+        "titleTag": {
+            "type": "string",
+            "default": "h3"
+        },
+        "uuid": {
+            "type": "number"
+        }
+    },
+    "supports": {
+        "anchor": true,
+        "align": true,
+        "ariaLabel": true,
+        "className": true,
+        "spacing": {
+            "margin": true,
+            "padding": true,
+            "blockGap": true
+        },
+        "color": {
+            "gradients": true,
+            "background": true,
+            "text": true,
+            "link": true
+        }
+    },
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css",
+    "viewScript": [
+        "file:./slide-toggle.js",
+        "file:./view.js"
+    ]
+}

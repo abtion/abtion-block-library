@@ -1,0 +1,11 @@
+.editor-styles-wrapper {
+  .wp-block-abtion-block-library-accordion-item__item {
+    &.is-selected {
+      border-bottom: 1px solid var(--wp-admin-theme-color) !important;
+    }
+  }
+
+  .wp-block-abtion-block-library-accordion-item__content {
+    display: block !important;
+  }
+}
