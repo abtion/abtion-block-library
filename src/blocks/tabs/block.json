@@ -1,0 +1,32 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "abtion-block-library/tabs",
+    "version": "1.0.0",
+    "title": "Tabs",
+    "category": "widgets",
+    "icon": "media-interactive",
+    "description": "Display content in tabbed sections.",
+    "allowedBlocks": [
+        "abtion-block-library/tab"
+    ],
+    "example": {},
+    "supports": {
+        "interactivity": true,
+        "align": true
+    },
+    "attributes": {
+        "activeTabId": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "providesContext": {
+        "abtion-block-library/activeTabId": "activeTabId"
+    },
+    "textdomain": "abtion-block-library",
+    "editorScript": "file:./index.js",
+    "style": "file:./style-index.css",
+    "render": "file:./render.php",
+    "viewScriptModule": "file:./view.js"
+}

@@ -1,0 +1,31 @@
+.wp-block-abtion-block-library-tabs {
+  &__navigation {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 0;
+  }
+
+  &__navigation-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__navigation-item {
+    opacity: 0.7;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &--active {
+      opacity: 1;
+    }
+  }
+
+  &__content-item {
+    display: none;
+
+    &--active {
+      display: block;
+    }
+  }
+}
