@@ -7,3 +7,25 @@ Abtion Block Library is a WordPress plugin that provides a collection of custom 
 ### Tabs Block
 
 The Tabs Block allows you to create tabbed content areas within your posts or pages. You can add multiple tabs, each containing its own content, and users can switch between them by clicking on the tab headers.
+
+## Development
+
+To start with development, clone the repository and set up a local WordPress environment. Then, follow these steps:
+
+1. Navigate to the plugin directory:
+
+```bash
+cd abtion-block-library
+```
+
+2. Install the required dependencies:
+
+```bash
+npm install
+```
+
+3. Start the development server:
+
+```bash
+npm start
+```
