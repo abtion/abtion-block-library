@@ -12,6 +12,10 @@ The Tabs block allows you to create tabbed content areas within your posts or pa
 
 The Accordion block enables you to create collapsible content sections. Each section can be expanded or collapsed by clicking on the header, allowing you to organize content in a compact and user-friendly manner. Additional options include setting the initial state (expanded or collapsed) and customizing the appearance of the accordion headers.
 
+### Trustpilot
+
+The Trustpilot block allows you to display Trustpilot reviews directly on your website. You can customize the appearance of the reviews and choose how many reviews to show.
+
 ## Development
 
 To start with development, clone the repository and set up a local WordPress environment. Then, follow these steps:

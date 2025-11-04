@@ -55,3 +55,18 @@ function abtion_block_library_enqueue_dashicons() {
 }
 
 add_action( 'enqueue_block_assets', 'abtion_block_library_enqueue_dashicons' );
+
+/**
+ * Register Trustpilot script.
+ */
+function abtion_block_library_register_trustpilot_script() {
+	wp_register_script(
+		'abtion-block-library-trustpilot',
+		'//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js',
+		[],
+		'1.0.0',
+		true
+	);
+}
+
+add_action( 'wp_enqueue_scripts', 'abtion_block_library_register_trustpilot_script' );

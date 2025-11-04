@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "abtion-block-library/trustpilot",
+    "version": "1.0.0",
+    "title": "Trustpilot",
+    "category": "widgets",
+    "icon": "media-interactive",
+    "description": "Display a trustpilot widget",
+    "example": {},
+    "attributes": {
+        "widgetType": {
+            "type": "string",
+            "default": "micro-combo"
+        },
+        "templateId": {
+            "type": "string",
+            "default": ""
+        },
+        "businessUnitId": {
+            "type": "string",
+            "default": ""
+        },
+        "locale": {
+            "type": "string",
+            "default": "da-DK"
+        },
+        "reviewLanguages": {
+            "type": "string",
+            "default": "da"
+        },
+        "stars": {
+            "type": "string",
+            "default": "3,4,5"
+        },
+        "reviewsUrl": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "supports": {
+        "interactivity": true
+    },
+    "textdomain": "abtion-block-library",
+    "editorScript": [
+        "file:./index.js"
+    ],
+    "viewScript": [
+        "trustpilot"
+    ],
+    "script": "abtion-block-library-trustpilot",
+    "render": "file:./render.php",
+    "style": "file:./style-index.css"
+}
