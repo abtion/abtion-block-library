@@ -4,7 +4,7 @@
     "name": "abtion-block-library/trustpilot",
     "version": "1.0.0",
     "title": "Trustpilot",
-    "category": "widgets",
+    "category": "abtion-blocks",
     "icon": "media-interactive",
     "description": "Display a trustpilot widget",
     "example": {},

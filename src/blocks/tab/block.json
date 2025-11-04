@@ -4,7 +4,7 @@
     "name": "abtion-block-library/tab",
     "version": "1.0.0",
     "title": "Tab",
-    "category": "widgets",
+    "category": "abtion-blocks",
     "icon": "media-interactive",
     "description": "Single tab",
     "parent": [

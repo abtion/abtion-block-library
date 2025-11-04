@@ -45,6 +45,22 @@ function abtion_block_library_register_blocks() {
 add_action( 'init', 'abtion_block_library_register_blocks' );
 
 /**
+ * Register block category.
+ *
+ * @param array $categories Existing block categories.
+ */
+function abtion_block_library_register_block_category( array $categories ): array {
+	$categories[] = array(
+		'slug'  => 'abtion-blocks',
+		'title' => __( 'Abtion Blocks', 'abtion-block-library' ),
+	);
+
+	return $categories;
+}
+
+add_filter( 'block_categories_all', 'abtion_block_library_register_block_category' );
+
+/**
  * Fix for Dashicons styles bug
  * See https://github.com/WordPress/gutenberg/issues/53528
  */

@@ -4,7 +4,7 @@
     "name": "abtion-block-library/tabs",
     "version": "1.0.0",
     "title": "Tabs",
-    "category": "widgets",
+    "category": "abtion-blocks",
     "icon": "media-interactive",
     "description": "Display content in tabbed sections.",
     "allowedBlocks": [

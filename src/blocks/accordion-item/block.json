@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "name": "abtion-block-library/accordion-item",
     "title": "Accordion Item",
-    "category": "text",
+    "category": "abtion-blocks",
     "textdomain": "abtion-block-library",
     "parent": [
         "abtion-block-library/accordion"
