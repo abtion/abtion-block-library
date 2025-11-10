@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "abtion-block-library/drawer",
+    "version": "1.0.0",
+    "title": "Drawer (Off Canvas)",
+    "category": "abtion-blocks",
+    "icon": "media-interactive",
+    "description": "A drawer (off-canvas) block for displaying additional content.",
+    "example": {},
+    "attributes": {},
+    "supports": {
+        "interactivity": true
+    },
+    "textdomain": "abtion-block-library",
+    "editorScript": [
+        "file:./index.js"
+    ],
+    "viewScript": [
+        "file:./view.js"
+    ],
+    "render": "file:./render.php",
+    "style": "file:./style-index.css"
+}
