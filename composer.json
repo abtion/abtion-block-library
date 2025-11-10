@@ -1,6 +1,7 @@
 {
     "name": "abtion/abtion-block-library",
     "description": "Abtion Block Library",
+    "type": "wordpress-plugin",
     "authors": [
         {
             "name": "abtion"
