@@ -95,7 +95,6 @@
 
     .wp-block-abtion-block-library-accordion-item__header {
       grid-column: 1;
-      align-items: flex-start;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -104,12 +103,6 @@
     .wp-block-abtion-block-library-accordion-item__content {
       grid-column: 2;
       padding-block-start: 0;
-    }
-
-    .wp-block-abtion-block-library-accordion-item__icon {
-      -webkit-mask-image: url('icon-plus.svg');
-      mask-image: url('icon-plus.svg');
-      background-color: currentColor;
     }
 
     .wp-block-abtion-block-library-accordion-item__item.is-open

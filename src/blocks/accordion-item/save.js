@@ -53,7 +53,7 @@ function Save({ attributes }) {
     hidden: initiallyOpen ? undefined : 'until-found',
   };
 
-  const Tag = titleTag || 'h3';
+  const Tag = titleTag || 'h5';
 
   return (
     <accordion-item {...blockProps}>
