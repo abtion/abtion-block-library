@@ -37,3 +37,24 @@ npm install
 ```bash
 npm start
 ```
+
+## Publishing new version
+
+After updating the library, we need to bump the version and github tag the new version. This will ensure that package managers like composer that are used on other projects will always pull the latest version of the library.
+To do that update the plugin version in `abtion-block-library.php` and tag new version like this:
+
+1. In the root of abtion block library run this command:
+
+```bash
+git tag v1.1.0
+```
+
+Replace the version with the updated version from `abtion-block-library.php` file.
+
+2. Commit the updated file and push it by running the following:
+
+```bash
+git push origin v1.1.0
+```
+
+3. Update changelog file `CHANGELOG.md` with relevant information.
