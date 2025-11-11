@@ -24,22 +24,18 @@ function Save({ attributes }) {
     uuid,
   } = attributes;
 
-  let itemClasses = [
+  const itemClasses = [
     'wp-block-abtion-block-library-accordion-item__item',
     'js-accordion-item',
     'no-js',
   ];
 
-  let contentStyles = {};
-
   if (initiallyOpen) {
     itemClasses.push('is-open');
-  } else {
-    contentStyles.display = 'none';
   }
 
   const blockProps = useBlockProps.save({
-    className: [...itemClasses, className].join(' '),
+    className: [...itemClasses, className].filter(Boolean).join(' '),
     'data-initially-open': initiallyOpen,
     'data-open-breakpoint': openBreakpoint,
     'data-click-to-close': clickToClose,
@@ -57,20 +53,34 @@ function Save({ attributes }) {
     hidden: initiallyOpen ? undefined : 'until-found',
   };
 
+  const Tag = titleTag || 'h5';
+
   return (
     <accordion-item {...blockProps}>
-      <RichText.Content
-        id={'at-' + uuid}
+      <div
         className={classNames(
-          'js-accordion-controller',
-          'wp-block-abtion-block-library-accordion-item__title'
+          'wp-block-abtion-block-library-accordion-item__header',
+          'js-accordion-controller'
         )}
-        tagName={titleTag}
-        value={title}
+        id={'at-' + uuid}
         role="button"
-      />
+        tabIndex="0"
+        aria-controls={'ac-' + uuid}
+        aria-expanded={initiallyOpen}
+      >
+        <RichText.Content
+          tagName={Tag}
+          className="wp-block-abtion-block-library-accordion-item__title"
+          value={title}
+        />
+        <span
+          className="wp-block-abtion-block-library-accordion-item__icon"
+          aria-hidden="true"
+        />
+      </div>
+
       <div {...contentProps}>
-        <div {...innerBlocksProps}></div>
+        <div {...innerBlocksProps} />
       </div>
     </accordion-item>
   );
