@@ -12,6 +12,17 @@
     "supports": {
         "interactivity": true
     },
+    "styles": [
+        {
+            "name": "vertical",
+            "label": "Vertical",
+            "isDefault": true
+        },
+        {
+            "name": "horizontal",
+            "label": "Horizontal"
+        }
+    ],
     "textdomain": "abtion-block-library",
     "editorScript": [
         "file:./index.js"
