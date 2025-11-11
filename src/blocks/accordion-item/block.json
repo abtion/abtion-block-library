@@ -33,7 +33,7 @@
         },
         "titleTag": {
             "type": "string",
-            "default": "h3"
+            "default": "h5"
         },
         "uuid": {
             "type": "number"
@@ -54,6 +54,9 @@
             "background": true,
             "text": true,
             "link": true
+        },
+        "typography": {
+            "fontSize": true
         }
     },
     "editorScript": "file:./index.js",
