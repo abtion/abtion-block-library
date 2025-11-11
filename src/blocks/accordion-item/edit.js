@@ -259,19 +259,28 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
         </PanelBody>
       </InspectorControls>
       <accordion-item {...blockProps}>
-        <RichText
-          id={'at-' + uuid}
-          role="button"
+        <div
           className={classNames(
-            'wp-block-abtion-block-library-accordion-item__title',
+            'wp-block-abtion-block-library-accordion-item__header',
             'js-accordion-controller'
           )}
-          tagName={titleTag}
-          allowedFormats={formatTypes}
-          placeholder={__('Accordion item title…', 'abtion-block-library')}
-          value={title}
-          onChange={value => setAttributes({ title: value })}
-        />
+          aria-controls={'ac-' + uuid}
+          aria-expanded={initiallyOpen}
+        >
+          <RichText
+            id={'at-' + uuid}
+            className="wp-block-abtion-block-library-accordion-item__title"
+            tagName={titleTag}
+            allowedFormats={formatTypes}
+            placeholder={__('Accordion item title…', 'abtion-block-library')}
+            value={title}
+            onChange={value => setAttributes({ title: value })}
+          />
+          <span
+            className="wp-block-abtion-block-library-accordion-item__icon"
+            aria-hidden="true"
+          />
+        </div>
         <div {...contentProps}>
           <div {...innerBlocksProps}></div>
         </div>
