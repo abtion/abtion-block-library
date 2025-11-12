@@ -13,3 +13,8 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 ### Added
 - Added build files to repository
+
+## [1.3.0] - 2025-11-12
+
+### Added
+- Added align style to accordion. This allows content manager to choose the width of the block.
