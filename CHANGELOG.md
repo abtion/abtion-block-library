@@ -18,3 +18,8 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 ### Added
 - Added align style to accordion. This allows content manager to choose the width of the block.
+
+## [1.4.0] - 2025-11-12
+
+### Added
+- Added spacings, and colors to accordion controls. This allows content manager to add padding and margin to the block, as well as to add a custom style and colors.
