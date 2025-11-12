@@ -10,7 +10,8 @@
     "example": {},
     "attributes": {},
     "supports": {
-        "interactivity": true
+        "interactivity": true,
+        "align": true
     },
     "styles": [
         {
