@@ -17,14 +17,16 @@
         "className": true,
         "spacing": {
             "margin": true,
-            "padding": true
+            "padding": true,
+            "blockGap": true
         },
         "color": {
             "gradients": true,
             "background": true,
             "text": true,
             "link": true
-        }
+        },
+        "layout": true
     },
     "styles": [
         {

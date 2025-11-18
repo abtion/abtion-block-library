@@ -105,19 +105,14 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
   blockProps.class = blockProps.className;
   blockProps.className = null;
 
-  const contentProps = {
-    id: 'ac-' + uuid,
-    className: 'wp-block-abtion-block-library-accordion-item__content',
-    hidden: initiallyOpen ? undefined : 'until-found',
-  };
-
-  const innerBlocksProps = useInnerBlocksProps(
+  const contentProps = useInnerBlocksProps(
     {
-      className:
-        'wp-block-abtion-block-library-accordion-item__content-wrapper',
+      id: 'ac-' + uuid,
+      className: 'wp-block-abtion-block-library-accordion-item__content',
+      hidden: initiallyOpen ? undefined : 'until-found',
     },
     {
-      template: [['core/group', {}, [['core/paragraph']]]],
+      template: [['core/paragraph']],
     }
   );
 
@@ -281,9 +276,7 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
             aria-hidden="true"
           />
         </div>
-        <div {...contentProps}>
-          <div {...innerBlocksProps}></div>
-        </div>
+        <div {...contentProps} />
       </accordion-item>
     </>
   );

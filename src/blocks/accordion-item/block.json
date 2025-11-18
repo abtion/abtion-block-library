@@ -56,7 +56,8 @@
         },
         "typography": {
             "fontSize": true
-        }
+        },
+        "layout": true
     },
     "editorScript": "file:./index.js",
     "editorStyle": "file:./index.css",

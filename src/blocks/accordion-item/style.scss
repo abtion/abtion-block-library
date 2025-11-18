@@ -2,11 +2,10 @@
   &__item {
     display: block;
     border-bottom: 1px solid var(--wp--preset--color--dark-grey);
-    padding-block: 1.75rem;
 
     &.is-open {
       .wp-block-abtion-block-library-accordion-item__content {
-        padding-block-start: 0.75rem;
+        padding-block-start: 1rem;
       }
     }
 
@@ -28,7 +27,7 @@
   /* Header = clickable area (title + icon) */
   &__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
     width: 100%;
@@ -62,10 +61,6 @@
   }
 
   &__content {
-    &-wrapper {
-      overflow: hidden;
-    }
-
     &[hidden='until-found'] {
       display: revert;
     }
@@ -96,7 +91,7 @@
     .wp-block-abtion-block-library-accordion-item__header {
       grid-column: 1;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.5rem;
     }
 

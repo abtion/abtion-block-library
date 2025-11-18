@@ -43,15 +43,11 @@ function Save({ attributes }) {
     'data-uuid': uuid,
   });
 
-  const innerBlocksProps = useInnerBlocksProps.save({
-    className: 'wp-block-abtion-block-library-accordion-item__content-wrapper',
-  });
-
-  const contentProps = {
+  const contentProps = useInnerBlocksProps.save({
     id: 'ac-' + uuid,
     className: 'wp-block-abtion-block-library-accordion-item__content',
     hidden: initiallyOpen ? undefined : 'until-found',
-  };
+  });
 
   const Tag = titleTag || 'h5';
 
@@ -79,9 +75,7 @@ function Save({ attributes }) {
         />
       </div>
 
-      <div {...contentProps}>
-        <div {...innerBlocksProps} />
-      </div>
+      <div {...contentProps} />
     </accordion-item>
   );
 }
