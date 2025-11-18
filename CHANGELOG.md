@@ -23,3 +23,11 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 ### Added
 - Added spacings, and colors to accordion controls. This allows content manager to add padding and margin to the block, as well as to add a custom style and colors.
+
+## [1.5.0] - 2025-11-18
+
+### Added
+- Added spacing controls to accordion and accordion-item
+
+### Removed
+- Hard codes spacings from and accordion-item
