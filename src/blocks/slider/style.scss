@@ -10,7 +10,11 @@
 .wp-block-abtion-block-library-slider-slides.swiper-wrapper {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
+
+  @media (max-width: 781px) {
+    gap: 1.5rem;
+  }
 }
 
 /* ONLY marquee */
@@ -68,7 +72,7 @@
     flex-wrap: nowrap;
     align-items: center;
     gap: 1rem;
-    overflow-x: auto; /* lets editor scroll if many logos */
+    overflow-x: auto;
   }
 
   .wp-block-abtion-block-library-slider-slide {
