@@ -1,1 +1,0 @@
-{"version":3,"file":"blocks/slider-slide/view.js","mappings":";;;;AAAAA,OAAO,CAACC,GAAG,CAAC,yCAAyC,CAAC,C","sources":["webpack://abtion-block-library/./src/blocks/slider-slide/view.js"],"sourcesContent":["console.log('hello from a SINGLE SLIDE inside slider');\n"],"names":["console","log"],"sourceRoot":""}
