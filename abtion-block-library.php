@@ -109,4 +109,4 @@ function abtion_block_library_register_swiper_assets() {
 	);
 }
 
-add_action( 'init', 'abtion_block_library_register_swiper_assets' );
+add_action( 'wp_enqueue_scripts', 'abtion_block_library_register_swiper_assets' );
