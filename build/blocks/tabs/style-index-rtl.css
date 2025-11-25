@@ -1,1 +1,27 @@
-.wp-block-abtion-block-library-tabs__navigation{display:flex;flex-wrap:wrap;padding-bottom:0}.wp-block-abtion-block-library-tabs__navigation-inner{display:flex;flex-wrap:wrap;gap:1rem}.wp-block-abtion-block-library-tabs__navigation-item{cursor:pointer;opacity:.7;transition:all .3s ease}.wp-block-abtion-block-library-tabs__navigation-item--active{opacity:1}.wp-block-abtion-block-library-tabs__content-item{display:none}.wp-block-abtion-block-library-tabs__content-item--active{display:block}
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/blocks/tabs/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+.wp-block-abtion-block-library-tabs__navigation {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 0;
+}
+.wp-block-abtion-block-library-tabs__navigation-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.wp-block-abtion-block-library-tabs__navigation-item {
+  opacity: 0.7;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.wp-block-abtion-block-library-tabs__navigation-item--active {
+  opacity: 1;
+}
+.wp-block-abtion-block-library-tabs__content-item {
+  display: none;
+}
+.wp-block-abtion-block-library-tabs__content-item--active {
+  display: block;
+}

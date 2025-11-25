@@ -1,0 +1,18 @@
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/blocks/slider/style.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
+.wp-block-abtion-block-library-slider.swiper {
+  overflow: hidden;
+}
+
+/* makes marquee movement constant instead of easing */
+
+.wp-block-abtion-block-library-slider .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+.wp-block-abtion-block-library-slider-slides.swiper-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
