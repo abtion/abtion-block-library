@@ -1,0 +1,14 @@
+.wp-block-abtion-block-library-slider.swiper {
+  overflow: hidden;
+}
+
+/* makes marquee movement constant instead of easing */
+.wp-block-abtion-block-library-slider .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+.wp-block-abtion-block-library-slider-slides.swiper-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}

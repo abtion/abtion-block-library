@@ -9,22 +9,29 @@
  *
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  * @package abtion-block-library
+ * @formatter Prettier
  */
 
 ?>
 
 <div
-	<?php echo get_block_wrapper_attributes(['class' => 'swiper']); ?>
-	data-wp-interactive="abtion-block-library"
-    data-wp-init--setup="callbacks.setup"
-    <?php
-	echo wp_interactivity_data_wp_context(
-		[
-			'slidesPerView' => $attributes['slidesPerView']
-		]
-	);
-	?>
-    
+	<?php echo get_block_wrapper_attributes( [ 'class' => 'swiper' ] ); ?>
+		data-wp-interactive="abtion-block-library"
+		data-wp-init--setup="callbacks.setup"
+	<?php
+		echo wp_interactivity_data_wp_context(
+			[
+				'slidesPerView' => $attributes['slidesPerView'],
+				'behavior'      => $attributes['behavior'] ?? 'normal',
+				'autoplayDelay' => $attributes['autoplayDelay'] ?? 3000,
+				'speed'         => $attributes['speed'] ?? 6000,
+				'pauseOnHover'  => $attributes['pauseOnHover'] ?? true,
+			]
+		);
+		?>
+	
 >
-		<?php echo $content; ?>
+	<div class="swiper-wrapper wp-block-abtion-block-library-slider-slides">
+	<?php echo $content; ?>
+	</div>
 </div>

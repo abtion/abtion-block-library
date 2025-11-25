@@ -13,7 +13,6 @@
     "example": {},
     "attributes": {},
     "supports": {
-        "interactivity": true,
         "className": true,
         "spacing": {
             "margin": true,

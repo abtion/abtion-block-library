@@ -8,27 +8,79 @@ store('abtion-block-library', {
     setup() {
       const { ref } = getElement();
       const ctx = getContext();
-      const slidesPerView = ctx.slidesPerView;
 
-      console.log(ctx);
-      console.log(ref);
+      // Guard: if ref isn't an element, don't run
+      if (!ref || ref.nodeType !== 1) return;
 
-      const pagination = ref.querySelector('.swiper-pagination');
-      console.log(pagination);
-      //const table = ref.querySelector('table');
-      console.log('running setup!');
+      // Guard: if Swiper didn't load for some reason
+      if (typeof Swiper === 'undefined') {
+        console.warn('Swiper is not available on window');
+        return;
+      }
 
-      new Swiper(ref, {
+      // Prevent double init
+      if (ref.swiper) {
+        ref.swiper.destroy(true, true);
+      }
+
+      const paginationEl =
+        ref.querySelector(':scope > .swiper-pagination') ||
+        ref.querySelector('.swiper-pagination');
+
+      const {
+        slidesPerView = 2,
+        behavior = 'normal',
+        autoplayDelay = 3000,
+        speed = 6000,
+        pauseOnHover = true,
+      } = ctx;
+
+      const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
         slidesPerView,
         loop: true,
-        pagination: {
-          el: pagination,
-          clickable: true,
-          /*  dynamicBullets: true, */
-        },
-      });
+      };
+
+      let options;
+
+      if (behavior === 'marquee') {
+        options = {
+          ...baseOptions,
+          slidesPerView: 'auto', // marquee works best with auto widths
+          speed, // higher = slower
+          allowTouchMove: true,
+          freeMode: {
+            enabled: true,
+            momentum: false,
+          },
+          autoplay: {
+            delay: 0,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: pauseOnHover,
+          },
+        };
+      } else {
+        options = {
+          ...baseOptions,
+          autoplay:
+            autoplayDelay > 0
+              ? {
+                  delay: autoplayDelay,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: pauseOnHover,
+                }
+              : false,
+          pagination: paginationEl
+            ? {
+                el: paginationEl,
+                clickable: true,
+              }
+            : false,
+        };
+      }
+
+      new Swiper(ref, options);
     },
   },
 });
