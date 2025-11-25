@@ -90,23 +90,10 @@ add_action( 'wp_enqueue_scripts', 'abtion_block_library_register_trustpilot_scri
 /**
  * Register Swiper styles and scripts. This is currently used by slider block.
  */
-function abtion_block_library_register_swiper_assets() {
-	$swiper_version = '12.0.3';
-
-	wp_register_style(
-		'swiper',
-		'https://cdn.jsdelivr.net/npm/swiper@' . $swiper_version . '/swiper-bundle.min.css',
-		[],
-		$swiper_version
-	);
-
-	wp_register_script(
-		'swiper',
-		'https://cdn.jsdelivr.net/npm/swiper@' . $swiper_version . '/swiper-bundle.min.js',
-		[],
-		$swiper_version,
-		true
-	);
-}
-
-add_action( 'wp_enqueue_scripts', 'abtion_block_library_register_swiper_assets' );
+add_action(
+	'wp_enqueue_scripts',
+	function () {
+		wp_register_style( 'swiper', ABTION_BLOCK_LIBRARY_PLUGIN_URL . 'assets/vendor/swiper/swiper-bundle.min.css', [], null );
+		wp_register_script( 'swiper', ABTION_BLOCK_LIBRARY_PLUGIN_URL . 'assets/vendor/swiper/swiper-bundle.min.js', [], null, true );
+	}
+);
