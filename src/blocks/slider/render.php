@@ -12,17 +12,20 @@
  * @formatter Prettier
  */
 
+	$behavior = $attributes['behavior'] ?? 'normal';
+	$classes = 'swiper is-' . $behavior;
+
 ?>
 
 <div
-	<?php echo get_block_wrapper_attributes( [ 'class' => 'swiper' ] ); ?>
+	<?php echo get_block_wrapper_attributes( [ 'class' => $classes ] ); ?>
 		data-wp-interactive="abtion-block-library"
 		data-wp-init--setup="callbacks.setup"
 	<?php
 		echo wp_interactivity_data_wp_context(
 			[
 				'slidesPerView' => $attributes['slidesPerView'],
-				'behavior'      => $attributes['behavior'] ?? 'normal',
+				'behavior'      => $behavior,
 				'autoplayDelay' => $attributes['autoplayDelay'] ?? 3000,
 				'speed'         => $attributes['speed'] ?? 6000,
 				'pauseOnHover'  => $attributes['pauseOnHover'] ?? true,
@@ -32,6 +35,7 @@
 	
 >
 	<div class="swiper-wrapper wp-block-abtion-block-library-slider-slides">
-	<?php echo $content; ?>
+		<?php echo $content; ?>
 	</div>
+	<div class="swiper-pagination"></div>
 </div>
