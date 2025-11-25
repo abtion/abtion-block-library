@@ -2,7 +2,7 @@ import { useBlockProps, InnerBlocks, RichText } from '@wordpress/block-editor';
 
 function Edit() {
   const blockProps = useBlockProps({
-    className: 'wp-block-abtion-block-library-slider-slide',
+    className: 'wp-block-abtion-block-library-slider-slide swiper-slide',
   });
 
   return (
