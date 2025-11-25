@@ -99,13 +99,40 @@ __webpack_require__.r(__webpack_exports__);
       };
       let options;
       if (behavior === 'marquee') {
+        const wrapper = ref.querySelector('.wp-block-abtion-block-library-slider-slides');
+        if (!wrapper) return;
+
+        // Remove old duplicates if re-init happens
+        wrapper.querySelectorAll('.is-duplicate').forEach(n => n.remove());
+        const originals = Array.from(wrapper.children);
+        if (originals.length === 0) return;
+
+        /**
+         * Duplicate slides until their total width is comfortably > container width.
+         * We aim for 2x container so the loop "never runs out".
+         */
+        const targetWidth = ref.clientWidth * 2;
+
+        // Helper to get current width of all slides
+        const getTrackWidth = () => wrapper.scrollWidth;
+        let safety = 0;
+        while (getTrackWidth() < targetWidth && safety < 10) {
+          originals.forEach(slide => {
+            const clone = slide.cloneNode(true);
+            clone.classList.add('is-duplicate');
+            clone.setAttribute('aria-hidden', 'true');
+            wrapper.appendChild(clone);
+          });
+          safety++;
+        }
         options = {
           ...baseOptions,
           slidesPerView: 'auto',
-          // marquee works best with auto widths
           speed,
-          // higher = slower
-          allowTouchMove: true,
+          loop: true,
+          watchOverflow: false,
+          // <-- important: don't auto-disable
+          allowTouchMove: false,
           freeMode: {
             enabled: true,
             momentum: false
