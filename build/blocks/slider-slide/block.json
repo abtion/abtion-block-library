@@ -25,6 +25,5 @@
     }
   },
   "textdomain": "abtion-block-library",
-  "editorScript": "file:./index.js",
-  "viewScriptModule": "file:./view.js"
+  "editorScript": "file:./index.js"
 }

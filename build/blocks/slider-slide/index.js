@@ -8,7 +8,7 @@
   \********************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"abtion-block-library/slider-slide","version":"1.0.0","title":"Slider Slide","category":"abtion-blocks","icon":"media-interactive","description":"A single slide within slider slides block.","parent":["abtion-block-library/slider"],"example":{},"attributes":{},"supports":{"className":true,"spacing":{"margin":true,"padding":true},"color":{"background":true,"text":true,"link":true}},"textdomain":"abtion-block-library","editorScript":"file:./index.js","viewScriptModule":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"abtion-block-library/slider-slide","version":"1.0.0","title":"Slider Slide","category":"abtion-blocks","icon":"media-interactive","description":"A single slide within slider slides block.","parent":["abtion-block-library/slider"],"example":{},"attributes":{},"supports":{"className":true,"spacing":{"margin":true,"padding":true},"color":{"background":true,"text":true,"link":true}},"textdomain":"abtion-block-library","editorScript":"file:./index.js"}');
 
 /***/ }),
 
@@ -30,7 +30,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Edit() {
   const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps)({
-    className: 'wp-block-abtion-block-library-slider-slide'
+    className: 'wp-block-abtion-block-library-slider-slide swiper-slide'
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     ...blockProps,
