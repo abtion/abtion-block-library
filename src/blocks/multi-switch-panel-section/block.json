@@ -3,7 +3,7 @@
     "apiVersion": 3,
     "name": "abtion-block-library/multi-switch-panel-section",
     "version": "1.0.0",
-    "title": "Multi Switch Panel Section",
+    "title": "Multi Switch Section",
     "category": "abtion-blocks",
     "ancestor": [
         "abtion-block-library/multi-switch-panel"

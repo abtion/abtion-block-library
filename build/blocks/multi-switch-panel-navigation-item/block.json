@@ -3,13 +3,13 @@
   "apiVersion": 3,
   "name": "abtion-block-library/multi-switch-panel-navigation-item",
   "version": "1.0.0",
-  "title": "Multi Switch Panel Navigation Item",
+  "title": "Multi Switch Navigation Item",
   "category": "abtion-blocks",
   "parent": [
     "abtion-block-library/multi-switch-panel-navigation"
   ],
   "description": "A clickable item inside the Multi Switch Panel navigation that switches the active section.",
-  "icon": "arrow-right",
+  "icon": "admin-links",
   "supports": {
     "interactivity": true,
     "layout": {
