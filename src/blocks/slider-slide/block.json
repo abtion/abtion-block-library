@@ -13,7 +13,6 @@
     "example": {},
     "attributes": {},
     "supports": {
-        "interactivity": true,
         "className": true,
         "spacing": {
             "margin": true,
@@ -26,6 +25,5 @@
         }
     },
     "textdomain": "abtion-block-library",
-    "editorScript": "file:./index.js",
-    "viewScriptModule": "file:./view.js"
+    "editorScript": "file:./index.js"
 }

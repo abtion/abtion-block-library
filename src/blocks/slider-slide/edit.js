@@ -1,13 +1,13 @@
 import { useBlockProps, InnerBlocks, RichText } from '@wordpress/block-editor';
 
 function Edit() {
-  const blockProps = useBlockProps();
+  const blockProps = useBlockProps({
+    className: 'wp-block-abtion-block-library-slider-slide swiper-slide',
+  });
 
   return (
     <div {...blockProps}>
-      <div className="wp-block-abtion-block-library-slider-slide">
-        <InnerBlocks />
-      </div>
+      <InnerBlocks />
     </div>
   );
 }

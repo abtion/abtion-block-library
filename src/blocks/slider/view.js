@@ -8,27 +8,111 @@ store('abtion-block-library', {
     setup() {
       const { ref } = getElement();
       const ctx = getContext();
-      const slidesPerView = ctx.slidesPerView;
 
-      console.log(ctx);
-      console.log(ref);
+      // Guard: if ref isn't an element, don't run
+      if (!ref || ref.nodeType !== 1) return;
 
-      const pagination = ref.querySelector('.swiper-pagination');
-      console.log(pagination);
-      //const table = ref.querySelector('table');
-      console.log('running setup!');
+      // Guard: if Swiper didn't load for some reason
+      if (typeof Swiper === 'undefined') {
+        console.warn('Swiper is not available on window');
+        return;
+      }
 
-      new Swiper(ref, {
+      // Prevent double init
+      if (ref.swiper) {
+        ref.swiper.destroy(true, true);
+      }
+
+      const paginationEl =
+        ref.querySelector(':scope > .swiper-pagination') ||
+        ref.querySelector('.swiper-pagination');
+
+      const {
+        slidesPerView = 2,
+        behavior = 'normal',
+        autoplayDelay = 3000,
+        speed = 6000,
+        pauseOnHover = true,
+      } = ctx;
+
+      const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
         slidesPerView,
         loop: true,
-        pagination: {
-          el: pagination,
-          clickable: true,
-          /*  dynamicBullets: true, */
-        },
-      });
+      };
+
+      let options;
+
+      if (behavior === 'marquee') {
+        const wrapper = ref.querySelector(
+          '.wp-block-abtion-block-library-slider-slides'
+        );
+        if (!wrapper) return;
+
+        // Remove old duplicates if re-init happens
+        wrapper.querySelectorAll('.is-duplicate').forEach(n => n.remove());
+
+        const originals = Array.from(wrapper.children);
+        if (originals.length === 0) return;
+
+        /**
+         * Duplicate slides until their total width is comfortably > container width.
+         * We aim for 2x container so the loop "never runs out".
+         */
+        const targetWidth = ref.clientWidth * 2;
+
+        // Helper to get current width of all slides
+        const getTrackWidth = () => wrapper.scrollWidth;
+
+        let safety = 0;
+        while (getTrackWidth() < targetWidth && safety < 10) {
+          originals.forEach(slide => {
+            const clone = slide.cloneNode(true);
+            clone.classList.add('is-duplicate');
+            clone.setAttribute('aria-hidden', 'true');
+            wrapper.appendChild(clone);
+          });
+          safety++;
+        }
+        options = {
+          ...baseOptions,
+          slidesPerView: 'auto',
+          speed,
+          loop: true,
+          watchOverflow: false, // <-- important: don't auto-disable
+          allowTouchMove: false,
+          freeMode: {
+            enabled: true,
+            momentum: false,
+          },
+          autoplay: {
+            delay: 0,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: pauseOnHover,
+          },
+        };
+      } else {
+        options = {
+          ...baseOptions,
+          autoplay:
+            autoplayDelay > 0
+              ? {
+                  delay: autoplayDelay,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: pauseOnHover,
+                }
+              : false,
+          pagination: paginationEl
+            ? {
+                el: paginationEl,
+                clickable: true,
+              }
+            : false,
+        };
+      }
+
+      new Swiper(ref, options);
     },
   },
 });

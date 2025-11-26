@@ -12,6 +12,22 @@
         "slidesPerView": {
             "type": "number",
             "default": 2
+        },
+        "behavior": {
+            "type": "string",
+            "default": "normal"
+        },
+        "autoplayDelay": {
+            "type": "number",
+            "default": 3000
+        },
+        "speed": {
+            "type": "number",
+            "default": 6000
+        },
+        "pauseOnHover": {
+            "type": "boolean",
+            "default": true
         }
     },
     "supports": {
@@ -19,8 +35,10 @@
         "className": true,
         "spacing": {
             "margin": true,
-            "padding": true
+            "padding": true,
+            "blockGap": true
         },
+        "align": true,
         "color": {
             "background": true,
             "text": true,

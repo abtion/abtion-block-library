@@ -1,21 +1,86 @@
 import { useBlockProps, InnerBlocks, RichText } from '@wordpress/block-editor';
-import { TextControl } from '@wordpress/components';
+import {
+  TextControl,
+  SelectControl,
+  ToggleControl,
+  PanelBody,
+} from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
+import { __ } from '@wordpress/i18n';
 
 function Edit({ attributes, setAttributes }) {
-  const blockProps = useBlockProps();
+  const blockProps = useBlockProps({
+    className: `swiper is-${attributes.behavior || 'normal'}`,
+  });
+  const { slidesPerView, behavior, autoplayDelay, speed, pauseOnHover } =
+    attributes;
+  const ALLOWED_BLOCKS = ['abtion-block-library/slider-slide'];
 
   return (
     <div {...blockProps}>
-      <InnerBlocks />
+      <InnerBlocks allowedBlocks={ALLOWED_BLOCKS} />
       <InspectorControls>
-        <TextControl
-          label="Slides per view"
-          value={attributes.slidesPerView}
-          onChange={value => setAttributes({ slidesPerView: Number(value) })}
-          __next40pxDefaultSize
-          __nextHasNoMarginBottom
-        />
+        <PanelBody title={__("Slider settings", "abtion-block-library")} initialOpen={true}>
+          <SelectControl
+            label={__("Behavior", "abtion-block-library")}
+            value={behavior}
+            options={[
+              { label: __('Normal slider', 'abtion-block-library'), value: 'normal' },
+              { label: __('Continuous marquee', 'abtion-block-library'), value: 'marquee' },
+            ]}
+            onChange={value => setAttributes({ behavior: value })}
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+          <TextControl
+            label={__("Slides per view", "abtion-block-library")}
+            type="number"
+            value={slidesPerView}
+            onChange={value =>
+              setAttributes({ slidesPerView: Number(value) || 1 })
+            }
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
+
+          {behavior === 'normal' && (
+            <TextControl
+              label={__("Autoplay delay (ms)", "abtion-block-library")}
+              type="number"
+              value={autoplayDelay}
+              min={0}
+              help={__("0 disables autoplay", "abtion-block-library")}
+              onChange={value =>
+                setAttributes({ autoplayDelay: Number(value) || 0 })
+              }
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
+          )}
+
+          {behavior === 'marquee' && (
+            <>
+              <TextControl
+                label={__("Marquee speed", "abtion-block-library")}
+                type="number"
+                value={speed}
+                min={1000}
+                help={__("Higher number = slower continuous scroll", "abtion-block-library")}
+                onChange={value =>
+                  setAttributes({ speed: Number(value) || 6000 })
+                }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+              <ToggleControl
+                label={__("Pause on hover", "abtion-block-library")}
+                checked={pauseOnHover}
+                onChange={value => setAttributes({ pauseOnHover: !!value })}
+                __nextHasNoMarginBottom
+              />
+            </>
+          )}
+        </PanelBody>
       </InspectorControls>
     </div>
   );
