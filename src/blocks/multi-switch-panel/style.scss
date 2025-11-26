@@ -1,0 +1,9 @@
+.wp-block-abtion-block-library-multi-switch-panel {
+  .wp-block-abtion-block-library-multi-switch-panel-section-item {
+    display: none;
+
+    &--active {
+      display: block;
+    }
+  }
+}

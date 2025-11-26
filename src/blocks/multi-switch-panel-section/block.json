@@ -1,0 +1,22 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "abtion-block-library/multi-switch-panel-section",
+    "version": "1.0.0",
+    "title": "Multi Switch Panel Section",
+    "category": "abtion-blocks",
+    "ancestor": [
+        "abtion-block-library/multi-switch-panel"
+    ],
+    "allowedBlocks": [
+        "abtion-block-library/multi-switch-panel-section-item"
+    ],
+    "description": "A content section that appears or hides based on the active section of the Multi Switch Panel.",
+    "icon": "layout",
+    "supports": {
+        "interactivity": true
+    },
+    "attributes": {},
+    "textdomain": "abtion-block-library",
+    "editorScript": "file:./index.js"
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"blocks/multi-switch-panel/index.css","mappings":";;;AAAA;EACE;AACF,C","sources":["webpack://abtion-block-library/./src/blocks/multi-switch-panel/editor.scss"],"sourcesContent":[".wp-block-abtion-block-library-multi-switch-panel {\n  background: red;\n}\n"],"names":[],"sourceRoot":""}

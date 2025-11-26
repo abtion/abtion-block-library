@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "abtion-block-library/multi-switch-panel-navigation-item",
+  "version": "1.0.0",
+  "title": "Multi Switch Panel Navigation Item",
+  "category": "abtion-blocks",
+  "parent": [
+    "abtion-block-library/multi-switch-panel-navigation"
+  ],
+  "description": "A clickable item inside the Multi Switch Panel navigation that switches the active section.",
+  "icon": "arrow-right",
+  "supports": {
+    "interactivity": true,
+    "layout": {
+      "allowSwitching": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "blockGap": true
+    }
+  },
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "label": {
+      "type": "string",
+      "default": "Navigation Item"
+    }
+  },
+  "usesContext": [
+    "abtion-block-library/activeNavId"
+  ],
+  "textdomain": "abtion-block-library",
+  "editorScript": "file:./index.js"
+}
