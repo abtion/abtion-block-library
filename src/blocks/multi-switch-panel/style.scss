@@ -1,5 +1,9 @@
 .wp-block-abtion-block-library-multi-switch-panel {
-  .wp-block-abtion-block-library-multi-switch-panel-section-item {
+  &-navigation-item {
+    cursor: pointer;
+  }
+
+  &-section-item {
     display: none;
 
     &--active {

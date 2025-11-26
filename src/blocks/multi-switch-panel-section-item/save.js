@@ -6,7 +6,10 @@ function Save(props) {
   } = props;
 
   const blockProps = useBlockProps.save({
+    id: `panel-${navigationItemId}`,
     'data-navigation-id': navigationItemId,
+    role: 'tabpanel',
+    'aria-labelledby': `nav-item-${navigationItemId}`,
   });
 
   return (

@@ -6,8 +6,12 @@ function Save(props) {
   } = props;
 
   const blockProps = useBlockProps.save({
+    id: `nav-item-${id}`,
     'data-id': id,
     'data-wp-on--click': 'actions.switch',
+    role: 'tab',
+    'aria-controls': `panel-${id}`,
+    tabindex: '0',
   });
 
   return (
