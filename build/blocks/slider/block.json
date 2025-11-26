@@ -9,17 +9,17 @@
   "description": "Slider block for displaying content in a sliding format.",
   "example": {},
   "attributes": {
-    "slidesPerView": {
+    "slidesPerViewDesktop": {
       "type": "number",
-      "default": 2
+      "default": 2.5
+    },
+    "slidesPerViewMobile": {
+      "type": "number",
+      "default": 1.5
     },
     "behavior": {
       "type": "string",
       "default": "normal"
-    },
-    "autoplayDelay": {
-      "type": "number",
-      "default": 3000
     },
     "speed": {
       "type": "number",

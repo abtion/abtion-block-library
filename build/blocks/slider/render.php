@@ -24,9 +24,9 @@
 	<?php
 		echo wp_interactivity_data_wp_context(
 			[
-				'slidesPerView' => $attributes['slidesPerView'] ?? 2,
+				'slidesPerViewDesktop' => $attributes['slidesPerViewDesktop'] ?? 2.5,
+				'slidesPerViewMobile' => $attributes['slidesPerViewMobile'] ?? 1.5,
 				'behavior'      => $behavior,
-				'autoplayDelay' => $attributes['autoplayDelay'] ?? 3000,
 				'speed'         => $attributes['speed'] ?? 6000,
 				'pauseOnHover'  => $attributes['pauseOnHover'] ?? true,
 			]
