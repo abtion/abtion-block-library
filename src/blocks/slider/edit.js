@@ -6,6 +6,7 @@ import {
   PanelBody,
 } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
+import { __ } from '@wordpress/i18n';
 
 function Edit({ attributes, setAttributes }) {
   const blockProps = useBlockProps({
@@ -19,20 +20,20 @@ function Edit({ attributes, setAttributes }) {
     <div {...blockProps}>
       <InnerBlocks allowedBlocks={ALLOWED_BLOCKS} />
       <InspectorControls>
-        <PanelBody title="Slider settings" initialOpen={true}>
+        <PanelBody title={__("Slider settings", "abtion-block-library")} initialOpen={true}>
           <SelectControl
-            label="Behavior"
+            label={__("Behavior", "abtion-block-library")}
             value={behavior}
             options={[
-              { label: 'Normal slider', value: 'normal' },
-              { label: 'Continuous marquee', value: 'marquee' },
+              { label: __('Normal slider', 'abtion-block-library'), value: 'normal' },
+              { label: __('Continuous marquee', 'abtion-block-library'), value: 'marquee' },
             ]}
             onChange={value => setAttributes({ behavior: value })}
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
           <TextControl
-            label="Slides per view"
+            label={__("Slides per view", "abtion-block-library")}
             type="number"
             value={slidesPerView}
             onChange={value =>
@@ -44,11 +45,11 @@ function Edit({ attributes, setAttributes }) {
 
           {behavior === 'normal' && (
             <TextControl
-              label="Autoplay delay (ms)"
+              label={__("Autoplay delay (ms)", "abtion-block-library")}
               type="number"
               value={autoplayDelay}
               min={0}
-              help="0 disables autoplay"
+              help={__("0 disables autoplay", "abtion-block-library")}
               onChange={value =>
                 setAttributes({ autoplayDelay: Number(value) || 0 })
               }
@@ -60,11 +61,11 @@ function Edit({ attributes, setAttributes }) {
           {behavior === 'marquee' && (
             <>
               <TextControl
-                label="Marquee speed"
+                label={__("Marquee speed", "abtion-block-library")}
                 type="number"
                 value={speed}
                 min={1000}
-                help="Higher number = slower continuous scroll"
+                help={__("Higher number = slower continuous scroll", "abtion-block-library")}
                 onChange={value =>
                   setAttributes({ speed: Number(value) || 6000 })
                 }
@@ -72,7 +73,7 @@ function Edit({ attributes, setAttributes }) {
                 __nextHasNoMarginBottom
               />
               <ToggleControl
-                label="Pause on hover"
+                label={__("Pause on hover", "abtion-block-library")}
                 checked={pauseOnHover}
                 onChange={value => setAttributes({ pauseOnHover: !!value })}
                 __nextHasNoMarginBottom
