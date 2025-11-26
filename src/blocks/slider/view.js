@@ -28,9 +28,9 @@ store('abtion-block-library', {
         ref.querySelector('.swiper-pagination');
 
       const {
-        slidesPerView = 2,
+        slidesPerViewDesktop = 2.5,
+        slidesPerViewMobile = 1.5,
         behavior = 'normal',
-        autoplayDelay = 3000,
         speed = 6000,
         pauseOnHover = true,
       } = ctx;
@@ -38,7 +38,7 @@ store('abtion-block-library', {
       const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
-        slidesPerView,
+        slidesPerView: slidesPerViewDesktop,
         loop: true,
       };
 
@@ -79,7 +79,6 @@ store('abtion-block-library', {
           ...baseOptions,
           slidesPerView: 'auto',
           speed,
-          loop: true,
           watchOverflow: false, // <-- important: don't auto-disable
           allowTouchMove: false,
           freeMode: {
@@ -95,20 +94,24 @@ store('abtion-block-library', {
       } else {
         options = {
           ...baseOptions,
-          autoplay:
-            autoplayDelay > 0
-              ? {
-                  delay: autoplayDelay,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: pauseOnHover,
-                }
-              : false,
+          slidesPerGroup: 1,
+          watchOverflow: false,
           pagination: paginationEl
             ? {
                 el: paginationEl,
                 clickable: true,
               }
             : false,
+          breakpoints: {
+            0: {
+              slidesPerView: slidesPerViewMobile,
+              slidesPerGroup: 1,
+            },
+            782: {
+              slidesPerView: slidesPerViewDesktop,
+              slidesPerGroup: 1,
+            },
+          },
         };
       }
 

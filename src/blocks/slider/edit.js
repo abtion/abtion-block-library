@@ -12,7 +12,7 @@ function Edit({ attributes, setAttributes }) {
   const blockProps = useBlockProps({
     className: `swiper is-${attributes.behavior || 'normal'}`,
   });
-  const { slidesPerView, behavior, autoplayDelay, speed, pauseOnHover } =
+  const { slidesPerViewDesktop, slidesPerViewMobile, behavior, speed, pauseOnHover } =
     attributes;
   const ALLOWED_BLOCKS = ['abtion-block-library/slider-slide'];
 
@@ -33,30 +33,25 @@ function Edit({ attributes, setAttributes }) {
             __nextHasNoMarginBottom
           />
           <TextControl
-            label={__("Slides per view", "abtion-block-library")}
+            label={__("Slides per view (Desktop)", "abtion-block-library")}
             type="number"
-            value={slidesPerView}
+            value={slidesPerViewDesktop}
             onChange={value =>
-              setAttributes({ slidesPerView: Number(value) || 1 })
+              setAttributes({ slidesPerViewDesktop: Number(value) || 1 })
             }
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
-
-          {behavior === 'normal' && (
-            <TextControl
-              label={__("Autoplay delay (ms)", "abtion-block-library")}
-              type="number"
-              value={autoplayDelay}
-              min={0}
-              help={__("0 disables autoplay", "abtion-block-library")}
-              onChange={value =>
-                setAttributes({ autoplayDelay: Number(value) || 0 })
-              }
-              __next40pxDefaultSize
-              __nextHasNoMarginBottom
-            />
-          )}
+          <TextControl
+            label={__("Slides per view (Mobile)", "abtion-block-library")}
+            type="number"
+            value={slidesPerViewMobile}
+            onChange={value =>
+              setAttributes({ slidesPerViewMobile: Number(value) || 1 })
+            }
+            __next40pxDefaultSize
+            __nextHasNoMarginBottom
+          />
 
           {behavior === 'marquee' && (
             <>
