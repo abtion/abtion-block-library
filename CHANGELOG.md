@@ -49,3 +49,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Added
 
 - Added new Multi Switch Panel block
+
+## [1.7.1] - 2025-11-27
+
+### Fixed
+
+- Added color settings to Multi Switch Panel block navigation items
