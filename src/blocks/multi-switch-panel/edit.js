@@ -158,22 +158,9 @@ function Edit(props) {
     }
   }, [activeNavId]);
 
-  /**
-   * Exclude Multi Switch Panel from being insertable inside itself.
-   */
-  const allowedBlocks = useSelect(select => {
-    const all = select('core/blocks')
-      .getBlockTypes()
-      .map(block => block.name);
-
-    return all.filter(
-      name => name !== 'abtion-block-library/multi-switch-panel'
-    );
-  }, []);
-
   return (
     <div {...blockProps}>
-      <InnerBlocks allowedBlocks={allowedBlocks} />
+      <InnerBlocks />
     </div>
   );
 }
