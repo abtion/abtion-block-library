@@ -14,7 +14,12 @@
     "description": "A content section that appears or hides based on the active section of the Multi Switch Panel.",
     "icon": "layout",
     "supports": {
-        "interactivity": true
+        "interactivity": true,
+        "spacing": {
+            "margin": true,
+            "padding": true,
+            "blockGap": true
+        }
     },
     "attributes": {},
     "textdomain": "abtion-block-library",
