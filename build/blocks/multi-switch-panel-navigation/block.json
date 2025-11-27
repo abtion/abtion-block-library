@@ -22,6 +22,14 @@
       "margin": true,
       "padding": true,
       "blockGap": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "fontFamily": true,
+      "fontWeight": true,
+      "textTransform": true,
+      "letterSpacing": true
     }
   },
   "attributes": {},
