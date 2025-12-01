@@ -41,6 +41,10 @@ function Edit({ attributes, setAttributes }) {
                 label: __('Continuous marquee', 'abtion-block-library'),
                 value: 'marquee',
               },
+              {
+                label: __('Vertical', 'abtion-block-library'),
+                value: 'vertical',
+              },
             ]}
             onChange={value => setAttributes({ behavior: value })}
             __next40pxDefaultSize
@@ -48,6 +52,31 @@ function Edit({ attributes, setAttributes }) {
           />
 
           {behavior === 'normal' && (
+            <>
+              <TextControl
+                label={__('Slides per view (Desktop)', 'abtion-block-library')}
+                type="number"
+                value={slidesPerViewDesktop}
+                onChange={value =>
+                  setAttributes({ slidesPerViewDesktop: Number(value) || 1 })
+                }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+              <TextControl
+                label={__('Slides per view (Mobile)', 'abtion-block-library')}
+                type="number"
+                value={slidesPerViewMobile}
+                onChange={value =>
+                  setAttributes({ slidesPerViewMobile: Number(value) || 1 })
+                }
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
+              />
+            </>
+          )}
+
+          {behavior === 'vertical' && (
             <>
               <TextControl
                 label={__('Slides per view (Desktop)', 'abtion-block-library')}
