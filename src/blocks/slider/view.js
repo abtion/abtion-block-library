@@ -23,10 +23,6 @@ store('abtion-block-library', {
         ref.swiper.destroy(true, true);
       }
 
-      const paginationEl =
-        ref.querySelector(':scope > .swiper-pagination') ||
-        ref.querySelector('.swiper-pagination');
-
       const {
         slidesPerViewDesktop = 2.5,
         slidesPerViewMobile = 1.5,
@@ -92,16 +88,36 @@ store('abtion-block-library', {
           },
         };
       } else {
+        const prevEl =
+          ref.querySelector(':scope .swiper-button-prev') ||
+          ref.querySelector('.swiper-button-prev');
+
+        const nextEl =
+          ref.querySelector(':scope .swiper-button-next') ||
+          ref.querySelector('.swiper-button-next');
+
+        const scrollbarEl =
+          ref.querySelector(':scope .swiper-scrollbar') ||
+          ref.querySelector('.swiper-scrollbar');
+
         options = {
           ...baseOptions,
           slidesPerGroup: 1,
           watchOverflow: false,
-          pagination: paginationEl
+          scrollbar: scrollbarEl
             ? {
-                el: paginationEl,
-                clickable: true,
+                el: scrollbarEl,
+                draggable: false,
               }
             : false,
+
+          navigation:
+            prevEl && nextEl
+              ? {
+                  prevEl,
+                  nextEl,
+                }
+              : false,
           breakpoints: {
             0: {
               slidesPerView: slidesPerViewMobile,
