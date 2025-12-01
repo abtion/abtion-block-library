@@ -100,9 +100,63 @@ const buildNormalOptions = (ref, baseOptions, ctx) => {
 const buildVerticalOptions = (ref, baseOptions, ctx) => {
   const { slidesPerViewDesktop = 1.25, slidesPerViewMobile = 1.25 } = ctx;
 
-  const prevEl = q(ref, '.swiper-button-prev');
-  const nextEl = q(ref, '.swiper-button-next');
-  const scrollbarEl = q(ref, '.swiper-scrollbar');
+  // ---- helpers for text nav ----
+  const getHeadingTextFromSlide = slideEl => {
+    if (!slideEl) return '';
+    const heading = slideEl.querySelector('h1,h2,h3,h4,h5,h6');
+    return heading ? (heading.textContent || '').trim() : '';
+  };
+
+  const buildTextNav = swiper => {
+    const navRoot = q(ref, '.swiper-text-nav');
+    if (!navRoot) return;
+
+    // Only real slides (exclude Swiper's loop duplicates)
+    const realSlides = Array.from(
+      swiper.el.querySelectorAll('.swiper-slide')
+    ).filter(s => !s.classList.contains('swiper-slide-duplicate'));
+
+    const labels = realSlides.map((slideEl, i) => {
+      const text = getHeadingTextFromSlide(slideEl);
+      return text || `Slide ${i + 1}`;
+    });
+
+    navRoot.innerHTML = labels
+      .map(
+        (label, i) => `
+          <li>
+            <button
+              type="button"
+              class="swiper-text-nav__btn"
+              data-slide-index="${i}"
+            >${label}</button>
+          </li>
+        `
+      )
+      .join('');
+
+    const buttons = Array.from(
+      navRoot.querySelectorAll('.swiper-text-nav__btn')
+    );
+
+    const setActive = () => {
+      const active = swiper.realIndex; // ignores loop duplicates
+      buttons.forEach((btn, i) => {
+        btn.classList.toggle('is-active', i === active);
+        btn.setAttribute('aria-current', i === active ? 'true' : 'false');
+      });
+    };
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = Number(btn.dataset.slideIndex);
+        if (!Number.isNaN(i)) swiper.slideToLoop(i);
+      });
+    });
+
+    swiper.on('slideChange', setActive);
+    setActive();
+  };
 
   return {
     ...baseOptions,
@@ -123,14 +177,14 @@ const buildVerticalOptions = (ref, baseOptions, ctx) => {
       thresholdTime: 200,
       releaseOnEdges: true,
     },
-
-    scrollbar: scrollbarEl ? { el: scrollbarEl, draggable: true } : false,
-
-    navigation: prevEl && nextEl ? { prevEl, nextEl } : false,
-
     breakpoints: {
       0: { slidesPerView: slidesPerViewMobile },
       782: { slidesPerView: slidesPerViewDesktop },
+    },
+    on: {
+      init(swiper) {
+        buildTextNav(swiper);
+      },
     },
   };
 };
