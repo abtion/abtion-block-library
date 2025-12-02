@@ -27,8 +27,6 @@
 				'slidesPerViewDesktop' => $attributes['slidesPerViewDesktop'] ?? 2.5,
 				'slidesPerViewMobile' => $attributes['slidesPerViewMobile'] ?? 1.5,
 				'behavior'      => $behavior,
-				'speed'         => $attributes['speed'] ?? 6000,
-				'pauseOnHover'  => $attributes['pauseOnHover'] ?? true,
 			]
 		);
 		?>

@@ -1,10 +1,5 @@
-import { useBlockProps, InnerBlocks, RichText } from '@wordpress/block-editor';
-import {
-  TextControl,
-  SelectControl,
-  ToggleControl,
-  PanelBody,
-} from '@wordpress/components';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import { TextControl, SelectControl, PanelBody } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
@@ -12,13 +7,7 @@ function Edit({ attributes, setAttributes }) {
   const blockProps = useBlockProps({
     className: `swiper is-${attributes.behavior || 'normal'}`,
   });
-  const {
-    slidesPerViewDesktop,
-    slidesPerViewMobile,
-    behavior,
-    speed,
-    pauseOnHover,
-  } = attributes;
+  const { slidesPerViewDesktop, slidesPerViewMobile, behavior } = attributes;
   const ALLOWED_BLOCKS = ['abtion-block-library/slider-slide'];
 
   return (
@@ -96,32 +85,6 @@ function Edit({ attributes, setAttributes }) {
                   setAttributes({ slidesPerViewMobile: Number(value) || 1 })
                 }
                 __next40pxDefaultSize
-                __nextHasNoMarginBottom
-              />
-            </>
-          )}
-
-          {behavior === 'marquee' && (
-            <>
-              <TextControl
-                label={__('Marquee speed', 'abtion-block-library')}
-                type="number"
-                value={speed}
-                min={1000}
-                help={__(
-                  'Higher number = slower continuous scroll',
-                  'abtion-block-library'
-                )}
-                onChange={value =>
-                  setAttributes({ speed: Number(value) || 6000 })
-                }
-                __next40pxDefaultSize
-                __nextHasNoMarginBottom
-              />
-              <ToggleControl
-                label={__('Pause on hover', 'abtion-block-library')}
-                checked={pauseOnHover}
-                onChange={value => setAttributes({ pauseOnHover: !!value })}
                 __nextHasNoMarginBottom
               />
             </>
