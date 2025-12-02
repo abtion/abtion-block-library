@@ -213,7 +213,7 @@ store('abtion-block-library', {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
         slidesPerView: slidesPerViewDesktop,
-        loop: behavior === 'normal' || behavior === 'vertical',
+        loop: behavior === 'normal',
       };
 
       const builder = BEHAVIORS[behavior] || BEHAVIORS.normal;
