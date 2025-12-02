@@ -3,117 +3,222 @@
  */
 import { store, getContext, getElement } from '@wordpress/interactivity';
 
+/**
+ * Helpers
+ */
+const q = (root, selector) =>
+  root.querySelector(`:scope ${selector}`) || root.querySelector(selector);
+
+const cleanupExistingSwiper = ref => {
+  if (ref.swiper) {
+    ref.swiper.destroy(true, true);
+  }
+};
+
+const ensureSwiperAvailable = () => {
+  if (typeof Swiper === 'undefined') {
+    console.warn('Swiper is not available on window');
+    return false;
+  }
+  return true;
+};
+
+/**
+ * Behavior option builders
+ */
+const buildMarqueeOptions = (ref, baseOptions) => {
+  const wrapper = q(ref, '.wp-block-abtion-block-library-slider-slides');
+  if (!wrapper) return null;
+
+  // Remove old duplicates if re-init happens
+  wrapper.querySelectorAll('.is-duplicate').forEach(n => n.remove());
+  const originals = Array.from(wrapper.children);
+  if (originals.length === 0) return null;
+
+  // Duplicate slides until track >= 2x container width
+  const targetWidth = ref.clientWidth * 2;
+  let safety = 0;
+
+  while (wrapper.scrollWidth < targetWidth && safety < 10) {
+    originals.forEach(slide => {
+      const clone = slide.cloneNode(true);
+      clone.classList.add('is-duplicate');
+      clone.setAttribute('aria-hidden', 'true');
+      wrapper.appendChild(clone);
+    });
+    safety++;
+  }
+
+  return {
+    ...baseOptions,
+    slidesPerView: 'auto',
+    speed: 6000,
+    watchOverflow: false,
+    allowTouchMove: false,
+
+    // keeps motion smooth/non-snappy (no user interaction added)
+    freeMode: { enabled: true, momentum: false },
+
+    autoplay: {
+      delay: 1,
+      disableOnInteraction: false,
+    },
+    on: {
+      init(swiper) {
+        // If Swiper is globally in RTL, compensate so marquee still goes LTR visually
+        if (swiper.rtlTranslate) {
+          swiper.params.autoplay.reverseDirection = true;
+          swiper.autoplay.stop();
+          swiper.autoplay.start();
+        }
+      },
+    },
+  };
+};
+
+const buildNormalOptions = (ref, baseOptions, ctx) => {
+  const { slidesPerViewDesktop = 2.5, slidesPerViewMobile = 1.5 } = ctx;
+
+  const prevEl = q(ref, '.swiper-button-prev');
+  const nextEl = q(ref, '.swiper-button-next');
+  const scrollbarEl = q(ref, '.swiper-scrollbar');
+
+  return {
+    ...baseOptions,
+    slidesPerGroup: 1,
+    watchOverflow: false,
+    scrollbar: scrollbarEl ? { el: scrollbarEl, draggable: false } : false,
+    navigation: prevEl && nextEl ? { prevEl, nextEl } : false,
+    breakpoints: {
+      0: {
+        slidesPerView: slidesPerViewMobile,
+        slidesPerGroup: 1,
+      },
+      782: {
+        slidesPerView: slidesPerViewDesktop,
+        slidesPerGroup: 1,
+      },
+    },
+  };
+};
+
+const buildVerticalOptions = (ref, baseOptions, ctx) => {
+  const { slidesPerViewDesktop = 1.25, slidesPerViewMobile = 1.25 } = ctx;
+
+  const getHeadingTextFromSlide = slideEl => {
+    if (!slideEl) return '';
+    const heading = slideEl.querySelector('h1,h2,h3,h4,h5,h6');
+    return heading ? (heading.textContent || '').trim() : '';
+  };
+
+  const buildTextNav = swiper => {
+    const navRoot = q(ref, '.swiper-text-nav');
+    if (!navRoot) return;
+
+    const realSlides = Array.from(
+      swiper.el.querySelectorAll('.swiper-slide')
+    ).filter(s => !s.classList.contains('swiper-slide-duplicate'));
+
+    const labels = realSlides.map((slideEl, i) => {
+      const text = getHeadingTextFromSlide(slideEl);
+      return text || `Slide ${i + 1}`;
+    });
+
+    navRoot.innerHTML = '';
+    labels.forEach((label, i) => {
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'swiper-text-nav__btn';
+      btn.dataset.slideIndex = i;
+      btn.textContent = label;
+      li.appendChild(btn);
+      navRoot.appendChild(li);
+    });
+
+    const buttons = Array.from(
+      navRoot.querySelectorAll('.swiper-text-nav__btn')
+    );
+
+    const setActive = () => {
+      const active = swiper.realIndex;
+      buttons.forEach((btn, i) => {
+        btn.classList.toggle('is-active', i === active);
+        btn.setAttribute('aria-current', i === active ? 'true' : 'false');
+      });
+    };
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = Number(btn.dataset.slideIndex);
+        if (!Number.isNaN(i)) swiper.slideToLoop(i);
+      });
+    });
+
+    swiper.on('slideChange', setActive);
+    setActive();
+  };
+
+  return {
+    ...baseOptions,
+    direction: 'vertical',
+    slidesPerView: slidesPerViewDesktop,
+    slidesPerGroup: 1,
+    watchOverflow: false,
+    spaceBetween: 32,
+
+    centeredSlides: false,
+    centeredSlidesBounds: true,
+    initialSlide: 0,
+
+    mousewheel: {
+      forceToAxis: true,
+      sensitivity: 0.5,
+      thresholdDelta: 20,
+      thresholdTime: 200,
+      releaseOnEdges: true,
+    },
+    breakpoints: {
+      0: { slidesPerView: slidesPerViewMobile },
+      782: { slidesPerView: slidesPerViewDesktop },
+    },
+    on: {
+      init(swiper) {
+        buildTextNav(swiper);
+      },
+    },
+  };
+};
+
+const BEHAVIORS = {
+  marquee: buildMarqueeOptions,
+  normal: buildNormalOptions,
+  vertical: buildVerticalOptions,
+};
+
 store('abtion-block-library', {
   callbacks: {
     setup() {
       const { ref } = getElement();
       const ctx = getContext();
 
-      // Guard: if ref isn't an element, don't run
       if (!ref || ref.nodeType !== 1) return;
+      if (!ensureSwiperAvailable()) return;
 
-      // Guard: if Swiper didn't load for some reason
-      if (typeof Swiper === 'undefined') {
-        console.warn('Swiper is not available on window');
-        return;
-      }
+      cleanupExistingSwiper(ref);
 
-      // Prevent double init
-      if (ref.swiper) {
-        ref.swiper.destroy(true, true);
-      }
-
-      const paginationEl =
-        ref.querySelector(':scope > .swiper-pagination') ||
-        ref.querySelector('.swiper-pagination');
-
-      const {
-        slidesPerViewDesktop = 2.5,
-        slidesPerViewMobile = 1.5,
-        behavior = 'normal',
-        speed = 6000,
-        pauseOnHover = true,
-      } = ctx;
+      const { behavior = 'normal', slidesPerViewDesktop = 2.5 } = ctx;
 
       const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
         slidesPerView: slidesPerViewDesktop,
-        loop: true,
+        loop: behavior === 'normal',
       };
 
-      let options;
-
-      if (behavior === 'marquee') {
-        const wrapper = ref.querySelector(
-          '.wp-block-abtion-block-library-slider-slides'
-        );
-        if (!wrapper) return;
-
-        // Remove old duplicates if re-init happens
-        wrapper.querySelectorAll('.is-duplicate').forEach(n => n.remove());
-
-        const originals = Array.from(wrapper.children);
-        if (originals.length === 0) return;
-
-        /**
-         * Duplicate slides until their total width is comfortably > container width.
-         * We aim for 2x container so the loop "never runs out".
-         */
-        const targetWidth = ref.clientWidth * 2;
-
-        // Helper to get current width of all slides
-        const getTrackWidth = () => wrapper.scrollWidth;
-
-        let safety = 0;
-        while (getTrackWidth() < targetWidth && safety < 10) {
-          originals.forEach(slide => {
-            const clone = slide.cloneNode(true);
-            clone.classList.add('is-duplicate');
-            clone.setAttribute('aria-hidden', 'true');
-            wrapper.appendChild(clone);
-          });
-          safety++;
-        }
-        options = {
-          ...baseOptions,
-          slidesPerView: 'auto',
-          speed,
-          watchOverflow: false, // <-- important: don't auto-disable
-          allowTouchMove: false,
-          freeMode: {
-            enabled: true,
-            momentum: false,
-          },
-          autoplay: {
-            delay: 0,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: pauseOnHover,
-          },
-        };
-      } else {
-        options = {
-          ...baseOptions,
-          slidesPerGroup: 1,
-          watchOverflow: false,
-          pagination: paginationEl
-            ? {
-                el: paginationEl,
-                clickable: true,
-              }
-            : false,
-          breakpoints: {
-            0: {
-              slidesPerView: slidesPerViewMobile,
-              slidesPerGroup: 1,
-            },
-            782: {
-              slidesPerView: slidesPerViewDesktop,
-              slidesPerGroup: 1,
-            },
-          },
-        };
-      }
+      const builder = BEHAVIORS[behavior] || BEHAVIORS.normal;
+      const options = builder(ref, baseOptions, ctx);
+      if (!options) return;
 
       new Swiper(ref, options);
     },

@@ -20,14 +20,6 @@
         "behavior": {
             "type": "string",
             "default": "normal"
-        },
-        "speed": {
-            "type": "number",
-            "default": 6000
-        },
-        "pauseOnHover": {
-            "type": "boolean",
-            "default": true
         }
     },
     "supports": {

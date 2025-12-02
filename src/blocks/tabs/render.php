@@ -24,9 +24,15 @@ foreach ( $block->parsed_block['innerBlocks'] as $innerblockkey => $innerblock )
 ?>
 
 <div
-	<?php echo get_block_wrapper_attributes(); ?>
+	<?php
+	// get_block_wrapper_attributes() returns a string of safe, escaped HTML attributes.
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo get_block_wrapper_attributes();
+	?>
 	data-wp-interactive="abtion-block-library"
 	<?php
+	// wp_interactivity_data_wp_context() returns safe, JSON-encoded/escaped interactivity context attributes.
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wp_interactivity_data_wp_context(
 		[
 			'tabs' => $block_tabs,
@@ -51,7 +57,11 @@ foreach ( $block->parsed_block['innerBlocks'] as $innerblockkey => $innerblock )
 			?>
 			" data-tab-id="<?php echo esc_attr( $tab_inner_block['attrs']['id'] ); ?>">
 				<?php foreach ( $tab_inner_block['innerBlocks'] as $inner_block ) : ?>
-					<?php echo render_block( $inner_block ); ?>
+					<?php
+					// render_block() returns the block's final HTML, which must not be escaped.
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo render_block( $inner_block );
+					?>
 				<?php endforeach; ?>
 			</div>
 		<?php endforeach; ?>

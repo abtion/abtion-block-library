@@ -93,7 +93,31 @@ add_action( 'wp_enqueue_scripts', 'abtion_block_library_register_trustpilot_scri
 add_action(
 	'wp_enqueue_scripts',
 	function () {
-		wp_register_style( 'swiper', ABTION_BLOCK_LIBRARY_PLUGIN_URL . 'assets/vendor/swiper/swiper-bundle.min.css', [], null );
-		wp_register_script( 'swiper', ABTION_BLOCK_LIBRARY_PLUGIN_URL . 'assets/vendor/swiper/swiper-bundle.min.js', [], null, true );
+		$css_rel = 'assets/vendor/swiper/swiper-bundle.min.css';
+		$js_rel  = 'assets/vendor/swiper/swiper-bundle.min.js';
+
+		$css_path = ABTION_BLOCK_LIBRARY_PLUGIN_PATH . $css_rel;
+		$js_path  = ABTION_BLOCK_LIBRARY_PLUGIN_PATH . $js_rel;
+
+		$css_url = ABTION_BLOCK_LIBRARY_PLUGIN_URL . $css_rel;
+		$js_url  = ABTION_BLOCK_LIBRARY_PLUGIN_URL . $js_rel;
+
+		$css_ver = file_exists( $css_path ) ? filemtime( $css_path ) : null;
+		$js_ver  = file_exists( $js_path )  ? filemtime( $js_path )  : null;
+
+		wp_register_style(
+			'swiper',
+			$css_url,
+			[],
+			$css_ver
+		);
+
+		wp_register_script(
+			'swiper',
+			$js_url,
+			[],
+			$js_ver,
+			true
+		);
 	}
 );

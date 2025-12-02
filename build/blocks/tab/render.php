@@ -14,10 +14,17 @@
 ?>
 
 <div
-	<?php echo get_block_wrapper_attributes(); ?>
+	<?php
+	// get_block_wrapper_attributes() returns a string of safe, escaped HTML attributes.
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo get_block_wrapper_attributes();
+	?>
 	data-wp-interactive="abtion-block-library"
 >
 	<div class="wp-block-abtion-block-library-tab__content">
-		<?php echo $content; ?>
+		<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $content;
+		?>
 	</div>
 </div>
