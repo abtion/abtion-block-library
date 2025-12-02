@@ -24,7 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 define( 'ABTION_BLOCK_LIBRARY_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ABTION_BLOCK_LIBRARY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'ABTION_BLOCK_LIBRARY_VERSION', '1.7.1' );
 
 /**
  * Registers multiple block types from metadata loaded from a file.
@@ -94,18 +93,30 @@ add_action( 'wp_enqueue_scripts', 'abtion_block_library_register_trustpilot_scri
 add_action(
 	'wp_enqueue_scripts',
 	function () {
+		$css_rel = 'assets/vendor/swiper/swiper-bundle.min.css';
+		$js_rel  = 'assets/vendor/swiper/swiper-bundle.min.js';
+
+		$css_path = ABTION_BLOCK_LIBRARY_PLUGIN_PATH . $css_rel;
+		$js_path  = ABTION_BLOCK_LIBRARY_PLUGIN_PATH . $js_rel;
+
+		$css_url = ABTION_BLOCK_LIBRARY_PLUGIN_URL . $css_rel;
+		$js_url  = ABTION_BLOCK_LIBRARY_PLUGIN_URL . $js_rel;
+
+		$css_ver = file_exists( $css_path ) ? filemtime( $css_path ) : null;
+		$js_ver  = file_exists( $js_path )  ? filemtime( $js_path )  : null;
+
 		wp_register_style(
 			'swiper',
-			ABTION_BLOCK_LIBRARY_PLUGIN_URL . 'assets/vendor/swiper/swiper-bundle.min.css',
+			$css_url,
 			[],
-			ABTION_BLOCK_LIBRARY_VERSION
+			$css_ver
 		);
 
 		wp_register_script(
 			'swiper',
-			ABTION_BLOCK_LIBRARY_PLUGIN_URL . 'assets/vendor/swiper/swiper-bundle.min.js',
+			$js_url,
 			[],
-			ABTION_BLOCK_LIBRARY_VERSION,
+			$js_ver,
 			true
 		);
 	}
