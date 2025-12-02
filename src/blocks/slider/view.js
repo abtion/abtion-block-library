@@ -26,24 +26,20 @@ const ensureSwiperAvailable = () => {
 /**
  * Behavior option builders
  */
-const buildMarqueeOptions = (ref, baseOptions, ctx) => {
-  const { speed = 6000, pauseOnHover = true } = ctx;
-
+const buildMarqueeOptions = (ref, baseOptions) => {
   const wrapper = q(ref, '.wp-block-abtion-block-library-slider-slides');
   if (!wrapper) return null;
 
   // Remove old duplicates if re-init happens
   wrapper.querySelectorAll('.is-duplicate').forEach(n => n.remove());
-
   const originals = Array.from(wrapper.children);
   if (originals.length === 0) return null;
 
   // Duplicate slides until track >= 2x container width
   const targetWidth = ref.clientWidth * 2;
-  const getTrackWidth = () => wrapper.scrollWidth;
-
   let safety = 0;
-  while (getTrackWidth() < targetWidth && safety < 10) {
+
+  while (wrapper.scrollWidth < targetWidth && safety < 10) {
     originals.forEach(slide => {
       const clone = slide.cloneNode(true);
       clone.classList.add('is-duplicate');
@@ -56,14 +52,26 @@ const buildMarqueeOptions = (ref, baseOptions, ctx) => {
   return {
     ...baseOptions,
     slidesPerView: 'auto',
-    speed,
+    speed: 6000,
     watchOverflow: false,
     allowTouchMove: false,
+
+    // keeps motion smooth/non-snappy (no user interaction added)
     freeMode: { enabled: true, momentum: false },
+
     autoplay: {
-      delay: 0,
+      delay: 1,
       disableOnInteraction: false,
-      pauseOnMouseEnter: pauseOnHover,
+    },
+    on: {
+      init(swiper) {
+        // If Swiper is globally in RTL, compensate so marquee still goes LTR visually
+        if (swiper.rtlTranslate) {
+          swiper.params.autoplay.reverseDirection = true;
+          swiper.autoplay.stop();
+          swiper.autoplay.start();
+        }
+      },
     },
   };
 };
@@ -79,11 +87,8 @@ const buildNormalOptions = (ref, baseOptions, ctx) => {
     ...baseOptions,
     slidesPerGroup: 1,
     watchOverflow: false,
-
     scrollbar: scrollbarEl ? { el: scrollbarEl, draggable: false } : false,
-
     navigation: prevEl && nextEl ? { prevEl, nextEl } : false,
-
     breakpoints: {
       0: {
         slidesPerView: slidesPerViewMobile,
@@ -100,7 +105,6 @@ const buildNormalOptions = (ref, baseOptions, ctx) => {
 const buildVerticalOptions = (ref, baseOptions, ctx) => {
   const { slidesPerViewDesktop = 1.25, slidesPerViewMobile = 1.25 } = ctx;
 
-  // ---- helpers for text nav ----
   const getHeadingTextFromSlide = slideEl => {
     if (!slideEl) return '';
     const heading = slideEl.querySelector('h1,h2,h3,h4,h5,h6');
@@ -111,7 +115,6 @@ const buildVerticalOptions = (ref, baseOptions, ctx) => {
     const navRoot = q(ref, '.swiper-text-nav');
     if (!navRoot) return;
 
-    // Only real slides (exclude Swiper's loop duplicates)
     const realSlides = Array.from(
       swiper.el.querySelectorAll('.swiper-slide')
     ).filter(s => !s.classList.contains('swiper-slide-duplicate'));
@@ -140,7 +143,7 @@ const buildVerticalOptions = (ref, baseOptions, ctx) => {
     );
 
     const setActive = () => {
-      const active = swiper.realIndex; // ignores loop duplicates
+      const active = swiper.realIndex;
       buttons.forEach((btn, i) => {
         btn.classList.toggle('is-active', i === active);
         btn.setAttribute('aria-current', i === active ? 'true' : 'false');
@@ -207,12 +210,13 @@ store('abtion-block-library', {
       cleanupExistingSwiper(ref);
 
       const { behavior = 'normal', slidesPerViewDesktop = 2.5 } = ctx;
+      const isMarquee = behavior === 'marquee';
 
       const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
         slidesPerView: slidesPerViewDesktop,
-        loop: true,
+        loop: !isMarquee,
       };
 
       const builder = BEHAVIORS[behavior] || BEHAVIORS.normal;

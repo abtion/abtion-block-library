@@ -1,149 +1,114 @@
-.wp-block-abtion-block-library-slider.swiper {
-  overflow: hidden;
-}
-
-.wp-block-abtion-block-library-slider.is-normal
-  .wp-block-abtion-block-library-slider-slides.swiper-wrapper,
-.wp-block-abtion-block-library-slider.is-marquee
-  .wp-block-abtion-block-library-slider-slides.swiper-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 3rem;
-
-  @media (max-width: 781px) {
-    gap: 1.5rem;
-  }
-}
-
-/* ONLY marquee */
-.wp-block-abtion-block-library-slider.is-marquee .swiper-wrapper {
-  transition-timing-function: linear !important;
-}
-
-.wp-block-abtion-block-library-slider.is-marquee .swiper-slide,
-.wp-block-abtion-block-library-slider.is-marquee
-  .wp-block-abtion-block-library-slider-slide {
-  width: auto !important;
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
-}
-
-/* ONLY MARQUEE STYLES */
-
-/* remove Gutenberg inline widths */
-.wp-block-abtion-block-library-slider.is-marquee .swiper-slide figure,
-.wp-block-abtion-block-library-slider.is-marquee .swiper-slide .wp-block-image {
-  width: auto !important;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* fixed logo heights */
-.wp-block-abtion-block-library-slider.is-marquee .swiper-slide img,
-.wp-block-abtion-block-library-slider.is-marquee .swiper-slide svg {
-  height: 32px !important;
-  width: auto !important;
-  max-height: 32px !important;
-  max-width: none !important;
-  object-fit: contain;
-  display: block;
-
-  @media (max-width: 781px) {
-    height: 24px !important;
-    max-height: 24px !important;
-  }
-}
-
-/* Editor-only marquee preview */
-.editor-styles-wrapper .wp-block-abtion-block-library-slider.is-marquee {
-  .wp-block-abtion-block-library-slider-slides,
-  .block-editor-inner-blocks > .block-editor-block-list__layout {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 1rem;
-    overflow-x: auto;
-  }
-
-  .wp-block-abtion-block-library-slider-slide {
-    width: auto !important;
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Remove Gutenberg inline sizing in editor too */
-  figure,
-  .wp-block-image {
-    width: auto !important;
-    max-width: none !important;
-    margin: 0 !important;
-  }
-
-  img,
-  svg {
-    height: 32px !important;
-    width: auto !important;
-    max-height: 32px !important;
-    max-width: none !important;
-    object-fit: contain;
-    display: block;
-  }
-
-  @media (max-width: 781px) {
-    img,
-    svg {
-      height: 24px !important;
-      max-height: 24px !important;
-    }
-  }
-}
-
-/* ------------------------------ */
-/* Slider controls (normal mode)  */
-/* ------------------------------ */
-
 .wp-block-abtion-block-library-slider {
+  &.swiper {
+    overflow: hidden;
+  }
+
   position: relative;
 
-  /* Full-width control bar under slider */
+  /* Shared track layout for normal + marquee */
+  &.is-normal,
+  &.is-marquee {
+    .wp-block-abtion-block-library-slider-slides.swiper-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+
+      @media (max-width: 781px) {
+        gap: 1.5rem;
+      }
+    }
+  }
+
+  /* ------------------------------ */
+  /* ONLY MARQUEE STYLES            */
+  /* ------------------------------ */
+  &.is-marquee {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      white 10%,
+      white 90%,
+      transparent 100%
+    );
+
+    .swiper-wrapper {
+      transition-timing-function: linear !important;
+    }
+
+    /* slides (both Swiper + Gutenberg class) */
+    .swiper-slide,
+    .wp-block-abtion-block-library-slider-slide {
+      width: auto !important;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+
+      /* remove Gutenberg inline widths */
+      figure,
+      .wp-block-image {
+        width: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* fixed logo heights */
+      img,
+      svg {
+        height: 32px !important;
+        width: auto !important;
+        max-height: 32px !important;
+        max-width: none !important;
+        object-fit: contain;
+        display: block;
+
+        @media (max-width: 781px) {
+          height: 24px !important;
+          max-height: 24px !important;
+        }
+      }
+    }
+
+    /* Hide controls in marquee */
+    .swiper-controls {
+      display: none;
+    }
+  }
+
+  /* ------------------------------ */
+  /* Slider controls (normal mode)  */
+  /* ------------------------------ */
   .swiper-controls {
     margin-top: 1.25rem;
     width: 90%;
-
     display: flex;
     align-items: center;
-    justify-content: space-between; /* dots left, arrows right */
+    justify-content: space-between;
     gap: 1rem;
     padding: 0 0.25rem;
   }
-  /* the line track */
+
   .swiper-scrollbar {
-    position: static !important; /* stop Swiper absolute positioning */
-    flex: 1; /* take all available width */
+    position: static !important;
+    flex: 1;
     height: 2px;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 999px;
-    margin-right: 1rem; /* breathing room before arrows */
+    margin-right: 1rem;
   }
 
-  /* the draggable/filled part */
   .swiper-scrollbar-drag {
     height: 100%;
     background: currentColor;
     border-radius: 999px;
   }
 
-  /* Arrows on the right */
   .swiper-nav {
     display: flex;
     align-items: center;
@@ -152,224 +117,178 @@
 
   .swiper-button-prev,
   .swiper-button-next {
-    position: static !important; /* stop Swiper absolute positioning */
+    position: static !important;
     width: 40px;
     height: 40px;
     border-radius: 999px;
-
     background: #f0f0f0;
     color: inherit;
     border: 1px solid #f0f0f0;
-  }
-
-  .swiper-button-prev:hover,
-  .swiper-button-next:hover {
-    background: rgba(0, 0, 0, 0.06);
-    transform: translateY(-1px);
-  }
-}
-
-/* Hide controls in marquee mode */
-.wp-block-abtion-block-library-slider.is-marquee {
-  .swiper-controls {
-    display: none;
-  }
-}
-
-/* ------------------------------ */
-/* Vertical behavior              */
-/* ------------------------------ */
-
-// .wp-block-abtion-block-library-slider.is-vertical {
-//   height: 530px;
-//   max-height: 530px;
-//   overflow: hidden;
-//   position: relative;
-
-//   .swiper-slide > .wp-block-columns {
-//     height: 100%;
-//     align-items: stretch;
-//   }
-
-//   .swiper-slide > .wp-block-columns > .wp-block-column {
-//     height: 100%;
-//     display: flex;
-//     flex-direction: column;
-//   }
-
-//   .swiper-slide .wp-block-image,
-//   .swiper-slide figure {
-//     flex: 1;
-//     height: 100%;
-//     margin: 0 !important;
-//     display: flex;
-//   }
-
-//   .swiper-slide .wp-block-image img,
-//   .swiper-slide figure img {
-//     width: 100%;
-//     height: 100%;
-//     object-fit: cover;
-//     display: block;
-//   }
-
-//   /* controls layout for vertical */
-//   .swiper-controls {
-//     position: absolute;
-//     background-color: red;
-//     top: 0;
-//     left: 0;
-//     margin-top: 0;
-//     width: 100%;
-//     display: flex;
-//     flex-direction: column;
-//     gap: 1rem;
-//     align-items: flex-end;
-//   }
-
-//   .swiper-scrollbar {
-//     width: 2px;
-//     height: 100%;
-//     background: rgba(0, 0, 0, 0.2);
-//     margin-right: 0;
-//   }
-
-//   .swiper-scrollbar-drag {
-//     width: 100%;
-//   }
-
-//   .swiper-nav {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 0.5rem;
-//   }
-
-//   .swiper-button-prev,
-//   .swiper-button-next {
-//     width: 40px;
-//     height: 40px;
-//   }
-// }
-
-// /* Editor override */
-// .editor-styles-wrapper .wp-block-abtion-block-library-slider.is-vertical {
-//   .swiper-slide .wp-block-image,
-//   .swiper-slide figure {
-//     flex: initial !important;
-//     height: auto !important;
-//     display: block !important;
-//   }
-
-//   .swiper-slide .wp-block-image img,
-//   .swiper-slide figure img {
-//     height: auto !important;
-//     width: 100% !important;
-//     object-fit: contain; /* nicer preview */
-//   }
-// }
-
-.wp-block-abtion-block-library-slider.is-vertical {
-  height: 530px;
-  max-height: 530px;
-  overflow: hidden; /* keep slides clipped */
-  position: relative;
-
-  display: grid;
-  grid-template-columns: 220px 1fr; /* nav left, slides right */
-  gap: 2rem;
-  align-items: stretch;
-
-  /* left text navigation */
-  .swiper-text-nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    grid-column: 1;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    align-self: start;
-  }
-
-  .swiper-text-nav__btn {
-    background: none;
-    border: none;
-    padding: 0;
-
-    text-align: left;
-    font: inherit;
-    color: inherit;
-
-    opacity: 0.6;
-    cursor: pointer;
 
     &:hover {
-      opacity: 0.9;
-    }
-
-    &.is-active {
-      opacity: 1;
-      font-weight: 600;
-      text-decoration: underline;
-      text-underline-offset: 4px;
+      background: rgba(0, 0, 0, 0.06);
+      transform: translateY(-1px);
     }
   }
 
-  /* make swiper track live in right column */
-  .swiper-wrapper {
-    grid-column: 2;
-    height: 100%;
-  }
+  /* ------------------------------ */
+  /* Vertical behavior              */
+  /* ------------------------------ */
+  &.is-vertical {
+    height: 530px;
+    max-height: 530px;
+    overflow: hidden;
+    position: relative;
 
-  .swiper-slide > .wp-block-columns {
-    height: 100%;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2rem;
     align-items: stretch;
-  }
 
-  .swiper-slide > .wp-block-columns > .wp-block-column {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+    /* left text navigation */
+    .swiper-text-nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      grid-column: 1;
+      margin: 0;
+      padding: 0;
+      list-style: none;
 
-  .swiper-slide .wp-block-image,
-  .swiper-slide figure {
-    flex: 1;
-    height: 100%;
-    margin: 0 !important;
-    display: flex;
-  }
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-self: start;
+    }
 
-  .swiper-slide .wp-block-image img,
-  .swiper-slide figure img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    .swiper-text-nav__btn {
+      background: none;
+      border: none;
+      padding: 0;
+
+      text-align: left;
+      font: inherit;
+      color: inherit;
+
+      opacity: 0.6;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.9;
+      }
+
+      &.is-active {
+        opacity: 1;
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+    }
+
+    /* make swiper track live in right column */
+    .swiper-wrapper {
+      grid-column: 2;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      > .wp-block-columns {
+        height: 100%;
+        align-items: stretch;
+
+        > .wp-block-column {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      .wp-block-image,
+      figure {
+        flex: 1;
+        height: 100%;
+        margin: 0 !important;
+        display: flex;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+      }
+    }
   }
 }
 
-/* Editor override */
-.editor-styles-wrapper .wp-block-abtion-block-library-slider.is-vertical {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 2rem;
+/* ------------------------------ */
+/* Editor-only overrides           */
+/* ------------------------------ */
+.editor-styles-wrapper {
+  .wp-block-abtion-block-library-slider {
+    &.is-marquee {
+      .wp-block-abtion-block-library-slider-slides,
+      .block-editor-inner-blocks > .block-editor-block-list__layout {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 1rem;
+        overflow-x: auto;
+      }
 
-  .swiper-slide .wp-block-image,
-  .swiper-slide figure {
-    flex: initial !important;
-    height: auto !important;
-    display: block !important;
-  }
+      .wp-block-abtion-block-library-slider-slide {
+        width: auto !important;
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-  .swiper-slide .wp-block-image img,
-  .swiper-slide figure img {
-    height: auto !important;
-    width: 100% !important;
-    object-fit: contain; /* nicer preview */
+      figure,
+      .wp-block-image {
+        width: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
+      }
+
+      img,
+      svg {
+        height: 32px !important;
+        width: auto !important;
+        max-height: 32px !important;
+        max-width: none !important;
+        object-fit: contain;
+        display: block;
+      }
+
+      @media (max-width: 781px) {
+        img,
+        svg {
+          height: 24px !important;
+          max-height: 24px !important;
+        }
+      }
+    }
+
+    &.is-vertical {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2rem;
+
+      .swiper-slide {
+        .wp-block-image,
+        figure {
+          flex: initial !important;
+          height: auto !important;
+          display: block !important;
+
+          img {
+            height: auto !important;
+            width: 100% !important;
+            object-fit: contain;
+          }
+        }
+      }
+    }
   }
 }
