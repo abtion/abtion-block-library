@@ -24,6 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 define( 'ABTION_BLOCK_LIBRARY_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ABTION_BLOCK_LIBRARY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'ABTION_BLOCK_LIBRARY_VERSION', '1.7.1' );
 
 /**
  * Registers multiple block types from metadata loaded from a file.
@@ -93,7 +94,19 @@ add_action( 'wp_enqueue_scripts', 'abtion_block_library_register_trustpilot_scri
 add_action(
 	'wp_enqueue_scripts',
 	function () {
-		wp_register_style( 'swiper', ABTION_BLOCK_LIBRARY_PLUGIN_URL . 'assets/vendor/swiper/swiper-bundle.min.css', [], null );
-		wp_register_script( 'swiper', ABTION_BLOCK_LIBRARY_PLUGIN_URL . 'assets/vendor/swiper/swiper-bundle.min.js', [], null, true );
+		wp_register_style(
+			'swiper',
+			ABTION_BLOCK_LIBRARY_PLUGIN_URL . 'assets/vendor/swiper/swiper-bundle.min.css',
+			[],
+			ABTION_BLOCK_LIBRARY_VERSION
+		);
+
+		wp_register_script(
+			'swiper',
+			ABTION_BLOCK_LIBRARY_PLUGIN_URL . 'assets/vendor/swiper/swiper-bundle.min.js',
+			[],
+			ABTION_BLOCK_LIBRARY_VERSION,
+			true
+		);
 	}
 );

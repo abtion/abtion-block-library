@@ -13,36 +13,45 @@
  */
 
 	$behavior = $attributes['behavior'] ?? 'normal';
-	$classes = 'swiper is-' . $behavior;
+	$classes  = 'swiper is-' . $behavior;
 
 ?>
 
 <div
-	<?php echo get_block_wrapper_attributes( [ 'class' => $classes ] ); ?>
+	<?php
+	// get_block_wrapper_attributes() returns a string of safe, escaped HTML attributes.
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo get_block_wrapper_attributes( [ 'class' => $classes ] );
+	?>
 		data-wp-interactive="abtion-block-library"
 		data-wp-init--setup="callbacks.setup"
 	<?php
+		// wp_interactivity_data_wp_context() returns safe, JSON-encoded/escaped interactivity context attributes.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo wp_interactivity_data_wp_context(
 			[
 				'slidesPerViewDesktop' => $attributes['slidesPerViewDesktop'] ?? 2.5,
-				'slidesPerViewMobile' => $attributes['slidesPerViewMobile'] ?? 1.5,
-				'behavior'      => $behavior,
+				'slidesPerViewMobile'  => $attributes['slidesPerViewMobile'] ?? 1.5,
+				'behavior'             => $behavior,
 			]
 		);
 		?>
 	
 >
 	<div class="swiper-wrapper wp-block-abtion-block-library-slider-slides">
-		<?php echo $content; ?>
+		<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $content;
+		?>
 	</div>
 
 	<?php if ( $behavior === 'vertical' ) : ?>
-    <!-- JS will populate this -->
-    <ul
-      class="swiper-text-nav"
-      aria-label="<?php esc_attr_e( 'Slider navigation', 'abtion-block-library' ); ?>"
-    ></ul>
-  <?php else : ?>
+	<!-- JS will populate this -->
+	<ul
+		class="swiper-text-nav"
+		aria-label="<?php esc_attr_e( 'Slider navigation', 'abtion-block-library' ); ?>"
+	></ul>
+	<?php elseif ( $behavior === 'normal' ) : ?>
 		<div class="swiper-controls">
 			<div class="swiper-scrollbar"></div>
 

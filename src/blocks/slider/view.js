@@ -124,19 +124,17 @@ const buildVerticalOptions = (ref, baseOptions, ctx) => {
       return text || `Slide ${i + 1}`;
     });
 
-    navRoot.innerHTML = labels
-      .map(
-        (label, i) => `
-          <li>
-            <button
-              type="button"
-              class="swiper-text-nav__btn"
-              data-slide-index="${i}"
-            >${label}</button>
-          </li>
-        `
-      )
-      .join('');
+    navRoot.innerHTML = '';
+    labels.forEach((label, i) => {
+      const li = document.createElement('li');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'swiper-text-nav__btn';
+      btn.dataset.slideIndex = i;
+      btn.textContent = label;
+      li.appendChild(btn);
+      navRoot.appendChild(li);
+    });
 
     const buttons = Array.from(
       navRoot.querySelectorAll('.swiper-text-nav__btn')
@@ -210,13 +208,12 @@ store('abtion-block-library', {
       cleanupExistingSwiper(ref);
 
       const { behavior = 'normal', slidesPerViewDesktop = 2.5 } = ctx;
-      const isMarquee = behavior === 'marquee';
 
       const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
         slidesPerView: slidesPerViewDesktop,
-        loop: !isMarquee,
+        loop: behavior === 'normal' || behavior === 'vertical',
       };
 
       const builder = BEHAVIORS[behavior] || BEHAVIORS.normal;
