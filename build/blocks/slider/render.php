@@ -48,7 +48,7 @@
 	<?php if ( $behavior === 'vertical' ) : ?>
 	<!-- JS will populate this -->
 	<ul
-		class="swiper-text-nav"
+		class="swiper-text-nav swiper-no-swiping"
 		aria-label="<?php esc_attr_e( 'Slider navigation', 'abtion-block-library' ); ?>"
 	></ul>
 	<?php elseif ( $behavior === 'normal' ) : ?>
