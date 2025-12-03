@@ -162,13 +162,12 @@ const buildVerticalOptions = (ref, baseOptions, ctx) => {
   return {
     ...baseOptions,
     direction: 'vertical',
-    slidesPerView: slidesPerViewDesktop,
+    slidesPerView: 'auto',
     slidesPerGroup: 1,
     watchOverflow: false,
     spaceBetween: 32,
 
     centeredSlides: false,
-    centeredSlidesBounds: true,
     initialSlide: 0,
 
     mousewheel: {
@@ -177,10 +176,6 @@ const buildVerticalOptions = (ref, baseOptions, ctx) => {
       thresholdDelta: 20,
       thresholdTime: 200,
       releaseOnEdges: true,
-    },
-    breakpoints: {
-      0: { slidesPerView: slidesPerViewMobile },
-      782: { slidesPerView: slidesPerViewDesktop },
     },
     on: {
       init(swiper) {
@@ -207,12 +202,11 @@ store('abtion-block-library', {
 
       cleanupExistingSwiper(ref);
 
-      const { behavior = 'normal', slidesPerViewDesktop = 2.5 } = ctx;
+      const { behavior = 'normal' } = ctx;
 
       const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
-        slidesPerView: slidesPerViewDesktop,
         loop: behavior === 'normal',
       };
 

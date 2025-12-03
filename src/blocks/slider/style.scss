@@ -135,8 +135,7 @@
   /* Vertical behavior              */
   /* ------------------------------ */
   &.is-vertical {
-    height: 530px;
-    max-height: 530px;
+    height: 610px;
     overflow: hidden;
     position: relative;
 
@@ -158,14 +157,12 @@
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
-      align-self: start;
     }
 
     .swiper-text-nav__btn {
       background: none;
       border: none;
       padding: 0;
-
       text-align: left;
       font: inherit;
       color: inherit;
@@ -192,11 +189,24 @@
     }
 
     .swiper-slide {
-      > .wp-block-columns {
+      max-width: 850px;
+      width: 100%;
+      margin-inline: auto;
+      height: 530px !important;
+      display: flex;
+      align-items: stretch;
+
+      > * {
+        height: 100%;
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+
+      .wp-block-columns {
         height: 100%;
         align-items: stretch;
 
-        > .wp-block-column {
+        .wp-block-column {
           height: 100%;
           display: flex;
           flex-direction: column;
@@ -205,7 +215,11 @@
 
       .wp-block-image,
       figure {
-        flex: 1;
+        flex: 0 0 auto;
+        width: clamp(350px, 30vw, 400px);
+        max-width: 400px;
+        min-width: 350px;
+
         height: 100%;
         margin: 0 !important;
         display: flex;
@@ -271,11 +285,16 @@
     }
 
     &.is-vertical {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 2rem;
+      // display: grid;
+      // grid-template-columns: 220px 1fr;
+      // gap: 2rem; height: auto !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
 
       .swiper-slide {
+        width: 700px;
+
         .wp-block-image,
         figure {
           flex: initial !important;
