@@ -206,9 +206,8 @@
 
       &.is-active {
         opacity: 1;
-        font-weight: 600;
-        text-decoration: underline;
-        text-underline-offset: 4px;
+        border-left: 2px solid #0059a2;
+        padding-left: 0.5rem;
       }
     }
 
