@@ -91,3 +91,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Delete
 
 - Remove slide number controls from vertical slider
+
+## [1.7.7] - 2025-12-04
+
+### Fix
+
+- Fix mobile navigation for the vertical slider
