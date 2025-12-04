@@ -79,3 +79,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 - Update styles for vertical slider
 - Add border control to multi switch panel navigation
+
+## [1.7.5] - 2025-12-04
+
+### Fixed
+
+- Update styles for vertical and horizontal slider
