@@ -3,7 +3,7 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 function Save() {
   const blockProps = useBlockProps.save({
     'data-wp-interactive': 'abtion-block-library',
-    'data-wp-init--setup': 'callbacks.setup',
+    'data-wp-init---setup': 'callbacks.setup',
   });
 
   return (
