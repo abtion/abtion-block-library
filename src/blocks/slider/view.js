@@ -65,7 +65,6 @@ const buildMarqueeOptions = (ref, baseOptions) => {
     },
     on: {
       init(swiper) {
-        // If Swiper is globally in RTL, compensate so marquee still goes LTR visually
         if (swiper.rtlTranslate) {
           swiper.params.autoplay.reverseDirection = true;
           swiper.autoplay.stop();
@@ -162,14 +161,14 @@ const buildVerticalOptions = (ref, baseOptions, ctx) => {
   return {
     ...baseOptions,
     direction: 'vertical',
-    slidesPerView: slidesPerViewDesktop,
+    slidesPerView: 'auto',
     slidesPerGroup: 1,
     watchOverflow: false,
     spaceBetween: 32,
 
     centeredSlides: false,
-    centeredSlidesBounds: true,
     initialSlide: 0,
+    slidesOffsetAfter: 80,
 
     mousewheel: {
       forceToAxis: true,
@@ -178,12 +177,44 @@ const buildVerticalOptions = (ref, baseOptions, ctx) => {
       thresholdTime: 200,
       releaseOnEdges: true,
     },
+
     breakpoints: {
-      0: { slidesPerView: slidesPerViewMobile },
-      782: { slidesPerView: slidesPerViewDesktop },
+      0: {
+        direction: 'horizontal',
+        slidesPerView: 1,
+        mousewheel: false,
+
+        spaceBetween: 0,
+        slidesOffsetBefore: 0,
+        slidesOffsetAfter: 0,
+
+        centeredSlides: false,
+        centeredSlidesBounds: true,
+
+        autoHeight: true,
+        noSwiping: true,
+        noSwipingClass: 'swiper-no-swiping',
+      },
+      1024: {
+        direction: 'vertical',
+        slidesPerView: 'auto',
+        spaceBetween: 32,
+        mousewheel: {
+          forceToAxis: true,
+          sensitivity: 0.5,
+          thresholdDelta: 20,
+          thresholdTime: 200,
+          releaseOnEdges: true,
+        },
+      },
     },
+
     on: {
       init(swiper) {
+        buildTextNav(swiper);
+      },
+      breakpoint(swiper) {
+        // if your text nav depends on real slides, rebuild on direction swap
         buildTextNav(swiper);
       },
     },
@@ -207,12 +238,11 @@ store('abtion-block-library', {
 
       cleanupExistingSwiper(ref);
 
-      const { behavior = 'normal', slidesPerViewDesktop = 2.5 } = ctx;
+      const { behavior = 'normal' } = ctx;
 
       const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
-        slidesPerView: slidesPerViewDesktop,
         loop: behavior === 'normal',
       };
 
