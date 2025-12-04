@@ -119,8 +119,8 @@
     border: 1px solid #f0f0f0;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.06);
-      transform: translateY(-1px);
+      background: #0059a2;
+      color: white;
     }
   }
 
@@ -167,16 +167,19 @@
         grid-column: 1 / -1;
         flex-direction: row;
         flex-wrap: nowrap;
-        overflow-x: scroll;
-        overflow-y: hidden;
         z-index: 10;
-        background-color: white;
-        -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
-        width: clamp(280px, 30vw, 400px);
-        padding-block: 1rem;
+        padding-top: 1rem;
+        overflow-x: scroll;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
 
-        > li {
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        li {
+          margin: 0;
           flex: 0 0 auto;
         }
       }

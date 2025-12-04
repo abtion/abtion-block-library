@@ -91,12 +91,10 @@ const buildNormalOptions = (ref, baseOptions, ctx) => {
     breakpoints: {
       0: {
         slidesPerView: slidesPerViewMobile,
-        slidesPerGroup: 1,
         spaceBetween: 16,
       },
       782: {
         slidesPerView: slidesPerViewDesktop,
-        slidesPerGroup: 1,
         spaceBetween: 24,
       },
     },
@@ -113,6 +111,24 @@ const buildVerticalOptions = (ref, baseOptions) => {
   const buildTextNav = swiper => {
     const navRoot = q(ref, '.swiper-text-nav');
     if (!navRoot) return;
+
+    const scrollTabIntoView = (navRoot, li) => {
+      if (!navRoot || !li) return;
+
+      const navRect = navRoot.getBoundingClientRect();
+      const liRect = li.getBoundingClientRect();
+
+      const current = navRoot.scrollLeft;
+
+      const liLeftInNav = liRect.left - navRect.left + current;
+
+      let target = liLeftInNav - (navRoot.clientWidth / 2 - li.clientWidth / 2);
+
+      const max = navRoot.scrollWidth - navRoot.clientWidth;
+      target = Math.max(0, Math.min(target, max));
+
+      navRoot.scrollTo({ left: target, behavior: 'smooth' });
+    };
 
     const realSlides = Array.from(
       swiper.el.querySelectorAll('.swiper-slide')
@@ -132,6 +148,10 @@ const buildVerticalOptions = (ref, baseOptions) => {
       btn.dataset.slideIndex = i;
       btn.textContent = label;
       li.appendChild(btn);
+      btn.addEventListener('click', () => {
+        scrollTabIntoView(navRoot, li);
+        swiper.slideToLoop(i);
+      });
       navRoot.appendChild(li);
     });
 
@@ -165,10 +185,10 @@ const buildVerticalOptions = (ref, baseOptions) => {
     slidesPerGroup: 1,
     watchOverflow: false,
     spaceBetween: 32,
-
-    centeredSlides: false,
-    initialSlide: 0,
     slidesOffsetAfter: 80,
+
+    noSwiping: true,
+    noSwipingClass: 'swiper-no-swiping',
 
     mousewheel: {
       forceToAxis: true,
@@ -181,31 +201,14 @@ const buildVerticalOptions = (ref, baseOptions) => {
     breakpoints: {
       0: {
         direction: 'horizontal',
-        slidesPerView: 1,
         mousewheel: false,
-
         spaceBetween: 0,
-        slidesOffsetBefore: 0,
         slidesOffsetAfter: 0,
-
-        centeredSlides: false,
         centeredSlidesBounds: true,
-
         autoHeight: true,
-        noSwiping: true,
-        noSwipingClass: 'swiper-no-swiping',
       },
       1024: {
         direction: 'vertical',
-        slidesPerView: 'auto',
-        spaceBetween: 32,
-        mousewheel: {
-          forceToAxis: true,
-          sensitivity: 0.5,
-          thresholdDelta: 20,
-          thresholdTime: 200,
-          releaseOnEdges: true,
-        },
       },
     },
 
