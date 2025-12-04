@@ -92,17 +92,18 @@ const buildNormalOptions = (ref, baseOptions, ctx) => {
       0: {
         slidesPerView: slidesPerViewMobile,
         slidesPerGroup: 1,
+        spaceBetween: 16,
       },
       782: {
         slidesPerView: slidesPerViewDesktop,
         slidesPerGroup: 1,
+        spaceBetween: 24,
       },
     },
   };
 };
 
 const buildVerticalOptions = (ref, baseOptions, ctx) => {
-  const { slidesPerViewDesktop = 1.25, slidesPerViewMobile = 1.25 } = ctx;
 
   const getHeadingTextFromSlide = slideEl => {
     if (!slideEl) return '';

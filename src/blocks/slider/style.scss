@@ -5,20 +5,6 @@
 
   position: relative;
 
-  /* Shared track layout for normal + marquee */
-  &.is-normal,
-  &.is-marquee {
-    .wp-block-abtion-block-library-slider-slides.swiper-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 3rem;
-
-      @media (max-width: 781px) {
-        gap: 1.5rem;
-      }
-    }
-  }
-
   /* ------------------------------ */
   /* ONLY MARQUEE STYLES            */
   /* ------------------------------ */
@@ -33,6 +19,13 @@
 
     .swiper-wrapper {
       transition-timing-function: linear !important;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+
+      @media (max-width: 781px) {
+        gap: 1.5rem;
+      }
     }
 
     /* slides (both Swiper + Gutenberg class) */
