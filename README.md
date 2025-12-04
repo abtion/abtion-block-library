@@ -46,11 +46,13 @@ After updating the library, we need to build the new files with ```npm run build
 
 2. Update the plugin version in `abtion-block-library.php`.
 
-3. Update changelog file `CHANGELOG.md` with relevant information.
+3. Update the plugin version in `package.json`.
 
-4. Push the changes.
+4. Update changelog file `CHANGELOG.md` with relevant information.
 
-5. Tag new version in github: In the root of abtion block library run this command:
+5. Push the changes.
+
+6. Tag new version in github: In the root of abtion block library run this command:
 
 ```bash
 git tag v1.1.0
@@ -58,7 +60,7 @@ git tag v1.1.0
 
 Replace the version in the command above with the actual updated version from `abtion-block-library.php` file.
 
-6. Commit the updated file and push it by running the following:
+7. Commit the updated file and push it by running the following:
 
 ```bash
 git push origin v1.1.0
