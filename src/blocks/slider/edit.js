@@ -64,31 +64,6 @@ function Edit({ attributes, setAttributes }) {
               />
             </>
           )}
-
-          {behavior === 'vertical' && (
-            <>
-              <TextControl
-                label={__('Slides per view (Desktop)', 'abtion-block-library')}
-                type="number"
-                value={slidesPerViewDesktop}
-                onChange={value =>
-                  setAttributes({ slidesPerViewDesktop: Number(value) || 1 })
-                }
-                __next40pxDefaultSize
-                __nextHasNoMarginBottom
-              />
-              <TextControl
-                label={__('Slides per view (Mobile)', 'abtion-block-library')}
-                type="number"
-                value={slidesPerViewMobile}
-                onChange={value =>
-                  setAttributes({ slidesPerViewMobile: Number(value) || 1 })
-                }
-                __next40pxDefaultSize
-                __nextHasNoMarginBottom
-              />
-            </>
-          )}
         </PanelBody>
       </InspectorControls>
     </div>
