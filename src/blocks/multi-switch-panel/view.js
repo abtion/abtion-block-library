@@ -58,6 +58,7 @@ store('abtion-block-library', {
     setup() {
       const { ref } = getElement();
 
+      // Flag the first navigation item as active.
       const firstNavItem = ref.querySelector(
         '.wp-block-abtion-block-library-multi-switch-panel-navigation-item'
       );
@@ -66,7 +67,28 @@ store('abtion-block-library', {
         return;
       }
 
-      firstNavItem.click();
+      firstNavItem.classList.add(
+        'wp-block-abtion-block-library-multi-switch-panel-navigation-item--active'
+      );
+
+      // Flag the first panel section item of every section as active.
+      const panelSections = ref.querySelectorAll(
+        '.wp-block-abtion-block-library-multi-switch-panel-section'
+      );
+
+      panelSections.forEach(section => {
+        const firstPanelSection = section.querySelector(
+          '.wp-block-abtion-block-library-multi-switch-panel-section-item'
+        );
+
+        if (!firstPanelSection) {
+          return;
+        }
+
+        firstPanelSection.classList.add(
+          'wp-block-abtion-block-library-multi-switch-panel-section-item--active'
+        );
+      });
     },
   },
 });
