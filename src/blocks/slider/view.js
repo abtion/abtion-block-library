@@ -230,7 +230,7 @@ const BEHAVIORS = {
   vertical: buildVerticalOptions,
 };
 
-store('abtion-block-library', {
+store('abtion-slider', {
   callbacks: {
     setup() {
       const { ref } = getElement();
