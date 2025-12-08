@@ -24,7 +24,7 @@
 	echo get_block_wrapper_attributes( [ 'class' => $classes ] );
 	?>
 		data-wp-interactive="abtion-block-library"
-		data-wp-init---setup="callbacks.setup"
+		data-wp-init--setup="callbacks.setup"
 	<?php
 		// wp_interactivity_data_wp_context() returns safe, JSON-encoded/escaped interactivity context attributes.
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
