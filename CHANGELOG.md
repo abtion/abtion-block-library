@@ -109,3 +109,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Fix
 
 - Remove the triple hyphen from data-wp-init---setup
+
+## [1.8.0] - 2025-12-08
+
+### Fix
+
+- Rename the store namespace for slider block
