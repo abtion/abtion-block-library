@@ -115,3 +115,14 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Fix
 
 - Rename the store namespace for slider block
+
+## [1.8.1] - 2025-12-14
+
+### Fix
+
+- Use regular toggle class instead of click() to fix auto-scroll
+- Change Interactivity API namespace to be unique across blocks
+
+### Added
+
+- Improved README.md documentation
