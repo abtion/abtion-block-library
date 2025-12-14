@@ -23,7 +23,7 @@
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo get_block_wrapper_attributes( [ 'class' => $classes ] );
 	?>
-		data-wp-interactive="abtion-slider"
+		data-wp-interactive="abtion-block-library/slider"
 		data-wp-init--setup="callbacks.setup"
 	<?php
 		// wp_interactivity_data_wp_context() returns safe, JSON-encoded/escaped interactivity context attributes.

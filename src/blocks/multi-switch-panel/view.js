@@ -3,7 +3,7 @@
  */
 import { store, getElement } from '@wordpress/interactivity';
 
-store('abtion-block-library', {
+store('abtion-block-library/multi-switch-panel', {
   actions: {
     switch() {
       const { ref } = getElement();

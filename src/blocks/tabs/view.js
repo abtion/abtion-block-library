@@ -3,7 +3,7 @@
  */
 import { store, getContext, getElement } from '@wordpress/interactivity';
 
-store('abtion-block-library', {
+store('abtion-block-library/tabs', {
   actions: {
     open() {
       const context = getContext();

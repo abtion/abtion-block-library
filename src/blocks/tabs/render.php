@@ -29,7 +29,7 @@ foreach ( $block->parsed_block['innerBlocks'] as $innerblockkey => $innerblock )
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo get_block_wrapper_attributes();
 	?>
-	data-wp-interactive="abtion-block-library"
+	data-wp-interactive="abtion-block-library/tabs"
 	<?php
 	// wp_interactivity_data_wp_context() returns safe, JSON-encoded/escaped interactivity context attributes.
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

@@ -19,7 +19,7 @@
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo get_block_wrapper_attributes();
 	?>
-	data-wp-interactive="abtion-block-library"
+	data-wp-interactive="abtion-block-library/tabs"
 >
 	<div class="wp-block-abtion-block-library-tab__content">
 		<?php
