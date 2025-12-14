@@ -16,6 +16,14 @@ The Accordion block enables you to create collapsible content sections. Each sec
 
 The Trustpilot block allows you to display Trustpilot reviews directly on your website. You can customize the appearance of the reviews and choose how many reviews to show.
 
+### Slider
+
+The Slider block supports multiple slider types like normal slider, continuous marquee slider and vertical slider. You can add blocks as slides and and customize settings like number of slides per view.
+
+### Multi Switch Panel
+
+The Multi Switch Panel block allows you to create a panel with multiple switchable sections. Each section can contain different content, and users can switch between them using tabs or buttons.
+
 ## Development
 
 To start with development, clone the repository and set up a local WordPress environment. Then, follow these steps:
@@ -38,32 +46,72 @@ npm install
 npm start
 ```
 
-## Publishing new version
+## Publishing a new version
 
-After updating the library, we need to build the new files with ```npm run build```. Then we need to bump the version and github tag the new version. This will ensure that package managers like composer that are being used on other projects will always pull the latest version of the library. To do that:
+After making changes to the library, you must build the updated assets and publish a new version so downstream projects (for example those installing via Composer) can pull the latest release.
 
-1. Make the changes and run ```npm run build``` to ensure the changes are saved in the build folder.
+Follow these steps:
 
-2. Update the plugin version in `abtion-block-library.php`.
+1. Make your changes and run the build to generate updated assets:
 
-3. Update the plugin version in `package.json`.
+   ```bash
+   npm run build
+   ```
 
-4. Update changelog file `CHANGELOG.md` with relevant information.
+   Ensure the `build/` folder contains the latest output.
 
-5. Push the changes.
+2. Bump the plugin version in `abtion-block-library.php`.
 
-6. Tag new version in github: In the root of abtion block library run this command:
+3. Update the same version number in `package.json`.
 
-```bash
-git tag v1.1.0
+4. Add an entry to `CHANGELOG.md` describing the changes.
+
+5. Commit and push your changes to the repository.
+
+6. Create a Git tag for the new version (run from the repository root):
+
+   ```bash
+   git tag v1.1.0
+   ```
+
+   Replace `v1.1.0` with the version you set in `abtion-block-library.php`.
+
+7. Push the tag to GitHub:
+
+   ```bash
+   git push origin v1.1.0
+   ```
+
+Once the tag is pushed, package managers such as Composer will be able to resolve and install the new version.
+
+### Versioning rules
+
+This project follows semantic versioning in the format:
+
+```
+MAJOR.MINOR.PATCH
 ```
 
-Replace the version in the command above with the actual updated version from `abtion-block-library.php` file.
+Use the following guidelines when bumping the version:
 
-7. Commit the updated file and push it by running the following:
+- **PATCH** (`1.1.0 → 1.1.1`)  
+  Bug fixes, internal refactors, build changes, or documentation updates that do not affect public APIs or block behavior.
 
-```bash
-git push origin v1.1.0
-```
+- **MINOR** (`1.1.0 → 1.2.0`)  
+  New blocks, new features, new block attributes, or backward-compatible improvements to existing blocks.
 
+- **MAJOR** (`1.x.x → 2.0.0`)  
+  Breaking changes such as:
+  - removing or renaming blocks
+  - changing block markup or attributes in a non-backward-compatible way
+  - removing public APIs or expected behaviors
 
+Always ensure that:
+
+- the version in `abtion-block-library.php`
+- the version in `package.json`
+- the Git tag
+
+all match exactly.
+
+Update `CHANGELOG.md` for every release, even if the change is small.
