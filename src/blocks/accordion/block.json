@@ -3,7 +3,7 @@
     "apiVersion": 3,
     "name": "abtion-block-library/accordion",
     "version": "1.0.0",
-    "title": "Accordion",
+    "title": "Abtion Accordion",
     "category": "abtion-blocks",
     "icon": "media-interactive",
     "description": "Display content in expandable accordion sections.",
