@@ -126,3 +126,10 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Added
 
 - Improved README.md documentation
+
+## [1.8.2] - 2026-01-06
+
+### Fix
+
+- Change the title of accordion block to differentiate it from the native wp accordion block
+
