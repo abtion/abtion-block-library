@@ -7,6 +7,44 @@ import { compose } from '@wordpress/compose';
 import { createBlock, cloneBlock } from '@wordpress/blocks';
 import { useEffect } from '@wordpress/element';
 
+const FIRST_NAV_ID = 'initial-tab-1';
+
+const MY_TEMPLATE = [
+  [
+    'abtion-block-library/multi-switch-panel-navigation',
+    {},
+    [
+      [
+        'abtion-block-library/multi-switch-panel-navigation-item',
+        { id: FIRST_NAV_ID },
+        [['core/paragraph', { placeholder: 'First Tab' }]],
+      ],
+    ],
+  ],
+  [
+    'abtion-block-library/multi-switch-panel-section',
+    {},
+    [
+      [
+        'abtion-block-library/multi-switch-panel-section-item',
+        { navigationItemId: FIRST_NAV_ID },
+        [['core/paragraph', { placeholder: 'First Section Item' }]],
+      ],
+    ],
+  ],
+  [
+    'abtion-block-library/multi-switch-panel-section',
+    {},
+    [
+      [
+        'abtion-block-library/multi-switch-panel-section-item',
+        { navigationItemId: FIRST_NAV_ID },
+        [['core/paragraph', { placeholder: 'Second Section Item' }]],
+      ],
+    ],
+  ],
+];
+
 /**
  * Helper function to flatten all descendant blocks
  *
@@ -34,12 +72,22 @@ function flattenAllDescendants(blocks) {
 }
 
 /**
- * Generate a reasonably unique id for a nav item.
+ * Generate a unique navigation item id.
+ *
+ * Uses crypto.randomUUID() when available.
+ * Falls back to a timestamp + random string for older environments.
+ *
+ * @returns {string}
  */
 function generateNavId() {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+
+  // Fallback: sufficiently unique for editor-only usage
   return `nav-${Date.now().toString(36)}-${Math.random()
     .toString(36)
-    .slice(2, 8)}`;
+    .slice(2, 10)}`;
 }
 
 /**
@@ -307,41 +355,3 @@ export default compose([
       dispatch('core/block-editor').selectBlock(clientId),
   })),
 ])(Edit);
-
-const FIRST_NAV_ID = 'initial-tab-1';
-
-const MY_TEMPLATE = [
-  [
-    'abtion-block-library/multi-switch-panel-navigation',
-    {},
-    [
-      [
-        'abtion-block-library/multi-switch-panel-navigation-item',
-        { id: FIRST_NAV_ID },
-        [['core/paragraph', { placeholder: 'First Tab' }]],
-      ],
-    ],
-  ],
-  [
-    'abtion-block-library/multi-switch-panel-section',
-    {},
-    [
-      [
-        'abtion-block-library/multi-switch-panel-section-item',
-        { navigationItemId: FIRST_NAV_ID },
-        [['core/paragraph', { placeholder: 'First Section Item' }]],
-      ],
-    ],
-  ],
-  [
-    'abtion-block-library/multi-switch-panel-section',
-    {},
-    [
-      [
-        'abtion-block-library/multi-switch-panel-section-item',
-        { navigationItemId: FIRST_NAV_ID },
-        [['core/paragraph', { placeholder: 'Second Section Item' }]],
-      ],
-    ],
-  ],
-];
