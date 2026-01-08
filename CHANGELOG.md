@@ -133,7 +133,7 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 - Change the title of accordion block to differentiate it from the native wp accordion block
 
-## [1.8.3] - 2026-01-06
+## [1.8.3] - 2026-01-08
 
 ### Fix Multi Switch Panel
 
