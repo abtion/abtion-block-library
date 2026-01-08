@@ -3,7 +3,7 @@
     "apiVersion": 3,
     "name": "abtion-block-library/multi-switch-panel-navigation",
     "version": "1.0.0",
-    "title": "Multi Switch Navigation",
+    "title": "Navigation",
     "category": "abtion-blocks",
     "ancestor": [
         "abtion-block-library/multi-switch-panel"

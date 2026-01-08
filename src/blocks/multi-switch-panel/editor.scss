@@ -1,0 +1,19 @@
+$multi-switch-panel-active-bg: #fdebd5;
+$multi-switch-panel-active-color: black;
+
+.editor-styles-wrapper,
+.wp-site-blocks {
+  .wp-block-abtion-block-library-multi-switch-panel {
+    .wp-block-abtion-block-library-multi-switch-panel-navigation {
+      .wp-block-abtion-block-library-multi-switch-panel-navigation-item {
+        img {
+          opacity: 1;
+        }
+      }
+      .wp-block-abtion-block-library-multi-switch-panel-navigation-item--active {
+        background-color: $multi-switch-panel-active-bg;
+        color: $multi-switch-panel-active-color;
+      }
+    }
+  }
+}
