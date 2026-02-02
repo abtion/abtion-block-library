@@ -1,14 +1,1 @@
-/*!******************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/blocks/multi-switch-panel/editor.scss ***!
-  \******************************************************************************************************************************************************************************************************************************************************************/
-.editor-styles-wrapper .wp-block-abtion-block-library-multi-switch-panel .wp-block-abtion-block-library-multi-switch-panel-navigation .wp-block-abtion-block-library-multi-switch-panel-navigation-item img,
-.wp-site-blocks .wp-block-abtion-block-library-multi-switch-panel .wp-block-abtion-block-library-multi-switch-panel-navigation .wp-block-abtion-block-library-multi-switch-panel-navigation-item img {
-  opacity: 1;
-}
-.editor-styles-wrapper .wp-block-abtion-block-library-multi-switch-panel .wp-block-abtion-block-library-multi-switch-panel-navigation .wp-block-abtion-block-library-multi-switch-panel-navigation-item--active,
-.wp-site-blocks .wp-block-abtion-block-library-multi-switch-panel .wp-block-abtion-block-library-multi-switch-panel-navigation .wp-block-abtion-block-library-multi-switch-panel-navigation-item--active {
-  background-color: #fdebd5;
-  color: black;
-}
-
-/*# sourceMappingURL=index.css.map*/
+.editor-styles-wrapper .wp-block-abtion-block-library-multi-switch-panel .wp-block-abtion-block-library-multi-switch-panel-navigation .wp-block-abtion-block-library-multi-switch-panel-navigation-item img,.wp-site-blocks .wp-block-abtion-block-library-multi-switch-panel .wp-block-abtion-block-library-multi-switch-panel-navigation .wp-block-abtion-block-library-multi-switch-panel-navigation-item img{opacity:1}.editor-styles-wrapper .wp-block-abtion-block-library-multi-switch-panel .wp-block-abtion-block-library-multi-switch-panel-navigation .wp-block-abtion-block-library-multi-switch-panel-navigation-item--active,.wp-site-blocks .wp-block-abtion-block-library-multi-switch-panel .wp-block-abtion-block-library-multi-switch-panel-navigation .wp-block-abtion-block-library-multi-switch-panel-navigation-item--active{background-color:#fdebd5;color:#000}

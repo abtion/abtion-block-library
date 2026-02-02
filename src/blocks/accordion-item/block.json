@@ -36,7 +36,10 @@
             "default": "h5"
         },
         "uuid": {
-            "type": "string"
+            "type": "string",
+            "source": "attribute",
+            "selector": "accordion-item",
+            "attribute": "data-uuid"
         }
     },
     "supports": {
