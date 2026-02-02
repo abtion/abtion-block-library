@@ -26,7 +26,8 @@ class AccordionItem extends HTMLElement {
     this.onkeydown = this.onkeydown.bind(this);
 
     this.isOpen = false;
-    this.uuid = parseInt(this.dataset.uuid, 10);
+    this.uuid = this.dataset.uuid;
+    if (!this.uuid) return;
     this.classList.remove('no-js');
 
     // Get ancestors and siblings
@@ -34,8 +35,9 @@ class AccordionItem extends HTMLElement {
     this.siblings = this.getSiblings();
 
     // Save children elements
-    this.controller = this.querySelector(':scope > #at-' + this.uuid);
-    this.content = this.querySelector(':scope > #ac-' + this.uuid);
+    this.controller = this.querySelector(`:scope > #at-${this.uuid}`);
+    this.content = this.querySelector(`:scope > #ac-${this.uuid}`);
+    if (!this.controller || !this.content) return;
 
     // Add Listeners
     this.controller.addEventListener('click', this.toggle);
@@ -43,7 +45,7 @@ class AccordionItem extends HTMLElement {
 
     // Set basic attributes
     this.controller.setAttribute('tabindex', 0);
-    this.controller.setAttribute('aria-controls', '#ac-' + this.uuid);
+    this.controller.setAttribute('aria-controls', 'ac-' + this.uuid);
 
     // Get the config from the dataset
     this.getConfig();
@@ -122,7 +124,7 @@ class AccordionItem extends HTMLElement {
    * @returns Boolean
    */
   isInHash() {
-    return parseInt(location.hash.replace('#', ''), 10) === this.uuid;
+     return location.hash.replace('#', '') === this.uuid;
   }
 
   /**
@@ -286,7 +288,7 @@ if (typeof customElements !== 'undefined') {
     'hashchange',
     () => {
       const hash = location.hash.replace('#', '');
-      const match = document.querySelector(`[data-uuid="${hash}"]`);
+      const match = document.querySelector(`[data-uuid="${CSS.escape(hash)}"]`);
 
       if (match && match instanceof AccordionItem) {
         match.open();

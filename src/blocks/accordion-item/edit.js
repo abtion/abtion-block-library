@@ -8,7 +8,6 @@ import classNames from 'classnames';
  */
 import { __ } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
-import { useInstanceId } from '@wordpress/compose';
 import { useSelect } from '@wordpress/data';
 import {
   BlockControls,
@@ -42,29 +41,18 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
   } = attributes;
 
   /**
-   * UUID is generated as a combination of the post ID and this block's
-   * instance ID.
+   * We store a stable per-block UUID in attributes.
    *
-   * This ensures the UUID is unique not just in this post, but across all
-   * posts. This is necessary since accordions from multiple posts may be
-   * displayed on the same page (e.g. an archive page that shows the full post
-   * content). See issue #31.
+   * - It must be stable so block serialization/validation works across machines
+   *   and after editor reloads (especially when inserting patterns).
+   * - We use the block's clientId as the initial UUID when missing.
    *
-   * We use instanceId so a new UUID is generated even if the accordion item
-   * is duplicated. See issue #47.
-   *
-   * TODO: The one downside to this approach is that sometimes accordion
-   * items' UUIDs change when the editor is reloaded. For example, if the user
-   * removes a block and saves the page, when the editor loads again, it will
-   * assign new instanceIds to each block.
+   * If we ever need guaranteed uniqueness across multiple posts rendered on the
+   * same page (e.g. archives), IDs should be namespaced at render time (dynamic
+   * block) rather than regenerated in the editor.
    */
-  const instanceId = useInstanceId(Edit);
 
-  const entityId = useSelect(select => {
-    return select('core/editor') !== null
-      ? select('core/editor').getCurrentPostId()
-      : 0;
-  });
+  const safeUuid = uuid || clientId;
 
   const formatTypes = useSelect(select => {
     const store = select('core/rich-text');
@@ -79,12 +67,10 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
   });
 
   useEffect(() => {
-    const id = Number(`${entityId}${instanceId}`);
-
-    if (id !== uuid) {
-      setAttributes({ uuid: id });
+    if (!uuid) {
+      setAttributes({ uuid: clientId });
     }
-  }, [instanceId]);
+  }, [uuid, clientId]);
 
   const isNestedAccordion = useSelect(select => {
     const parentBlocks = select('core/block-editor').getBlockParentsByBlockName(
@@ -107,7 +93,7 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
 
   const contentProps = useInnerBlocksProps(
     {
-      id: 'ac-' + uuid,
+      id: `ac-${safeUuid}`,
       className: 'wp-block-abtion-block-library-accordion-item__content',
       hidden: initiallyOpen ? undefined : 'until-found',
     },
@@ -259,11 +245,11 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
             'wp-block-abtion-block-library-accordion-item__header',
             'js-accordion-controller'
           )}
-          aria-controls={'ac-' + uuid}
+          aria-controls={`ac-${safeUuid}`}
           aria-expanded={initiallyOpen}
         >
           <RichText
-            id={'at-' + uuid}
+            id={`at-${safeUuid}`}
             className="wp-block-abtion-block-library-accordion-item__title"
             tagName={titleTag}
             allowedFormats={formatTypes}
