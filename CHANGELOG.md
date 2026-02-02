@@ -145,3 +145,8 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 - Make Accordion item use a stable, attribute-stored UUID (sourced from the markup and generated once per block) so its saved HTML is deterministic and validates correctly across patterns, editor reloads, and different machines.
 
+## [1.8.5] - 2026-02-02
+
+### Update Wordpress Scripts library
+
+- Ensure we are using the lates version
