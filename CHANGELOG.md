@@ -150,3 +150,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Update Wordpress Scripts library
 
 - Ensure we are using the lates version
+
+## [1.8.6] - 2026-02-02
+
+### Fix Accordion
+
+- Attempt to fix accordion
