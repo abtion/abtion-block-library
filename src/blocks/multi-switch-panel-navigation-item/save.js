@@ -10,8 +10,7 @@ function Save(props) {
     'data-id': id,
     'data-wp-on--click': 'actions.switch',
     role: 'tab',
-    'aria-controls': `panel-${id}`,
-    tabindex: '0',
+    'aria-controls': `panel-${id}`
   });
 
   return (
