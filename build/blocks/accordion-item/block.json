@@ -38,7 +38,7 @@
     "uuid": {
       "type": "string",
       "source": "attribute",
-      "selector": "accordion-item",
+      "selector": "div[data-accordion-item=\"true\"]",
       "attribute": "data-uuid"
     }
   },

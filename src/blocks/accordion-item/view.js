@@ -1,4 +1,13 @@
-class AccordionItem extends HTMLElement {
+/* eslint-disable no-restricted-syntax */
+
+/**
+ * Accordion item (frontend)
+ *
+ * Updated to work with a normal <div> wrapper instead of a custom element.
+ * We now initialize on: [data-accordion-item="true"]
+ */
+
+class AccordionItem {
   static get defaultConfig() {
     return {
       initiallyOpen: false,
@@ -8,44 +17,44 @@ class AccordionItem extends HTMLElement {
     };
   }
 
-  static get class() {
-    return 'js-accordion-item';
-  }
-
   static get duration() {
     return 250;
   }
 
   /**
    * Initialize component
+   * @param {HTMLElement} root
    */
-  constructor() {
-    super();
+  constructor(root) {
+    this.root = root;
 
     this.toggle = this.toggle.bind(this);
     this.onkeydown = this.onkeydown.bind(this);
 
     this.isOpen = false;
-    this.uuid = this.dataset.uuid;
+    this.isRead = false;
+
+    this.uuid = this.root?.dataset?.uuid;
     if (!this.uuid) return;
-    this.classList.remove('no-js');
+
+    this.root.classList.remove('no-js');
 
     // Get ancestors and siblings
     this.ancestors = this.getAncestors();
     this.siblings = this.getSiblings();
 
     // Save children elements
-    this.controller = this.querySelector(`:scope > #at-${this.uuid}`);
-    this.content = this.querySelector(`:scope > #ac-${this.uuid}`);
+    this.controller = this.root.querySelector(`#at-${this.uuid}`);
+    this.content = this.root.querySelector(`#ac-${this.uuid}`);
     if (!this.controller || !this.content) return;
 
     // Add Listeners
     this.controller.addEventListener('click', this.toggle);
     this.controller.addEventListener('keydown', this.onkeydown);
 
-    // Set basic attributes
+    // Set basic attributes (match markup from save.js)
     this.controller.setAttribute('tabindex', 0);
-    this.controller.setAttribute('aria-controls', 'ac-' + this.uuid);
+    this.controller.setAttribute('aria-controls', `ac-${this.uuid}`);
 
     // Get the config from the dataset
     this.getConfig();
@@ -55,39 +64,45 @@ class AccordionItem extends HTMLElement {
   }
 
   /**
-   * Go up the DOM tree to retrieve ancestors accordion items (in case of nested items)
-   * @returns array
+   * Go up the DOM tree to retrieve ancestor accordion items (nested items)
+   * @returns {HTMLElement[]}
    */
   getAncestors() {
-    let current = this;
-    let list = [];
+    let current = this.root;
+    const list = [];
 
-    while (
-      current.parentNode != null &&
-      current.parentNode != document.documentElement
-    ) {
-      if (current.parentNode.classList.contains(AccordionItem.class)) {
-        list.push(current.parentNode);
+    while (current?.parentNode && current.parentNode !== document.documentElement) {
+      const parent = current.parentNode;
+      if (
+        parent instanceof HTMLElement &&
+        parent.dataset?.accordionItem === 'true'
+      ) {
+        list.push(parent);
       }
-      current = current.parentNode;
+      current = parent;
     }
+
     return list;
   }
 
   /**
-   * Get immediately adjacent Accordion items
-   * @returns array
+   * Get immediately adjacent accordion items (same wrapper type)
+   * @returns {HTMLElement[]}
    */
   getSiblings() {
     const siblings = [];
-    ['previous', 'next'].forEach(dir => {
-      let element = this;
+
+    ['previous', 'next'].forEach((dir) => {
+      let element = this.root;
+
       while (element) {
+        const sib = element[`${dir}ElementSibling`];
         if (
-          element[dir + 'ElementSibling'] &&
-          element[dir + 'ElementSibling'].nodeName === 'ACCORDION-ITEM'
+          sib &&
+          sib instanceof HTMLElement &&
+          sib.dataset?.accordionItem === 'true'
         ) {
-          element = element[dir + 'ElementSibling'];
+          element = sib;
           siblings.push(element);
         } else {
           element = null;
@@ -99,14 +114,15 @@ class AccordionItem extends HTMLElement {
   }
 
   /**
-   * Retrieve item configuration by looking at dataset
-   * then sets the inital state of the component
+   * Retrieve item configuration from dataset
+   * then set the initial state of the component
    */
   getConfig() {
     const nodeConfig = {};
-    for (const key in this.dataset) {
-      nodeConfig[key] = this.maybeParse(this.dataset[key]);
+    for (const key in this.root.dataset) {
+      nodeConfig[key] = this.maybeParse(this.root.dataset[key]);
     }
+
     this.config = Object.assign({}, AccordionItem.defaultConfig, nodeConfig);
 
     const shouldOpen =
@@ -120,26 +136,24 @@ class AccordionItem extends HTMLElement {
   }
 
   /**
-   * Checks if the window hash matches the compenent uuid
-   * @returns Boolean
+   * Checks if the window hash matches the component uuid
+   * @returns {boolean}
    */
   isInHash() {
-     return location.hash.replace('#', '') === this.uuid;
+    return location.hash.replace('#', '') === String(this.uuid);
   }
 
   /**
-   * Try parsing a string and returns the result
+   * Try parsing a string and return the result
    * @param {string} string
-   * @returns mixed
+   * @returns {*}
    */
   maybeParse(string) {
-    return (() => {
-      try {
-        return JSON.parse(string);
-      } catch (error) {
-        return string;
-      }
-    })();
+    try {
+      return JSON.parse(string);
+    } catch (error) {
+      return string;
+    }
   }
 
   /**
@@ -167,11 +181,13 @@ class AccordionItem extends HTMLElement {
   open(option = {}) {
     const { noSiblingsCheck, noAncestorsCheck, noChecksAndScroll, noAnim } =
       option;
+
     this.isOpen = true;
     this.content.removeAttribute('hidden');
 
     this.setAttributes(true);
 
+    // slideDown is provided by your slide-toggle.js
     this.content.slideDown(noAnim ? 0 : AccordionItem.duration, () => {
       this.triggerResize();
     });
@@ -204,8 +220,11 @@ class AccordionItem extends HTMLElement {
    */
   close(options = {}) {
     const { noAnim, force } = options;
+
     if ((this.config.clickToClose || force) && this.isOpen) {
       this.isOpen = false;
+
+      // slideUp is provided by your slide-toggle.js
       this.content.slideUp(noAnim ? 0 : AccordionItem.duration, () => {
         this.setAttributes(false);
         this.triggerResize();
@@ -226,19 +245,22 @@ class AccordionItem extends HTMLElement {
    */
   setAttributes(open = true) {
     if (open) {
-      this.classList.add('is-read', 'is-open');
+      this.root.classList.add('is-read', 'is-open');
       this.isRead = true;
     } else {
-      this.classList.remove('is-open');
+      this.root.classList.remove('is-open');
     }
 
-    this.controller.setAttribute('aria-expanded', this.isOpen);
-    open
-      ? this.content.removeAttribute('hidden')
-      : this.content.setAttribute(
-          'hidden',
-          !!window.chrome ? 'until-found' : ''
-        );
+    this.controller.setAttribute('aria-expanded', String(this.isOpen));
+
+    if (open) {
+      this.content.removeAttribute('hidden');
+    } else {
+      // Keep your original "until-found" behavior for Chrome.
+      // (If you decide to remove this later, change to: this.content.setAttribute('hidden', '')
+      this.content.setAttribute('hidden', !!window.chrome ? 'until-found' : '');
+    }
+
     this.content.style = null;
   }
 
@@ -246,20 +268,22 @@ class AccordionItem extends HTMLElement {
    * Automatically opens ancestors when opening the item
    */
   checkAncestors() {
-    this.ancestors.forEach(element => {
-      if (!element.isOpen) {
-        element.open({ noSiblingsCheck: true });
+    this.ancestors.forEach((el) => {
+      const instance = AccordionItem.instances.get(el);
+      if (instance && !instance.isOpen) {
+        instance.open({ noSiblingsCheck: true });
       }
     });
   }
 
   /**
-   * Automatically closes siblings when opening then item
+   * Automatically closes siblings when opening the item
    */
   checkSiblings() {
-    this.siblings.forEach(element => {
-      if (element.config.autoClose) {
-        element.close({ force: true });
+    this.siblings.forEach((el) => {
+      const instance = AccordionItem.instances.get(el);
+      if (instance && instance.config.autoClose) {
+        instance.close({ force: true });
       }
     });
   }
@@ -272,50 +296,64 @@ class AccordionItem extends HTMLElement {
     event.isAfterToggle = true;
     dispatchEvent(event);
   }
-}
 
-/**
- * Register custom elements & hashchange listener
- */
-if (typeof customElements !== 'undefined') {
-  customElements.define('accordion-item', AccordionItem);
+  /**
+   * Initialize all accordion items on the page
+   */
+  static initAll() {
+    const nodes = document.querySelectorAll('[data-accordion-item="true"]');
+    AccordionItem.instances = new Map();
 
-  const items = document.querySelectorAll('accordion-item');
-  const eventParams = { capture: false };
-  let resizeDebounce;
-
-  addEventListener(
-    'hashchange',
-    () => {
-      const hash = location.hash.replace('#', '');
-      const match = document.querySelector(`[data-uuid="${CSS.escape(hash)}"]`);
-
-      if (match && match instanceof AccordionItem) {
-        match.open();
-      }
-    },
-    eventParams
-  );
-
-  addEventListener(
-    'resize',
-    event => {
-      if (!event.isTrusted) return;
-
-      clearTimeout(resizeDebounce);
-      resizeDebounce = setTimeout(() => {
-        items.forEach(item => item.maybeOpen());
-      }, 150);
-    },
-    eventParams
-  );
-
-  // Open all items on cmd/ctrl F on browser without until-found support
-  if (!window.chrome) {
-    addEventListener('keydown', event => {
-      if ((event.ctrlKey || event.metaKey) && event.code === 'KeyF') {
-        items.forEach(item => item.open());
+    nodes.forEach((node) => {
+      const instance = new AccordionItem(node);
+      // Only store instances that successfully initialized
+      if (instance?.root && instance?.uuid && instance?.controller && instance?.content) {
+        AccordionItem.instances.set(node, instance);
       }
     });
   }
+}
+
+/**
+ * Boot + listeners
+ */
+AccordionItem.initAll();
+
+const eventParams = { capture: false };
+let resizeDebounce;
+
+addEventListener(
+  'hashchange',
+  () => {
+    const hash = location.hash.replace('#', '');
+    const match = document.querySelector(`[data-uuid="${CSS.escape(hash)}"]`);
+    const instance = match ? AccordionItem.instances.get(match) : null;
+
+    if (instance) {
+      instance.open();
+    }
+  },
+  eventParams
+);
+
+addEventListener(
+  'resize',
+  (event) => {
+    if (!event.isTrusted) return;
+
+    clearTimeout(resizeDebounce);
+    resizeDebounce = setTimeout(() => {
+      AccordionItem.instances.forEach((item) => item.maybeOpen());
+    }, 150);
+  },
+  eventParams
+);
+
+// Open all items on cmd/ctrl+F on browsers without until-found support
+if (!window.chrome) {
+  addEventListener('keydown', (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.code === 'KeyF') {
+      AccordionItem.instances.forEach((item) => item.open());
+    }
+  });
 }

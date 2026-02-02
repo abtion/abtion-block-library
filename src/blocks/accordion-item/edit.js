@@ -47,12 +47,18 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
    *   and after editor reloads (especially when inserting patterns).
    * - We use the block's clientId as the initial UUID when missing.
    *
-   * If we ever need guaranteed uniqueness across multiple posts rendered on the
-   * same page (e.g. archives), IDs should be namespaced at render time (dynamic
-   * block) rather than regenerated in the editor.
+   * IMPORTANT: When editing a Pattern (post type "wp_block"), we do NOT assign
+   * uuid. Otherwise Gutenberg will bake ids/uuid into the pattern HTML on save.
+   * We only assign uuid on real pages/posts.
    */
 
-  const safeUuid = uuid || clientId;
+  const postType = useSelect(select =>
+    select('core/editor')?.getCurrentPostType?.()
+  );
+
+  // Only use the real uuid for IDs. If it's missing, omit IDs entirely so the
+  // editor markup matches save.js (which also omits IDs when uuid is missing).
+  const safeUuid = uuid || '';
 
   const formatTypes = useSelect(select => {
     const store = select('core/rich-text');
@@ -67,10 +73,13 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
   });
 
   useEffect(() => {
+    // Don't bake UUIDs into patterns.
+    if (postType === 'wp_block') return;
+
     if (!uuid) {
       setAttributes({ uuid: clientId });
     }
-  }, [uuid, clientId]);
+  }, [uuid, clientId, postType]);
 
   const isNestedAccordion = useSelect(select => {
     const parentBlocks = select('core/block-editor').getBlockParentsByBlockName(
@@ -86,14 +95,12 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
       'wp-block-abtion-block-library-accordion-item__item',
       'js-accordion-item'
     ),
+    'data-accordion-item': 'true',
   });
-
-  blockProps.class = blockProps.className;
-  blockProps.className = null;
 
   const contentProps = useInnerBlocksProps(
     {
-      id: `ac-${safeUuid}`,
+      ...(safeUuid ? { id: `ac-${safeUuid}` } : {}),
       className: 'wp-block-abtion-block-library-accordion-item__content',
       hidden: initiallyOpen ? undefined : 'until-found',
     },
@@ -109,50 +116,28 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
           icon={<HtmlTagIcon tag={titleTag} />}
           label={__('Change accordion title tag', 'abtion-block-library')}
           controls={[
-            {
-              tag: 'h1',
-              label: __('Heading 1', 'abtion-block-library'),
-            },
-            {
-              tag: 'h2',
-              label: __('Heading 2', 'abtion-block-library'),
-            },
-            {
-              tag: 'h3',
-              label: __('Heading 3', 'abtion-block-library'),
-            },
-            {
-              tag: 'h4',
-              label: __('Heading 4', 'abtion-block-library'),
-            },
-            {
-              tag: 'h5',
-              label: __('Heading 5', 'abtion-block-library'),
-            },
-            {
-              tag: 'h6',
-              label: __('Heading 6', 'abtion-block-library'),
-            },
-          ].map(control => {
-            return {
-              name: control.tag,
-              icon: <HtmlTagIcon tag={control.tag} />,
-              title: control.label,
-              isActive: titleTag === control.tag,
-              onClick: () => setAttributes({ titleTag: control.tag }),
-            };
-          })}
+            { tag: 'h1', label: __('Heading 1', 'abtion-block-library') },
+            { tag: 'h2', label: __('Heading 2', 'abtion-block-library') },
+            { tag: 'h3', label: __('Heading 3', 'abtion-block-library') },
+            { tag: 'h4', label: __('Heading 4', 'abtion-block-library') },
+            { tag: 'h5', label: __('Heading 5', 'abtion-block-library') },
+            { tag: 'h6', label: __('Heading 6', 'abtion-block-library') },
+          ].map(control => ({
+            name: control.tag,
+            icon: <HtmlTagIcon tag={control.tag} />,
+            title: control.label,
+            isActive: titleTag === control.tag,
+            onClick: () => setAttributes({ titleTag: control.tag }),
+          }))}
           isCollapsed={true}
         />
       </BlockControls>
+
       <InspectorControls>
         {isNestedAccordion && (
           <div
             className="components-notice is-warning"
-            style={{
-              margin: '0',
-              borderTop: '1px solid #f0f0f0',
-            }}
+            style={{ margin: '0', borderTop: '1px solid #f0f0f0' }}
           >
             {__(
               'This accordion item is nested inside another accordion item. While this will work, it may not be what you intended.',
@@ -160,9 +145,8 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
             )}
           </div>
         )}
-        <PanelBody
-          title={__('Accordion Item Settings', 'abtion-block-library')}
-        >
+
+        <PanelBody title={__('Accordion Item Settings', 'abtion-block-library')}>
           <ToggleControl
             label={__('Open By Default', 'abtion-block-library')}
             help={
@@ -185,6 +169,7 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
             }
             __nextHasNoMarginBottom
           />
+
           {initiallyOpen && (
             <BaseControl
               label={__('Breakpoint', 'abtion-block-library')}
@@ -203,6 +188,7 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
               />
             </BaseControl>
           )}
+
           <ToggleControl
             label={__('Click to Close', 'abtion-block-library')}
             help={
@@ -220,6 +206,7 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
             onChange={value => setAttributes({ clickToClose: value })}
             __nextHasNoMarginBottom
           />
+
           <ToggleControl
             label={__('Auto Close', 'abtion-block-library')}
             help={
@@ -239,17 +226,18 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
           />
         </PanelBody>
       </InspectorControls>
-      <accordion-item {...blockProps}>
+
+      <div {...blockProps}>
         <div
           className={classNames(
             'wp-block-abtion-block-library-accordion-item__header',
             'js-accordion-controller'
           )}
-          aria-controls={`ac-${safeUuid}`}
+          {...(safeUuid ? { 'aria-controls': `ac-${safeUuid}` } : {})}
           aria-expanded={initiallyOpen}
         >
           <RichText
-            id={`at-${safeUuid}`}
+            {...(safeUuid ? { id: `at-${safeUuid}` } : {})}
             className="wp-block-abtion-block-library-accordion-item__title"
             tagName={titleTag}
             allowedFormats={formatTypes}
@@ -262,8 +250,9 @@ const Edit = ({ attributes, setAttributes, clientId }) => {
             aria-hidden="true"
           />
         </div>
+
         <div {...contentProps} />
-      </accordion-item>
+      </div>
     </>
   );
 };

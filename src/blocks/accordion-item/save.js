@@ -44,7 +44,8 @@ function Save( { attributes } ) {
 		'data-open-breakpoint': openBreakpoint,
 		'data-click-to-close': clickToClose,
 		'data-auto-close': autoClose,
-		...( safeUuid ? { 'data-uuid': safeUuid } : {} ),
+		...(safeUuid ? { 'data-uuid': safeUuid } : {}),
+		'data-accordion-item': 'true',
 	} );
 
 	const contentProps = useInnerBlocksProps.save( {
@@ -56,17 +57,16 @@ function Save( { attributes } ) {
 	const Tag = titleTag || 'h5';
 
 	return (
-		<accordion-item { ...blockProps }>
+		<div { ...blockProps }>
 			<div
 				className={ classNames(
 					'wp-block-abtion-block-library-accordion-item__header',
 					'js-accordion-controller'
 				) }
 				{ ...( safeUuid ? { id: `at-${ safeUuid }` } : {} ) }
-				role="button"
-				tabIndex="0"
-				{ ...( safeUuid ? { 'aria-controls': `ac-${ safeUuid }` } : {} ) }
-				aria-expanded={ initiallyOpen }
+				{...(safeUuid ? { role: 'button', tabIndex: '0' } : {})}
+				{...(safeUuid ? { 'aria-controls': `ac-${safeUuid}` } : {})}
+				{...(safeUuid ? { 'aria-expanded': initiallyOpen } : {})}
 			>
 				<RichText.Content
 					tagName={ Tag }
@@ -80,7 +80,7 @@ function Save( { attributes } ) {
 			</div>
 
 			<div { ...contentProps } />
-		</accordion-item>
+		</div>
 	);
 }
 
