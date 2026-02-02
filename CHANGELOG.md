@@ -162,3 +162,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Fix Accordion
 
 - Remove tabindex from save
+
+## [1.8.8] - 2026-02-02
+
+### Fix Multi Switch Panel
+
+- Remove tabindex from save
