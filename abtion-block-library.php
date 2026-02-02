@@ -3,7 +3,7 @@
  * Plugin Name:       Abtion Block Library
  * Plugin URI:        https://abtion.com
  * Description:       Abtion Block Library is a collection of custom blocks.
- * Version:           1.8.6
+ * Version:           1.8.7
  * Requires at least: 6.6
  * Requires PHP:      7.2
  * Author:            Abtion
