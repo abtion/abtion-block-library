@@ -139,3 +139,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 - Allow navigation items to be duplicated and once duplicated, to duplicate the respective section items.
 
+## [1.8.4] - 2026-02-02
+
+### Fix ID generation for Accordion
+
+- Make Accordion item use a stable, attribute-stored UUID (sourced from the markup and generated once per block) so its saved HTML is deterministic and validates correctly across patterns, editor reloads, and different machines.
+
