@@ -64,7 +64,7 @@ function Save( { attributes } ) {
 					'js-accordion-controller'
 				) }
 				{ ...( safeUuid ? { id: `at-${ safeUuid }` } : {} ) }
-				{...(safeUuid ? { role: 'button', tabIndex: '0' } : {})}
+				{...(safeUuid ? { role: 'button'} : {})}
 				{...(safeUuid ? { 'aria-controls': `ac-${safeUuid}` } : {})}
 				{...(safeUuid ? { 'aria-expanded': initiallyOpen } : {})}
 			>

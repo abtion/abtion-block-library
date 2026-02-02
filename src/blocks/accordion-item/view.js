@@ -53,7 +53,7 @@ class AccordionItem {
     this.controller.addEventListener('keydown', this.onkeydown);
 
     // Set basic attributes (match markup from save.js)
-    this.controller.setAttribute('tabindex', 0);
+    this.controller.setAttribute('tabindex', '0');
     this.controller.setAttribute('aria-controls', `ac-${this.uuid}`);
 
     // Get the config from the dataset
