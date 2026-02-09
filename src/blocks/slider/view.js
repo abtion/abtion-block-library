@@ -85,7 +85,7 @@ const buildNormalOptions = (ref, baseOptions, ctx) => {
   return {
     ...baseOptions,
     slidesPerGroup: 1,
-    watchOverflow: false,
+    watchOverflow: true,
     scrollbar: scrollbarEl ? { el: scrollbarEl, draggable: false } : false,
     navigation: prevEl && nextEl ? { prevEl, nextEl } : false,
     breakpoints: {
