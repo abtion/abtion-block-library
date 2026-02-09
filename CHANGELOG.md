@@ -168,3 +168,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Fix Multi Switch Panel
 
 - Remove tabindex from save
+
+## [1.8.9] - 2026-02-09
+
+### Fix Slider
+
+- Remove navigation arrows when not enough slides
