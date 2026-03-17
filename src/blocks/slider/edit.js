@@ -7,12 +7,15 @@ function Edit({ attributes, setAttributes }) {
   const blockProps = useBlockProps({
     className: `swiper is-${attributes.behavior || 'normal'}`,
   });
-  const { slidesPerViewDesktop, slidesPerViewMobile, behavior } = attributes;
+  const { slidesPerViewDesktop, slidesPerViewMobile, behavior, heroAutoplayDelay } = attributes;
   const ALLOWED_BLOCKS = ['abtion-block-library/slider-slide'];
 
   return (
     <div {...blockProps}>
-      <InnerBlocks allowedBlocks={ALLOWED_BLOCKS} />
+      <InnerBlocks
+        allowedBlocks={ALLOWED_BLOCKS}
+        __experimentalLayout={{ type: 'default' }}
+      />
       <InspectorControls>
         <PanelBody
           title={__('Slider settings', 'abtion-block-library')}
@@ -33,6 +36,10 @@ function Edit({ attributes, setAttributes }) {
               {
                 label: __('Vertical', 'abtion-block-library'),
                 value: 'vertical',
+              },
+              {
+                label: __('Hero marquee', 'abtion-block-library'),
+                value: 'hero-marquee',
               },
             ]}
             onChange={value => setAttributes({ behavior: value })}
@@ -63,6 +70,21 @@ function Edit({ attributes, setAttributes }) {
                 __nextHasNoMarginBottom
               />
             </>
+          )}
+
+          {behavior === 'hero-marquee' && (
+            <TextControl
+              label={__('Autoplay delay (seconds)', 'abtion-block-library')}
+              type="number"
+              min={1}
+              value={heroAutoplayDelay}
+              onChange={value =>
+                setAttributes({ heroAutoplayDelay: Math.max(1, Number(value) || 5) })
+              }
+              help={__('Time in seconds before transitioning to the next slide.', 'abtion-block-library')}
+              __next40pxDefaultSize
+              __nextHasNoMarginBottom
+            />
           )}
         </PanelBody>
       </InspectorControls>

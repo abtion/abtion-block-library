@@ -33,6 +33,7 @@
 				'slidesPerViewDesktop' => $attributes['slidesPerViewDesktop'] ?? 2.5,
 				'slidesPerViewMobile'  => $attributes['slidesPerViewMobile'] ?? 1.5,
 				'behavior'             => $behavior,
+				'heroAutoplayDelay'    => $attributes['heroAutoplayDelay'] ?? 5,
 			]
 		);
 		?>

@@ -224,10 +224,33 @@ const buildVerticalOptions = (ref, baseOptions) => {
   };
 };
 
+const buildHeroMarqueeOptions = (ref, baseOptions, ctx) => {
+  const { heroAutoplayDelay = 5 } = ctx;
+
+  return {
+    ...baseOptions,
+    slidesPerView: 1,
+    loop: true,
+    speed: 800,
+    watchOverflow: false,
+    allowTouchMove: true,
+
+    autoplay: {
+      delay: heroAutoplayDelay * 1000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+
+    effect: 'fade',
+    fadeEffect: { crossFade: true },
+  };
+};
+
 const BEHAVIORS = {
   marquee: buildMarqueeOptions,
   normal: buildNormalOptions,
   vertical: buildVerticalOptions,
+  'hero-marquee': buildHeroMarqueeOptions,
 };
 
 store('abtion-block-library/slider', {
@@ -246,7 +269,7 @@ store('abtion-block-library/slider', {
       const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
-        loop: behavior === 'normal',
+        loop: behavior === 'normal' || behavior === 'hero-marquee',
       };
 
       const builder = BEHAVIORS[behavior] || BEHAVIORS.normal;

@@ -14,6 +14,10 @@
     "attributes": {},
     "supports": {
         "className": true,
+        "align": [
+            "full",
+            "wide"
+        ],
         "spacing": {
             "margin": true,
             "padding": true

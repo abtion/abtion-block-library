@@ -20,11 +20,16 @@
     "behavior": {
       "type": "string",
       "default": "normal"
+    },
+    "heroAutoplayDelay": {
+      "type": "number",
+      "default": 5
     }
   },
   "supports": {
     "interactivity": true,
     "className": true,
+    "layout": true,
     "spacing": {
       "margin": true,
       "padding": true,

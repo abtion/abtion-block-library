@@ -2,7 +2,7 @@
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 3,
     "name": "abtion-block-library/slider",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "title": "Slider",
     "category": "abtion-blocks",
     "icon": "media-interactive",
@@ -20,11 +20,16 @@
         "behavior": {
             "type": "string",
             "default": "normal"
+        },
+        "heroAutoplayDelay": {
+            "type": "number",
+            "default": 5
         }
     },
     "supports": {
         "interactivity": true,
         "className": true,
+        "layout": true,
         "spacing": {
             "margin": true,
             "padding": true,
