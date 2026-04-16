@@ -174,3 +174,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Fix Slider
 
 - Remove navigation arrows when not enough slides
+
+## [1.9.0] - 2026-04-16
+
+### Update dependencies
+
+- Update @wordpress/scripts from v31.4.0 to v32.0.0
