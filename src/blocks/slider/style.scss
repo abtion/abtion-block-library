@@ -405,10 +405,6 @@
       align-items: center;
       justify-content: center;
 
-      @media (max-width: 781px) {
-        display: none;
-      }
-
       &::after {
         display: none;
       }
