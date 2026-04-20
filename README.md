@@ -18,7 +18,7 @@ The Trustpilot block allows you to display Trustpilot reviews directly on your w
 
 ### Slider
 
-The Slider block supports multiple slider types like normal slider, continuous marquee slider and vertical slider. You can add blocks as slides and and customize settings like number of slides per view.
+The Slider block supports multiple slider types like normal slider, continuous marquee slider, hero progress bar slider and vertical slider. You can add blocks as slides and and customize settings like number of slides per view.
 
 ### Multi Switch Panel
 
