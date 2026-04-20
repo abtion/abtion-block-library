@@ -12,8 +12,9 @@
  * @formatter Prettier
  */
 
-	$behavior = $attributes['behavior'] ?? 'normal';
-	$classes  = 'swiper is-' . $behavior;
+	$behavior           = $attributes['behavior'] ?? 'normal';
+	$classes            = 'swiper is-' . $behavior;
+	$progress_bar_color = $attributes['progressBarColor'] ?? '#7ab800';
 
 ?>
 
@@ -21,7 +22,14 @@
 	<?php
 	// get_block_wrapper_attributes() returns a string of safe, escaped HTML attributes.
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-	echo get_block_wrapper_attributes( [ 'class' => $classes ] );
+	echo get_block_wrapper_attributes(
+		[
+			'class' => $classes,
+			'style' => $behavior === 'hero-progress'
+				? '--slider-progress-color:' . esc_attr( $progress_bar_color ) . ';'
+				: '',
+		]
+	);
 	?>
 		data-wp-interactive="abtion-block-library/slider"
 		data-wp-init--setup="callbacks.setup"
@@ -81,8 +89,6 @@
 		<div class="swiper-progress-bar" aria-hidden="true"></div>
 
 		<div class="swiper-controls swiper-controls--hero-progress">
-			<span class="swiper-page-counter"></span>
-
 			<div class="swiper-nav">
 				<button
 					class="swiper-button-prev"
@@ -93,6 +99,8 @@
 						<path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 				</button>
+
+				<span class="swiper-page-counter"></span>
 
 				<button
 					class="swiper-button-next"

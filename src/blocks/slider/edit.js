@@ -1,14 +1,26 @@
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
-import { TextControl, SelectControl, PanelBody } from '@wordpress/components';
+import {
+  TextControl,
+  SelectControl,
+  PanelBody,
+  ColorPalette,
+  BaseControl,
+} from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
+import { useSelect } from '@wordpress/data';
 
 function Edit({ attributes, setAttributes }) {
   const blockProps = useBlockProps({
     className: `swiper is-${attributes.behavior || 'normal'}`,
   });
-  const { slidesPerViewDesktop, slidesPerViewMobile, behavior } = attributes;
+  const { slidesPerViewDesktop, slidesPerViewMobile, behavior, progressBarColor } = attributes;
   const ALLOWED_BLOCKS = ['abtion-block-library/slider-slide'];
+
+  const themeColors = useSelect(select => {
+    const settings = select('core/block-editor').getSettings();
+    return settings.colors || [];
+  }, []);
 
   return (
     <div {...blockProps}>
@@ -43,6 +55,21 @@ function Edit({ attributes, setAttributes }) {
             __next40pxDefaultSize
             __nextHasNoMarginBottom
           />
+
+          {behavior === 'hero-progress' && (
+            <BaseControl
+              label={__('Progress bar color', 'abtion-block-library')}
+              __nextHasNoMarginBottom
+            >
+              <ColorPalette
+                colors={themeColors}
+                value={progressBarColor}
+                onChange={value =>
+                  setAttributes({ progressBarColor: value || '#7ab800' })
+                }
+              />
+            </BaseControl>
+          )}
 
           {behavior === 'normal' && (
             <>
