@@ -78,13 +78,14 @@
   /* Slider controls (normal mode)  */
   /* ------------------------------ */
 
-  /* Square images on mobile (normal + hero-progress) */
-  &:not(.is-marquee):not(.is-vertical) {
+  /* Square cover images on mobile (normal slider only) */
+  &:not(.is-marquee):not(.is-vertical):not(.is-hero-progress) {
     .swiper-slide {
       @media (max-width: 781px) {
         > .wp-block-cover,
         > * > .wp-block-cover {
           min-height: calc(100vw - 2 * var(--wp--style--root--padding-left, 1rem)) !important;
+          max-height: calc(100vw - 2 * var(--wp--style--root--padding-left, 1rem)) !important;
           overflow: hidden;
 
           img {
@@ -406,6 +407,20 @@
     /* Full-width single slide */
     .swiper-slide {
       width: 100%;
+
+      @media (max-width: 781px) {
+        .wp-block-cover {
+          min-height: calc(100vw - 2 * var(--wp--style--root--padding-left, 1rem)) !important;
+          max-height: calc(100vw - 2 * var(--wp--style--root--padding-left, 1rem)) !important;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
     }
   }
 }
