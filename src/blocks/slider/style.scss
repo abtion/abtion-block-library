@@ -78,8 +78,9 @@
   /* Slider controls (normal mode)  */
   /* ------------------------------ */
 
-  /* Equal-height slides */
+  /* Normal slider only */
   &:not(.is-marquee):not(.is-vertical):not(.is-hero-progress) {
+    /* Equal-height slides */
     .swiper-wrapper {
       align-items: stretch;
     }
@@ -96,10 +97,8 @@
         flex: 1;
       }
     }
-  }
 
-  /* Square cover images on mobile (normal slider only) */
-  &:not(.is-marquee):not(.is-vertical):not(.is-hero-progress) {
+    /* Square cover images on mobile */
     .swiper-slide {
       @media (max-width: 781px) {
         > .wp-block-cover,

@@ -231,11 +231,15 @@ const buildHeroProgressOptions = (ref, baseOptions) => {
   const pageCounter = q(ref, '.swiper-page-counter');
 
   let dots = [];
+  let totalSlides = 0;
 
-  const initProgressBar = swiper => {
-    const totalSlides = Array.from(swiper.slides).filter(
+  const countRealSlides = swiper =>
+    Array.from(swiper.slides).filter(
       s => !s.classList.contains('swiper-slide-duplicate')
     ).length;
+
+  const initProgressBar = swiper => {
+    totalSlides = countRealSlides(swiper);
 
     if (progressBar) {
       progressBar.innerHTML = '';
@@ -258,9 +262,6 @@ const buildHeroProgressOptions = (ref, baseOptions) => {
   };
 
   const updateUI = swiper => {
-    const totalSlides = Array.from(swiper.slides).filter(
-      s => !s.classList.contains('swiper-slide-duplicate')
-    ).length;
     const current = swiper.realIndex;
 
     updateActiveDot(current);

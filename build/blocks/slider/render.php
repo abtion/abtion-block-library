@@ -14,7 +14,10 @@
 
 	$behavior           = $attributes['behavior'] ?? 'normal';
 	$classes            = 'swiper is-' . $behavior;
-	$progress_bar_color = $attributes['progressBarColor'] ?? '#C6FA5F';
+	$progress_bar_color = sanitize_hex_color( $attributes['progressBarColor'] ?? '#C6FA5F' );
+	if ( ! $progress_bar_color ) {
+		$progress_bar_color = '#C6FA5F';
+	}
 
 ?>
 
