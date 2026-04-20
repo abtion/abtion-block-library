@@ -87,6 +87,22 @@
   /* ------------------------------ */
   /* Slider controls (normal mode)  */
   /* ------------------------------ */
+  /* Equal-height slides */
+}
+.wp-block-abtion-block-library-slider:not(.is-marquee):not(.is-vertical):not(.is-hero-progress) .swiper-wrapper {
+  align-items: stretch;
+}
+.wp-block-abtion-block-library-slider:not(.is-marquee):not(.is-vertical):not(.is-hero-progress) .swiper-slide {
+  height: auto;
+}
+.wp-block-abtion-block-library-slider:not(.is-marquee):not(.is-vertical):not(.is-hero-progress) .wp-block-abtion-block-library-slider-slide {
+  display: flex;
+  flex-direction: column;
+}
+.wp-block-abtion-block-library-slider:not(.is-marquee):not(.is-vertical):not(.is-hero-progress) .wp-block-abtion-block-library-slider-slide > * {
+  flex: 1;
+}
+.wp-block-abtion-block-library-slider {
   /* Square cover images on mobile (normal slider only) */
 }
 @media (max-width: 781px) {

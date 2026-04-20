@@ -78,6 +78,26 @@
   /* Slider controls (normal mode)  */
   /* ------------------------------ */
 
+  /* Equal-height slides */
+  &:not(.is-marquee):not(.is-vertical):not(.is-hero-progress) {
+    .swiper-wrapper {
+      align-items: stretch;
+    }
+
+    .swiper-slide {
+      height: auto;
+    }
+
+    .wp-block-abtion-block-library-slider-slide {
+      display: flex;
+      flex-direction: column;
+
+      > * {
+        flex: 1;
+      }
+    }
+  }
+
   /* Square cover images on mobile (normal slider only) */
   &:not(.is-marquee):not(.is-vertical):not(.is-hero-progress) {
     .swiper-slide {
