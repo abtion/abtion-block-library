@@ -286,6 +286,101 @@
       }
     }
   }
+
+  /* ---------------------------------------- */
+  /* Hero with Progress Bar behavior           */
+  /* ---------------------------------------- */
+  &.is-hero-progress {
+    position: relative;
+
+    /* Progress bar — green squares, top-left over slide */
+    .swiper-progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    .swiper-progress-bar__dot {
+      display: block;
+      width: 8px;
+      height: 8px;
+      background: #7ab800;
+      border-radius: 2px;
+      transition: width 0.25s ease, height 0.25s ease;
+
+      &.is-active {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    /* Controls — bottom-left with page counter + arrows */
+    .swiper-controls--hero-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 0;
+      width: auto;
+      padding: 0;
+    }
+
+    .swiper-page-counter {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: inherit;
+      min-width: 2.5em;
+      text-align: center;
+    }
+
+    .swiper-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: static !important;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: #f0f0f0;
+      color: inherit;
+      border: 1px solid #f0f0f0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      &::after {
+        display: none;
+      }
+
+      .swiper-icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      &:hover {
+        background: #0059a2;
+        color: white;
+      }
+    }
+
+    /* Full-width single slide */
+    .swiper-slide {
+      width: 100%;
+    }
+  }
 }
 
 /* ------------------------------ */

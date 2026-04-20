@@ -224,10 +224,58 @@ const buildVerticalOptions = (ref, baseOptions) => {
   };
 };
 
+const buildHeroProgressOptions = (ref, baseOptions) => {
+  const prevEl = q(ref, '.swiper-button-prev');
+  const nextEl = q(ref, '.swiper-button-next');
+  const progressBar = q(ref, '.swiper-progress-bar');
+  const pageCounter = q(ref, '.swiper-page-counter');
+
+  const updateUI = swiper => {
+    const totalSlides = swiper.slides.filter(
+      s => !s.classList.contains('swiper-slide-duplicate')
+    ).length;
+    const current = swiper.realIndex;
+
+    // Progress bar squares
+    if (progressBar) {
+      progressBar.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('span');
+        dot.className =
+          'swiper-progress-bar__dot' + (i === current ? ' is-active' : '');
+        progressBar.appendChild(dot);
+      }
+    }
+
+    // Page counter
+    if (pageCounter) {
+      pageCounter.textContent = `${current + 1} / ${totalSlides}`;
+    }
+  };
+
+  return {
+    ...baseOptions,
+    slidesPerView: 1,
+    spaceBetween: 0,
+    slidesPerGroup: 1,
+    watchOverflow: true,
+    navigation: prevEl && nextEl ? { prevEl, nextEl } : false,
+    on: {
+      init(swiper) {
+        updateUI(swiper);
+      },
+      slideChange(swiper) {
+        updateUI(swiper);
+      },
+    },
+  };
+};
+
 const BEHAVIORS = {
   marquee: buildMarqueeOptions,
   normal: buildNormalOptions,
   vertical: buildVerticalOptions,
+  'hero-progress': buildHeroProgressOptions,
 };
 
 store('abtion-block-library/slider', {
@@ -246,7 +294,7 @@ store('abtion-block-library/slider', {
       const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
-        loop: behavior === 'normal',
+        loop: behavior === 'normal' || behavior === 'hero-progress',
       };
 
       const builder = BEHAVIORS[behavior] || BEHAVIORS.normal;

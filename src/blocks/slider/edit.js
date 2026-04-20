@@ -34,6 +34,10 @@ function Edit({ attributes, setAttributes }) {
                 label: __('Vertical', 'abtion-block-library'),
                 value: 'vertical',
               },
+              {
+                label: __('Hero with Progress Bar', 'abtion-block-library'),
+                value: 'hero-progress',
+              },
             ]}
             onChange={value => setAttributes({ behavior: value })}
             __next40pxDefaultSize

@@ -77,5 +77,33 @@
 				</button>
 			</div>
 		</div>
+	<?php elseif ( $behavior === 'hero-progress' ) : ?>
+		<div class="swiper-progress-bar" aria-hidden="true"></div>
+
+		<div class="swiper-controls swiper-controls--hero-progress">
+			<span class="swiper-page-counter"></span>
+
+			<div class="swiper-nav">
+				<button
+					class="swiper-button-prev"
+					type="button"
+					aria-label="<?php esc_attr_e( 'Previous slide', 'abtion-block-library' ); ?>"
+				>
+					<svg class="swiper-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+						<path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</button>
+
+				<button
+					class="swiper-button-next"
+					type="button"
+					aria-label="<?php esc_attr_e( 'Next slide', 'abtion-block-library' ); ?>"
+				>
+					<svg class="swiper-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+						<path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</button>
+			</div>
+		</div>
 	<?php endif; ?>
 </div>
