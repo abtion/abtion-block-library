@@ -230,22 +230,40 @@ const buildHeroProgressOptions = (ref, baseOptions) => {
   const progressBar = q(ref, '.swiper-progress-bar');
   const pageCounter = q(ref, '.swiper-page-counter');
 
+  let dots = [];
+
+  const initProgressBar = swiper => {
+    const totalSlides = Array.from(swiper.slides).filter(
+      s => !s.classList.contains('swiper-slide-duplicate')
+    ).length;
+
+    if (progressBar) {
+      progressBar.innerHTML = '';
+      dots = [];
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'swiper-progress-bar__dot';
+        progressBar.appendChild(dot);
+        dots.push(dot);
+      }
+    }
+
+    updateActiveDot(swiper.realIndex);
+  };
+
+  const updateActiveDot = index => {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('is-active', i === index);
+    });
+  };
+
   const updateUI = swiper => {
-    const totalSlides = swiper.slides.filter(
+    const totalSlides = Array.from(swiper.slides).filter(
       s => !s.classList.contains('swiper-slide-duplicate')
     ).length;
     const current = swiper.realIndex;
 
-    // Progress bar squares
-    if (progressBar) {
-      progressBar.innerHTML = '';
-      for (let i = 0; i < totalSlides; i++) {
-        const dot = document.createElement('span');
-        dot.className =
-          'swiper-progress-bar__dot' + (i === current ? ' is-active' : '');
-        progressBar.appendChild(dot);
-      }
-    }
+    updateActiveDot(current);
 
     // Page counter
     if (pageCounter) {
@@ -262,6 +280,7 @@ const buildHeroProgressOptions = (ref, baseOptions) => {
     navigation: prevEl && nextEl ? { prevEl, nextEl } : false,
     on: {
       init(swiper) {
+        initProgressBar(swiper);
         updateUI(swiper);
       },
       slideChange(swiper) {

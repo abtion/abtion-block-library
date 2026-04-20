@@ -65,7 +65,7 @@ function Edit({ attributes, setAttributes }) {
                 colors={themeColors}
                 value={progressBarColor}
                 onChange={value =>
-                  setAttributes({ progressBarColor: value || '#7ab800' })
+                  setAttributes({ progressBarColor: value || '#C6FA5F' })
                 }
               />
             </BaseControl>
