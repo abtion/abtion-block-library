@@ -180,3 +180,11 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Update dependencies
 
 - Update @wordpress/scripts from v31.4.0 to v32.0.0
+
+## [1.9.1] - 2026-04-20
+
+### Add Hero Progress Bar Slider Variant
+
+- Add new UI for hero slider with progress bar and slides count
+- Update the UI of the normal slider - now all cards have the same height.
+- Fix cover image in slider aspect ration on mobile. Now the image has ration 1:1
