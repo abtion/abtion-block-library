@@ -20,6 +20,10 @@
     "behavior": {
       "type": "string",
       "default": "normal"
+    },
+    "progressBarColor": {
+      "type": "string",
+      "default": "#C6FA5F"
     }
   },
   "supports": {
