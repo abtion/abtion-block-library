@@ -87,6 +87,31 @@
   /* ------------------------------ */
   /* Slider controls (normal mode)  */
   /* ------------------------------ */
+  /* Square images on mobile (normal + hero-progress) */
+}
+@media (max-width: 781px) {
+  .wp-block-abtion-block-library-slider:not(.is-marquee):not(.is-vertical) .swiper-slide .wp-block-image,
+  .wp-block-abtion-block-library-slider:not(.is-marquee):not(.is-vertical) .swiper-slide figure {
+    aspect-ratio: 1/1;
+    overflow: hidden;
+  }
+  .wp-block-abtion-block-library-slider:not(.is-marquee):not(.is-vertical) .swiper-slide .wp-block-image img,
+  .wp-block-abtion-block-library-slider:not(.is-marquee):not(.is-vertical) .swiper-slide figure img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .wp-block-abtion-block-library-slider:not(.is-marquee):not(.is-vertical) .swiper-slide .wp-block-cover {
+    min-height: calc(100vw - 2 * var(--wp--style--root--padding-left, 1rem)) !important;
+    overflow: hidden;
+  }
+  .wp-block-abtion-block-library-slider:not(.is-marquee):not(.is-vertical) .swiper-slide .wp-block-cover img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
 }
 .wp-block-abtion-block-library-slider .swiper-controls {
   margin-top: 2.5rem;
@@ -301,6 +326,14 @@
 }
 .wp-block-abtion-block-library-slider.is-hero-progress {
   position: relative;
+}
+@media (max-width: 781px) {
+  .wp-block-abtion-block-library-slider.is-hero-progress {
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+  }
+}
+.wp-block-abtion-block-library-slider.is-hero-progress {
   /* Progress bar — green squares, top-left over slide */
 }
 .wp-block-abtion-block-library-slider.is-hero-progress .swiper-progress-bar {
@@ -363,6 +396,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+@media (max-width: 781px) {
+  .wp-block-abtion-block-library-slider.is-hero-progress .swiper-button-prev,
+  .wp-block-abtion-block-library-slider.is-hero-progress .swiper-button-next {
+    display: none;
+  }
 }
 .wp-block-abtion-block-library-slider.is-hero-progress .swiper-button-prev::after,
 .wp-block-abtion-block-library-slider.is-hero-progress .swiper-button-next::after {
