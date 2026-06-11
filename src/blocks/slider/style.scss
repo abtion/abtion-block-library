@@ -347,20 +347,28 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      pointer-events: none;
     }
 
     .swiper-progress-bar__dot {
       display: block;
       width: 8px;
       height: 8px;
+      padding: 0;
+      border: 0;
       background: var(--slider-progress-color, #C6FA5F);
       border-radius: 2px;
+      cursor: pointer;
+      appearance: none;
       transition: width 0.25s ease, height 0.25s ease;
 
       &.is-active {
         width: 14px;
         height: 14px;
+      }
+
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
       }
     }
 

@@ -14,7 +14,13 @@ function Edit({ attributes, setAttributes }) {
   const blockProps = useBlockProps({
     className: `swiper is-${attributes.behavior || 'normal'}`,
   });
-  const { slidesPerViewDesktop, slidesPerViewMobile, behavior, progressBarColor } = attributes;
+  const {
+    slidesPerViewDesktop,
+    slidesPerViewMobile,
+    behavior,
+    progressBarColor,
+    autoSlideDuration,
+  } = attributes;
   const ALLOWED_BLOCKS = ['abtion-block-library/slider-slide'];
 
   const themeColors = useSelect(select => {
@@ -57,18 +63,43 @@ function Edit({ attributes, setAttributes }) {
           />
 
           {behavior === 'hero-progress' && (
-            <BaseControl
-              label={__('Progress bar color', 'abtion-block-library')}
-              __nextHasNoMarginBottom
-            >
-              <ColorPalette
-                colors={themeColors}
-                value={progressBarColor}
-                onChange={value =>
-                  setAttributes({ progressBarColor: value || '#C6FA5F' })
-                }
+            <>
+              <TextControl
+                label={__(
+                  'Auto-slide duration (seconds)',
+                  'abtion-block-library'
+                )}
+                help={__(
+                  'Set an integer greater than 0 to enable auto-sliding. Leave empty to disable.',
+                  'abtion-block-library'
+                )}
+                type="number"
+                min={0}
+                step={1}
+                value={autoSlideDuration ?? ''}
+                onChange={value => {
+                  const n = parseInt(value, 10);
+                  setAttributes({
+                    autoSlideDuration:
+                      Number.isInteger(n) && n > 0 ? n : undefined,
+                  });
+                }}
+                __next40pxDefaultSize
+                __nextHasNoMarginBottom
               />
-            </BaseControl>
+              <BaseControl
+                label={__('Progress bar color', 'abtion-block-library')}
+                __nextHasNoMarginBottom
+              >
+                <ColorPalette
+                  colors={themeColors}
+                  value={progressBarColor}
+                  onChange={value =>
+                    setAttributes({ progressBarColor: value || '#C6FA5F' })
+                  }
+                />
+              </BaseControl>
+            </>
           )}
 
           {behavior === 'normal' && (
