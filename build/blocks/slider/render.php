@@ -44,6 +44,7 @@
 				'slidesPerViewDesktop' => $attributes['slidesPerViewDesktop'] ?? 2.5,
 				'slidesPerViewMobile'  => $attributes['slidesPerViewMobile'] ?? 1.5,
 				'behavior'             => $behavior,
+				'autoSlideDuration'    => isset( $attributes['autoSlideDuration'] ) ? (int) $attributes['autoSlideDuration'] : 0,
 			]
 		);
 		?>

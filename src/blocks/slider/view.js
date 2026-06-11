@@ -224,11 +224,15 @@ const buildVerticalOptions = (ref, baseOptions) => {
   };
 };
 
-const buildHeroProgressOptions = (ref, baseOptions) => {
+const buildHeroProgressOptions = (ref, baseOptions, ctx) => {
   const prevEl = q(ref, '.swiper-button-prev');
   const nextEl = q(ref, '.swiper-button-next');
   const progressBar = q(ref, '.swiper-progress-bar');
   const pageCounter = q(ref, '.swiper-page-counter');
+
+  const autoSlideSeconds = Number(ctx?.autoSlideDuration);
+  const autoplayEnabled =
+    Number.isInteger(autoSlideSeconds) && autoSlideSeconds > 0;
 
   let dots = [];
   let totalSlides = 0;
@@ -245,8 +249,14 @@ const buildHeroProgressOptions = (ref, baseOptions) => {
       progressBar.innerHTML = '';
       dots = [];
       for (let i = 0; i < totalSlides; i++) {
-        const dot = document.createElement('span');
+        const dot = document.createElement('button');
+        dot.type = 'button';
         dot.className = 'swiper-progress-bar__dot';
+        dot.dataset.slideIndex = i;
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        dot.addEventListener('click', () => {
+          swiper.slideToLoop(i);
+        });
         progressBar.appendChild(dot);
         dots.push(dot);
       }
@@ -257,7 +267,9 @@ const buildHeroProgressOptions = (ref, baseOptions) => {
 
   const updateActiveDot = index => {
     dots.forEach((dot, i) => {
-      dot.classList.toggle('is-active', i === index);
+      const isActive = i === index;
+      dot.classList.toggle('is-active', isActive);
+      dot.setAttribute('aria-current', isActive ? 'true' : 'false');
     });
   };
 
@@ -279,6 +291,12 @@ const buildHeroProgressOptions = (ref, baseOptions) => {
     slidesPerGroup: 1,
     watchOverflow: true,
     navigation: prevEl && nextEl ? { prevEl, nextEl } : false,
+    autoplay: autoplayEnabled
+      ? {
+          delay: autoSlideSeconds * 1000,
+          disableOnInteraction: false,
+        }
+      : false,
     on: {
       init(swiper) {
         initProgressBar(swiper);

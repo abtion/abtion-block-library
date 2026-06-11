@@ -24,6 +24,9 @@
     "progressBarColor": {
       "type": "string",
       "default": "#C6FA5F"
+    },
+    "autoSlideDuration": {
+      "type": "number"
     }
   },
   "supports": {
