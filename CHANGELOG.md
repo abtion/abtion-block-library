@@ -194,3 +194,10 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 ### Add hero progress bar navigation arrows on mobile
 
 - Display the navigation arrows also on small screens for hero progress slider variant
+
+## [1.10.0] - 2026-06-11
+
+### Hero Progress Bar Slider — clickable indicators and auto-slide
+
+- Progress bar squares are now buttons; clicking one jumps the slider to the matching slide (keyboard accessible with focus ring).
+- New "Auto-slide duration (seconds)" inspector setting on the Hero with Progress Bar variant. Set an integer greater than 0 to enable auto-sliding; leave empty (or 0) to disable.
