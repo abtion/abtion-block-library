@@ -289,6 +289,7 @@ const buildHeroProgressOptions = (ref, baseOptions, ctx) => {
     slidesPerView: 1,
     spaceBetween: 0,
     slidesPerGroup: 1,
+    speed: 600,
     watchOverflow: true,
     navigation: prevEl && nextEl ? { prevEl, nextEl } : false,
     autoplay: autoplayEnabled
