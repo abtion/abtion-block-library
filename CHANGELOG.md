@@ -201,3 +201,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 - Progress bar squares are now buttons; clicking one jumps the slider to the matching slide (keyboard accessible with focus ring).
 - New "Auto-slide duration (seconds)" inspector setting on the Hero with Progress Bar variant. Set an integer greater than 0 to enable auto-sliding; leave empty (or 0) to disable.
+
+## 1.10.1 - 2026-06-15
+
+### Hero Progress Bar Slider
+
+Update duration from 300ms to 600ms.
