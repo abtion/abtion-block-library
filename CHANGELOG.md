@@ -206,4 +206,11 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 ### Hero Progress Bar Slider
 
-Update duration from 300ms to 600ms.
+- Update duration from 300ms to 600ms.
+
+## 1.10.2 - 2026-06-15
+
+### Hero Progress Bar Slider
+
+- Update duration from 600ms to 1000ms.
+- Pause the animation on mouse enter.
