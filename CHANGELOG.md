@@ -214,3 +214,10 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 - Update duration from 600ms to 1000ms.
 - Pause the animation on mouse enter.
+
+## [1.11.0] - 2026-06-22
+
+### Added
+
+- New "Testimonials" slider behavior: loops, supports slides-per-view controls, with a tighter gap (0.5rem) between slides.
+- New "Gallery" slider behavior: centered slides with dot pagination and a configurable active dot color (`dotActiveColor`, default `#062929`).
