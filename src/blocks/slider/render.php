@@ -18,6 +18,17 @@
 	if ( ! $progress_bar_color ) {
 		$progress_bar_color = '#C6FA5F';
 	}
+	$dot_active_color = sanitize_hex_color( $attributes['dotActiveColor'] ?? '#062929' );
+	if ( ! $dot_active_color ) {
+		$dot_active_color = '#062929';
+	}
+
+	$wrapper_style = '';
+	if ( $behavior === 'hero-progress' ) {
+		$wrapper_style = '--slider-progress-color:' . esc_attr( $progress_bar_color ) . ';';
+	} elseif ( $behavior === 'gallery' ) {
+		$wrapper_style = '--slider-dot-color:' . esc_attr( $dot_active_color ) . ';';
+	}
 
 ?>
 
@@ -28,9 +39,7 @@
 	echo get_block_wrapper_attributes(
 		[
 			'class' => $classes,
-			'style' => $behavior === 'hero-progress'
-				? '--slider-progress-color:' . esc_attr( $progress_bar_color ) . ';'
-				: '',
+			'style' => $wrapper_style,
 		]
 	);
 	?>
@@ -141,5 +150,11 @@
 				</button>
 			</div>
 		</div>
+	<?php elseif ( $behavior === 'gallery' ) : ?>
+		<!-- JS will populate this -->
+		<div
+			class="swiper-dots"
+			aria-label="<?php esc_attr_e( 'Slider navigation', 'abtion-block-library' ); ?>"
+		></div>
 	<?php endif; ?>
 </div>

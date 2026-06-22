@@ -510,6 +510,42 @@
       }
     }
   }
+
+  /* ---------------------------------------- */
+  /* Gallery behavior                          */
+  /* ---------------------------------------- */
+  &.is-gallery {
+    /* Bottom-centered pagination dots */
+    .swiper-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1.5rem;
+    }
+
+    .swiper-dots__dot {
+      display: block;
+      width: 0.5rem;
+      height: 0.5rem;
+      padding: 0;
+      border: 0;
+      border-radius: 0.125rem;
+      background: #e7e4d9;
+      cursor: pointer;
+      appearance: none;
+      transition: background-color 0.2s ease;
+
+      /* Active state changes color only — never size */
+      &.is-active {
+        background: var(--slider-dot-color, #062929);
+      }
+
+      &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+      }
+    }
+  }
 }
 
 /* ------------------------------ */

@@ -311,6 +311,75 @@ const buildHeroProgressOptions = (ref, baseOptions, ctx) => {
   };
 };
 
+const buildGalleryOptions = (ref, baseOptions, ctx) => {
+  // Reuse the normal multi-slide breakpoints/spacing, then strip the
+  // scrollbar/navigation and add bottom-centered pagination dots instead.
+  const options = buildNormalOptions(ref, baseOptions, ctx);
+  options.scrollbar = false;
+  options.navigation = false;
+  options.centeredSlides = true;
+  // Keep the first/last slides flush with the edges; only center the in-between
+  // slides (loop is off for gallery, so without this the first slide opens
+  // centered and leaves an empty gap on the left).
+  options.centeredSlidesBounds = true;
+
+  // 0.5rem gap between slides
+  Object.values(options.breakpoints).forEach(bp => {
+    bp.spaceBetween = 8;
+  });
+
+  const dotsRoot = q(ref, '.swiper-dots');
+
+  let dots = [];
+
+  const countRealSlides = swiper =>
+    Array.from(swiper.slides).filter(
+      s => !s.classList.contains('swiper-slide-duplicate')
+    ).length;
+
+  const updateActiveDot = index => {
+    dots.forEach((dot, i) => {
+      const isActive = i === index;
+      dot.classList.toggle('is-active', isActive);
+      dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+    });
+  };
+
+  const initDots = swiper => {
+    if (!dotsRoot) return;
+
+    const totalSlides = countRealSlides(swiper);
+
+    dotsRoot.innerHTML = '';
+    dots = [];
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'swiper-dots__dot';
+      dot.dataset.slideIndex = i;
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      dot.addEventListener('click', () => {
+        swiper.slideToLoop(i);
+      });
+      dotsRoot.appendChild(dot);
+      dots.push(dot);
+    }
+
+    updateActiveDot(swiper.realIndex);
+  };
+
+  options.on = {
+    init(swiper) {
+      initDots(swiper);
+    },
+    slideChange(swiper) {
+      updateActiveDot(swiper.realIndex);
+    },
+  };
+
+  return options;
+};
+
 const buildTestimonialsOptions = (ref, baseOptions, ctx) => {
   const options = buildNormalOptions(ref, baseOptions, ctx);
 
@@ -325,6 +394,7 @@ const buildTestimonialsOptions = (ref, baseOptions, ctx) => {
 const BEHAVIORS = {
   marquee: buildMarqueeOptions,
   normal: buildNormalOptions,
+  gallery: buildGalleryOptions,
   testimonials: buildTestimonialsOptions,
   vertical: buildVerticalOptions,
   'hero-progress': buildHeroProgressOptions,

@@ -25,6 +25,10 @@
             "type": "string",
             "default": "#C6FA5F"
         },
+        "dotActiveColor": {
+            "type": "string",
+            "default": "#062929"
+        },
         "autoSlideDuration": {
             "type": "number"
         }

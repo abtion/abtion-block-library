@@ -19,6 +19,7 @@ function Edit({ attributes, setAttributes }) {
     slidesPerViewMobile,
     behavior,
     progressBarColor,
+    dotActiveColor,
     autoSlideDuration,
   } = attributes;
   const ALLOWED_BLOCKS = ['abtion-block-library/slider-slide'];
@@ -47,6 +48,10 @@ function Edit({ attributes, setAttributes }) {
               {
                 label: __('Continuous marquee', 'abtion-block-library'),
                 value: 'marquee',
+              },
+              {
+                label: __('Gallery', 'abtion-block-library'),
+                value: 'gallery',
               },
               {
                 label: __('Vertical', 'abtion-block-library'),
@@ -106,7 +111,24 @@ function Edit({ attributes, setAttributes }) {
             </>
           )}
 
-          {(behavior === 'normal' || behavior === 'testimonials') && (
+          {behavior === 'gallery' && (
+            <BaseControl
+              label={__('Dot color', 'abtion-block-library')}
+              __nextHasNoMarginBottom
+            >
+              <ColorPalette
+                colors={themeColors}
+                value={dotActiveColor}
+                onChange={value =>
+                  setAttributes({ dotActiveColor: value || '#062929' })
+                }
+              />
+            </BaseControl>
+          )}
+
+          {(behavior === 'normal' ||
+            behavior === 'gallery' ||
+            behavior === 'testimonials') && (
             <>
               <TextControl
                 label={__('Slides per view (Desktop)', 'abtion-block-library')}
