@@ -56,6 +56,10 @@ function Edit({ attributes, setAttributes }) {
                 label: __('Hero with Progress Bar', 'abtion-block-library'),
                 value: 'hero-progress',
               },
+              {
+                label: __('Testimonials', 'abtion-block-library'),
+                value: 'testimonials',
+              },
             ]}
             onChange={value => setAttributes({ behavior: value })}
             __next40pxDefaultSize
@@ -102,7 +106,7 @@ function Edit({ attributes, setAttributes }) {
             </>
           )}
 
-          {behavior === 'normal' && (
+          {(behavior === 'normal' || behavior === 'testimonials') && (
             <>
               <TextControl
                 label={__('Slides per view (Desktop)', 'abtion-block-library')}

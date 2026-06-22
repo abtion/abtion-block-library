@@ -89,6 +89,30 @@
 				</button>
 			</div>
 		</div>
+	<?php elseif ( $behavior === 'testimonials' ) : ?>
+		<div class="swiper-controls swiper-controls--testimonials">
+			<div class="swiper-nav">
+				<button
+					class="swiper-button-prev"
+					type="button"
+					aria-label="<?php esc_attr_e( 'Previous slide', 'abtion-block-library' ); ?>"
+				>
+					<svg class="swiper-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+						<path d="M15 6C15 6 9 10.4189 9 12C9 13.5812 15 18 15 18" fill="none" stroke="#062929" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</button>
+
+				<button
+					class="swiper-button-next"
+					type="button"
+					aria-label="<?php esc_attr_e( 'Next slide', 'abtion-block-library' ); ?>"
+				>
+					<svg class="swiper-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+						<path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" fill="none" stroke="#062929" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</button>
+			</div>
+		</div>
 	<?php elseif ( $behavior === 'hero-progress' ) : ?>
 		<div class="swiper-progress-bar" aria-hidden="true"></div>
 

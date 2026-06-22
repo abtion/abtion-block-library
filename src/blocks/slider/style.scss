@@ -447,6 +447,69 @@
       }
     }
   }
+
+  /* ---------------------------------------- */
+  /* Testimonials behavior                     */
+  /* ---------------------------------------- */
+  &.is-testimonials {
+    display: flex;
+    flex-direction: column;
+
+    /* Controls render after the track in markup — lift them above it */
+    .swiper-controls--testimonials {
+      order: -1;
+      margin-top: 0;
+      margin-bottom: 2rem;
+      width: auto;
+      justify-content: flex-start;
+      padding: 0;
+    }
+
+    /* Reset Swiper's default negative margin-top so the top arrows
+       aren't pulled above the overflow-hidden container and clipped */
+    .swiper-button-prev,
+    .swiper-button-next {
+      margin-top: 0 !important;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 0.75rem;
+      background: #e5e5e5;
+      border-color: #e5e5e5;
+      color: inherit;
+
+      &::after {
+        display: none;
+      }
+
+      .swiper-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      &:hover {
+        background: #d4d4d4;
+        color: inherit;
+      }
+    }
+
+    /* Equal-height slides for consistent testimonial cards */
+    .swiper-wrapper {
+      align-items: stretch;
+    }
+
+    .swiper-slide {
+      height: auto;
+    }
+
+    .wp-block-abtion-block-library-slider-slide {
+      display: flex;
+      flex-direction: column;
+
+      > * {
+        flex: 1;
+      }
+    }
+  }
 }
 
 /* ------------------------------ */

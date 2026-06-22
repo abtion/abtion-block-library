@@ -311,9 +311,21 @@ const buildHeroProgressOptions = (ref, baseOptions, ctx) => {
   };
 };
 
+const buildTestimonialsOptions = (ref, baseOptions, ctx) => {
+  const options = buildNormalOptions(ref, baseOptions, ctx);
+
+  // Tighter gap between testimonial slides (0.5rem)
+  Object.values(options.breakpoints).forEach(bp => {
+    bp.spaceBetween = 8;
+  });
+
+  return options;
+};
+
 const BEHAVIORS = {
   marquee: buildMarqueeOptions,
   normal: buildNormalOptions,
+  testimonials: buildTestimonialsOptions,
   vertical: buildVerticalOptions,
   'hero-progress': buildHeroProgressOptions,
 };
@@ -334,7 +346,10 @@ store('abtion-block-library/slider', {
       const baseOptions = {
         wrapperClass: 'wp-block-abtion-block-library-slider-slides',
         slideClass: 'wp-block-abtion-block-library-slider-slide',
-        loop: behavior === 'normal' || behavior === 'hero-progress',
+        loop:
+          behavior === 'normal' ||
+          behavior === 'hero-progress' ||
+          behavior === 'testimonials',
       };
 
       const builder = BEHAVIORS[behavior] || BEHAVIORS.normal;
