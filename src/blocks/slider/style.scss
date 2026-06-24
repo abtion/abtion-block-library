@@ -5,6 +5,13 @@
 
   position: relative;
 
+  /* Dynamic (Query Loop) slides render inside a core post-template whose
+     is-layout-flow spacing adds margin-block-start to every slide except the
+     first. */
+  .wp-block-abtion-block-library-slider-slide {
+    margin-block: 0;
+  }
+
   /* ------------------------------ */
   /* ONLY MARQUEE STYLES            */
   /* ------------------------------ */
@@ -103,8 +110,12 @@
       @media (max-width: 781px) {
         > .wp-block-cover,
         > * > .wp-block-cover {
-          min-height: calc(100vw - 2 * var(--wp--style--root--padding-left, 1rem)) !important;
-          max-height: calc(100vw - 2 * var(--wp--style--root--padding-left, 1rem)) !important;
+          min-height: calc(
+            100vw - 2 * var(--wp--style--root--padding-left, 1rem)
+          ) !important;
+          max-height: calc(
+            100vw - 2 * var(--wp--style--root--padding-left, 1rem)
+          ) !important;
           overflow: hidden;
 
           img {
@@ -355,11 +366,13 @@
       height: 8px;
       padding: 0;
       border: 0;
-      background: var(--slider-progress-color, #C6FA5F);
+      background: var(--slider-progress-color, #c6fa5f);
       border-radius: 2px;
       cursor: pointer;
       appearance: none;
-      transition: width 0.25s ease, height 0.25s ease;
+      transition:
+        width 0.25s ease,
+        height 0.25s ease;
 
       &.is-active {
         width: 14px;
@@ -434,8 +447,12 @@
 
       @media (max-width: 781px) {
         .wp-block-cover {
-          min-height: calc(100vw - 2 * var(--wp--style--root--padding-left, 1rem)) !important;
-          max-height: calc(100vw - 2 * var(--wp--style--root--padding-left, 1rem)) !important;
+          min-height: calc(
+            100vw - 2 * var(--wp--style--root--padding-left, 1rem)
+          ) !important;
+          max-height: calc(
+            100vw - 2 * var(--wp--style--root--padding-left, 1rem)
+          ) !important;
           overflow: hidden;
 
           img {

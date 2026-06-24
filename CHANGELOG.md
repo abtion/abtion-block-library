@@ -221,3 +221,9 @@ The format is based on (Keep a Changelog)[https://keepachangelog.com/en/1.1.0/],
 
 - New "Testimonials" slider behavior: loops, supports slides-per-view controls, with a tighter gap (0.5rem) between slides.
 - New "Gallery" slider behavior: centered slides with dot pagination and a configurable active dot color (`dotActiveColor`, default `#062929`).
+
+## [1.12.0] - 2026-06-24
+
+### Added
+
+- Slider: new dynamic content source. A "Load posts dynamically" toggle lets the slider render a query loop (any post type) as slides instead of manually-added slides. Available for all behaviors. The query output is normalized server-side into the slider's existing markup, so no styling or behavior changes are needed.

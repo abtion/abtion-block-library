@@ -13,6 +13,7 @@
  */
 
 	$behavior           = $attributes['behavior'] ?? 'normal';
+	$is_dynamic         = ( ( $attributes['contentSource'] ?? 'manual' ) === 'dynamic' );
 	$classes            = 'swiper is-' . $behavior;
 	$progress_bar_color = sanitize_hex_color( $attributes['progressBarColor'] ?? '#C6FA5F' );
 	if ( ! $progress_bar_color ) {
@@ -59,12 +60,24 @@
 		?>
 	
 >
-	<div class="swiper-wrapper wp-block-abtion-block-library-slider-slides">
+	<?php if ( $is_dynamic ) : ?>
 		<?php
+		// Dynamic source: $content is the rendered core/query subtree. Its
+		// post-template <ul> is re-tagged into the swiper wrapper by the
+		// render_block_core/query filter (abtion_block_library_slider_query_normalize).
+		// We must NOT wrap it in our own .swiper-wrapper — that empty div would
+		// win Swiper's querySelectorAll('.<wrapperClass>')[0] lookup and break the slider.
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $content;
 		?>
-	</div>
+	<?php else : ?>
+		<div class="swiper-wrapper wp-block-abtion-block-library-slider-slides">
+			<?php
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $content;
+			?>
+		</div>
+	<?php endif; ?>
 
 	<?php if ( $behavior === 'vertical' ) : ?>
 	<!-- JS will populate this -->
