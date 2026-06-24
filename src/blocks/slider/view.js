@@ -23,6 +23,26 @@ const ensureSwiperAvailable = () => {
   return true;
 };
 
+// In dynamic (query loop) mode the slides wrapper is the core/query post-template
+// <ul>, which renders nested inside core's <div class="wp-block-query">. Swiper
+// only scans the slider's *direct* children for the wrapper, so hoist it up to
+// be a direct child of the slider. No-op for manual sliders (wrapper is already
+// a direct child).
+const hoistSlidesWrapper = ref => {
+  const wrapper = ref.querySelector(
+    '.wp-block-abtion-block-library-slider-slides'
+  );
+  if (!wrapper || wrapper.parentElement === ref) return;
+
+  const oldParent = wrapper.parentElement;
+  ref.insertBefore(wrapper, ref.firstChild);
+
+  // Drop the now-empty core/query wrapper so it doesn't add stray spacing.
+  if (oldParent && oldParent.children.length === 0) {
+    oldParent.remove();
+  }
+};
+
 /**
  * Behavior option builders
  */
@@ -410,6 +430,7 @@ store('abtion-block-library/slider', {
       if (!ensureSwiperAvailable()) return;
 
       cleanupExistingSwiper(ref);
+      hoistSlidesWrapper(ref);
 
       const { behavior = 'normal' } = ctx;
 

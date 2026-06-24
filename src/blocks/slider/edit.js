@@ -2,15 +2,49 @@ import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import {
   TextControl,
   SelectControl,
+  ToggleControl,
   PanelBody,
   ColorPalette,
   BaseControl,
 } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { useSelect } from '@wordpress/data';
+import { useSelect, useDispatch } from '@wordpress/data';
+import { createBlocksFromInnerBlocksTemplate } from '@wordpress/blocks';
 
-function Edit({ attributes, setAttributes }) {
+/**
+ * Internal dependencies
+ */
+import {
+  SLIDER_QUERY_NAMESPACE,
+  SLIDER_QUERY_INNER_BLOCKS,
+} from './variations';
+
+const ALLOWED_BLOCKS_MANUAL = ['abtion-block-library/slider-slide'];
+const ALLOWED_BLOCKS_DYNAMIC = ['core/query'];
+
+// Seeded when switching to the dynamic content source. Kept in sync with the
+// core/query variation registered in ./variations.
+const DYNAMIC_TEMPLATE = [
+  [
+    'core/query',
+    {
+      namespace: SLIDER_QUERY_NAMESPACE,
+      query: {
+        perPage: 8,
+        pages: 0,
+        offset: 0,
+        postType: 'post',
+        order: 'desc',
+        orderBy: 'date',
+        inherit: false,
+      },
+    },
+    SLIDER_QUERY_INNER_BLOCKS,
+  ],
+];
+
+function Edit({ attributes, setAttributes, clientId }) {
   const blockProps = useBlockProps({
     className: `swiper is-${attributes.behavior || 'normal'}`,
   });
@@ -21,22 +55,62 @@ function Edit({ attributes, setAttributes }) {
     progressBarColor,
     dotActiveColor,
     autoSlideDuration,
+    contentSource = 'manual',
   } = attributes;
-  const ALLOWED_BLOCKS = ['abtion-block-library/slider-slide'];
+  const isDynamic = contentSource === 'dynamic';
+  const ALLOWED_BLOCKS = isDynamic
+    ? ALLOWED_BLOCKS_DYNAMIC
+    : ALLOWED_BLOCKS_MANUAL;
+
+  const { replaceInnerBlocks } = useDispatch('core/block-editor');
 
   const themeColors = useSelect(select => {
     const settings = select('core/block-editor').getSettings();
     return settings.colors || [];
   }, []);
 
+  const onChangeContentSource = useDynamicSource => {
+    setAttributes({
+      contentSource: useDynamicSource ? 'dynamic' : 'manual',
+    });
+    // A template prop alone won't replace existing (wrong) children, so reset
+    // the inner blocks explicitly on every switch.
+    replaceInnerBlocks(
+      clientId,
+      useDynamicSource
+        ? createBlocksFromInnerBlocksTemplate(DYNAMIC_TEMPLATE)
+        : [],
+      false
+    );
+  };
+
   return (
     <div {...blockProps}>
-      <InnerBlocks allowedBlocks={ALLOWED_BLOCKS} />
+      <InnerBlocks
+        allowedBlocks={ALLOWED_BLOCKS}
+        // Keep the inner query/post-template fully editable. templateLock
+        // cascades to descendants, so "all" here would also lock the slide
+        // design inside the query — we don't want that. renderAppender={false}
+        // is enough to stop a second top-level query being added in dynamic mode.
+        templateLock={false}
+        renderAppender={isDynamic ? false : undefined}
+      />
       <InspectorControls>
         <PanelBody
           title={__('Slider settings', 'abtion-block-library')}
           initialOpen={true}
         >
+          <ToggleControl
+            label={__('Load posts dynamically', 'abtion-block-library')}
+            help={__(
+              'If enabled, the slider will automatically load items from the selected post type.',
+              'abtion-block-library'
+            )}
+            checked={isDynamic}
+            onChange={onChangeContentSource}
+            __nextHasNoMarginBottom
+          />
+
           <SelectControl
             label={__('Behavior', 'abtion-block-library')}
             value={behavior}
